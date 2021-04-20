@@ -72,14 +72,13 @@ class Header extends Component {
             <div ref={(element) => { this.dropdownMenu = element; }}>
               <div class="dropdown">
                 <div class="name">
-                  <p>김호준</p>
+                  <p>ho-joon-kim</p>
                 </div>
-                <div class="">
-                  <ProgressBar completed={60} />
+                <div class="token">
+                  <ProgressBar completed={50} height="8px" isLabelVisible={false}/>
+                  <span>150/300 token</span>
                 </div>
-                <div class="logout">
-                  <a onClick={signOut}>로그 아웃</a>
-                </div>
+                <button onClick={signOut} class="logout">logout</button>
               </div>
             </div> ) : (null)
           }
