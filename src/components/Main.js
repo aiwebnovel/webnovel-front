@@ -9,12 +9,11 @@ class Main extends Component {
         <p class="middleTitle"> Completion </p>
         <div>
           <div class="input">
-          <textarea type="text" class="input_text"> sample request </textarea>
+          <textarea type="text" class="input_text" value="sample request">  </textarea>
           <button class="start">Start!</button>
           </div>
-
           <div>
-            <textarea type="text" class="output" readonly="readonly"> sample answer </textarea>
+            <textarea type="text" class="output" value="sample answer" readOnly>  </textarea>
           </div>
         </div>
       </div>

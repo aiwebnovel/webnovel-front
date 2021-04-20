@@ -4,24 +4,84 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import firebaseConfig from '../public/firebaseConfig';
 import '../style/Header.css';
+import usericon from '../public/user.png';
+import ProgressBar from "@ramonak/react-progress-bar";
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 class Header extends Component {
+  constructor() {
+    super();
+    this.state = { 
+      showMenu: false,
+      userPhoto: ''
+    };
+    this.showMenu = this.showMenu.bind(this);
+    this.closeMenu = this.closeMenu.bind(this);
+  }
+  
+  showMenu(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    console.log('showMenu');
+    if (this.state.showMenu) {
+      this.setState({ showMenu: false });
+      document.removeEventListener('click', this.closeMenu);
+    }else{
+      this.setState({ showMenu: true });
+      document.addEventListener('click', this.closeMenu);
+    }
+  }
+  
+  closeMenu(event) {
+    event.preventDefault();
+    console.log('1showMenu');
+    console.log(event.target);
+
+    if (!this.dropdownMenu.contains(event.target)) {
+      this.setState({ showMenu: false });
+      document.removeEventListener('click', this.closeMenu);
+    }
+  }
+
+  /*
+  setImage(user) {
+    user = JSON.stringify(user);
+    user = JSON.parse(user);
+    console.log(user.photoURL);
+    console.log(this.props);
+    this.setState({ userPhoto: user.photoURL });
+  }*/
+
   render() {
-    const { user, signOut, signInWithGoogle, } = this.props;
+    let { user, signOut, signInWithGoogle } = this.props;    
     return (
       <header>
         <span class="logo">WebNovel</span>
         <p class="beta">Beta</p>
-        <div >
-          { user
-            ? <p>Hello, {user.displayName} {console.log(this.props)}</p>
-            : null
-          }
-          { user
-            ? <button class="login" onClick={signOut}>Sign out</button>
+        <div class="loginProfile">
+          { user ? 
+            <div class="profile">
+              <a onClick={this.showMenu}>
+                <img  src={usericon} class="profileicon"/>
+              </a>
+            </div>
             : <button class="login" onClick={signInWithGoogle}>Sign in with Google</button>
+          }
+          { this.state.showMenu ? (
+            <div ref={(element) => { this.dropdownMenu = element; }}>
+              <div class="dropdown">
+                <div class="name">
+                  <p>김호준</p>
+                </div>
+                <div class="">
+                  <ProgressBar completed={60} />
+                </div>
+                <div class="logout">
+                  <a onClick={signOut}>로그 아웃</a>
+                </div>
+              </div>
+            </div> ) : (null)
           }
         </div>
       </header>
