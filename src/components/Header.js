@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import axios from 'axios';
 import withFirebaseAuth from 'react-with-firebase-auth'
 import firebase from 'firebase/app';
 import 'firebase/auth';
@@ -6,6 +7,7 @@ import firebaseConfig from '../public/firebaseConfig';
 import '../style/Header.css';
 import usericon from '../public/user.png';
 import ProgressBar from "@ramonak/react-progress-bar";
+import * as config from '../config';
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
@@ -14,7 +16,8 @@ class Header extends Component {
     super();
     this.state = { 
       showMenu: false,
-      userPhoto: ''
+      userName: '',
+      userToken: 300
     };
     this.showMenu = this.showMenu.bind(this);
     this.closeMenu = this.closeMenu.bind(this);
@@ -23,7 +26,8 @@ class Header extends Component {
   showMenu(event) {
     event.preventDefault();
     event.stopPropagation();
-    console.log('showMenu');
+    this.requestProfile();
+
     if (this.state.showMenu) {
       this.setState({ showMenu: false });
       document.removeEventListener('click', this.closeMenu);
@@ -35,8 +39,6 @@ class Header extends Component {
   
   closeMenu(event) {
     event.preventDefault();
-    console.log('1showMenu');
-    console.log(event.target);
 
     if (!this.dropdownMenu.contains(event.target)) {
       this.setState({ showMenu: false });
@@ -44,22 +46,25 @@ class Header extends Component {
     }
   }
 
-  /*
-  setImage(user) {
-    user = JSON.stringify(user);
-    user = JSON.parse(user);
-    console.log(user.photoURL);
-    console.log(this.props);
-    this.setState({ userPhoto: user.photoURL });
-  }*/
+  requestProfile() {
+    axios.get(`${config.SERVER_URL}/profile`, { headers: {authentication: this.props.user.za} })
+    .then((response) => {
+      this.setState({ userName: response.data.name});
+      this.setState({ userToken: response.data.token});
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+  }
 
   render() {
-    let { user, signOut, signInWithGoogle } = this.props;    
+    let { user, signOut, signInWithGoogle } = this.props;  
     return (
       <header>
         <span class="logo">WebNovel</span>
         <p class="beta">Beta</p>
         <div class="loginProfile">
+          { user ? localStorage.setItem('token', user.za) : null }
           { user ? 
             <div class="profile">
               <a onClick={this.showMenu}>
@@ -72,11 +77,11 @@ class Header extends Component {
             <div ref={(element) => { this.dropdownMenu = element; }}>
               <div class="dropdown">
                 <div class="name">
-                  <p>ho-joon-kim</p>
+                  <p>{this.state.userName}</p>
                 </div>
                 <div class="token">
-                  <ProgressBar completed={50} height="8px" isLabelVisible={false}/>
-                  <span>150/300 token</span>
+                  <ProgressBar completed={this.state.userToken} height="8px" isLabelVisible={false}/>
+                  <span>{this.state.userToken} token</span>
                 </div>
                 <button onClick={signOut} class="logout">logout</button>
               </div>
