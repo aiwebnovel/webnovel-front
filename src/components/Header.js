@@ -12,15 +12,18 @@ import * as config from '../config';
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 class Header extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = { 
       showMenu: false,
       userName: '',
-      userToken: 300
+      userToken: 1000,
+      userTokenP: 100,
+      userImage: usericon
     };
     this.showMenu = this.showMenu.bind(this);
     this.closeMenu = this.closeMenu.bind(this);
+    this.signOut = this.signOut.bind(this);
   }
   
   showMenu(event) {
@@ -47,28 +50,48 @@ class Header extends Component {
   }
 
   requestProfile() {
-    axios.get(`${config.SERVER_URL}/profile`, { headers: {authentication: this.props.user.za} })
-    .then((response) => {
-      this.setState({ userName: response.data.name});
-      this.setState({ userToken: response.data.token});
-    })
-    .catch((error) => {
-      console.log(error);
-    })
+    let user;
+    if (this.props.user === undefined) {
+      user = localStorage.getItem('token');
+    }else{
+      user = this.props.user.za;
+    }
+    if (user !== undefined) {
+      axios.get(`${config.SERVER_URL}/profile`, { headers: {authentication: user} })
+      .then((response) => {
+        this.setState({ userName: response.data.name});
+        this.setState({ userToken: response.data.token});
+        this.setState({ userTokenP: response.data.tokenP});
+        this.setState({ userImage: response.data.photoURL});
+      })
+      .catch((error) => {
+        
+      })
+    }
+
+  }
+
+  componentDidMount() {
+    this.requestProfile();
+  }
+
+  async signOut(){
+    await this.props.signOut();
+    await localStorage.removeItem('token');
   }
 
   render() {
-    let { user, signOut, signInWithGoogle } = this.props;  
+    let { user, signInWithGoogle } = this.props;  
     return (
       <header>
-        <span class="logo">WebNovel</span>
+        <span class="logo">AILyrics</span>
         <p class="beta">Beta</p>
         <div class="loginProfile">
           { user ? localStorage.setItem('token', user.za) : null }
           { user ? 
             <div class="profile">
               <a onClick={this.showMenu}>
-                <img  src={usericon} class="profileicon"/>
+                <img  src={this.state.userImage} class="profileicon"/>
               </a>
             </div>
             : <button class="login" onClick={signInWithGoogle}>Sign in with Google</button>
@@ -80,10 +103,10 @@ class Header extends Component {
                   <p>{this.state.userName}</p>
                 </div>
                 <div class="token">
-                  <ProgressBar completed={this.state.userToken} height="8px" isLabelVisible={false}/>
+                  <ProgressBar completed={this.state.userTokenP} height="8px" isLabelVisible={false}/>
                   <span>{this.state.userToken} token</span>
                 </div>
-                <button onClick={signOut} class="logout">logout</button>
+                <button onClick={this.signOut} class="logout">logout</button>
               </div>
             </div> ) : (null)
           }
