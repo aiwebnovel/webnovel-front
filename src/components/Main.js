@@ -1,6 +1,8 @@
 import { Component } from 'react';
 import axios from 'axios';
 import { Spinner } from "react-loading-io";
+import Dropdown from 'react-dropdown';
+import 'react-dropdown/style.css';
 import * as config from '../config';
 import '../style/Main.css';
 
@@ -10,11 +12,14 @@ class Main extends Component {
     this.state = { 
       input: '',
       output: '',
-      loading: false
+      loading: false,
+      options: ['발라드','댄스','랩/힙합','R&B/Soul','인디음악','록/메탈','트로트','포크/블루스'],
+      selectOptions: '발라드'
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.requestcontents = this.requestcontents.bind(this);
+    this.onSelect = this.onSelect.bind(this);
   }
 
   handleChange(event){
@@ -28,7 +33,8 @@ class Main extends Component {
     this.setState({output: 'Loading...'});
     
     axios.post(`${config.SERVER_URL}/complation`, 
-    { input: this.state.input }, 
+    { input: this.state.input,
+      category: this.state.selectOptions }, 
     { headers: {authentication: localStorage.getItem('token')},
     timeout: 10000 })
     .then((response) => {
@@ -45,11 +51,28 @@ class Main extends Component {
 
   }
 
+  onSelect(event){
+    this.setState({ selectOptions: event.target.value});
+    console.log(event.target.value);
+  }
+
 
   render() {
     return (
       <div class="main">
-        <p class="middleTitle"> Completion </p>
+        <div class="middleTitle">
+        <span> Completion </span>
+        <select className='dropdowncategory' onChange={this.onSelect} >
+          <option value={this.state.options[0]}>{this.state.options[0]}</option>
+          <option value={this.state.options[1]}>{this.state.options[1]}</option>
+          <option value={this.state.options[2]}>{this.state.options[2]}</option>
+          <option value={this.state.options[3]}>{this.state.options[3]}</option>
+          <option value={this.state.options[4]}>{this.state.options[4]}</option>
+          <option value={this.state.options[5]}>{this.state.options[5]}</option>
+          <option value={this.state.options[6]}>{this.state.options[6]}</option>
+          <option value={this.state.options[7]}>{this.state.options[7]}</option>
+        </select>
+        </div>
         {this.state.loading ? 
           <div class="loading">
             <Spinner size='8px' color='#3b2479'/>

@@ -24,6 +24,7 @@ class Header extends Component {
     this.showMenu = this.showMenu.bind(this);
     this.closeMenu = this.closeMenu.bind(this);
     this.signOut = this.signOut.bind(this);
+    this.signIn = this.signIn.bind(this);
   }
   
   showMenu(event) {
@@ -71,7 +72,7 @@ class Header extends Component {
 
   }
 
-  componentDidMount() {
+  componentDidMount(){
     this.requestProfile();
   }
 
@@ -80,12 +81,15 @@ class Header extends Component {
     await localStorage.removeItem('token');
   }
 
+  async signIn(){
+    await this.props.signInWithGoogle()
+  }
+
   render() {
-    let { user, signInWithGoogle } = this.props;  
+    let { user } = this.props;  
     return (
       <header>
-        <span class="logo">AILyrics</span>
-        <p class="beta">Beta</p>
+        <span class="logo">AILyrics (가사,작사,웹시)</span>
         <div class="loginProfile">
           { user ? localStorage.setItem('token', user.za) : null }
           { user ? 
@@ -94,7 +98,7 @@ class Header extends Component {
                 <img  src={this.state.userImage} class="profileicon"/>
               </a>
             </div>
-            : <button class="login" onClick={signInWithGoogle}>Sign in with Google</button>
+            : <button class="login" onClick={this.signIn}>Sign in with Google</button>
           }
           { this.state.showMenu ? (
             <div ref={(element) => { this.dropdownMenu = element; }}>
