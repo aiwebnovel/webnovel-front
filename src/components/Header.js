@@ -16,9 +16,9 @@ class Header extends Component {
     super(props);
     this.state = { 
       showMenu: false,
-      userName: '',
-      userToken: 1000,
-      userTokenP: 100,
+      userName: '로그인 되지 않은 사용자',
+      userToken: 0,
+      userTokenP: 0,
       userImage: usericon
     };
     this.showMenu = this.showMenu.bind(this);
@@ -89,8 +89,12 @@ class Header extends Component {
     let { user } = this.props;  
     return (
       <header>
-        <span class="logo">AILyrics (가사,작사,웹시)</span>
+        <span class="logo">WebNovel</span>
         <div class="loginProfile">
+          <ul className='links' onChange={this.onSelect} >
+            <a herf='/pricing'>PRICING</a>
+            <a herf='/about'>ABOUT</a>
+          </ul>
           { user ? localStorage.setItem('token', user.za) : null }
           { user ? 
             <div class="profile">
