@@ -140,24 +140,14 @@
   font-size: 1.2rem;
 }
 
-.slider{
-  width: 90%;
-  height: 30%;
-}
-
-.each-slide > div {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-size: cover;
-  height: 28vh;
-}
-
 .react-slideshow-container{
-  margin-right: 0;
-  width: 45vw;
-}
+  margin: 0;
+  width: 100%;
 
+}
+.each-slide{
+  height: 30vh;
+}
 @media (max-width: 700px) {
   .main{
     width: 80vw;

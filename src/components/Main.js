@@ -127,31 +127,25 @@ class Main extends Component {
     ];
     return (
       <div class="main">
-        <div>
+        <div className="slider">
         <Slide easing="ease">
           <div className="each-slide">
-            <div style={{'backgroundImage': `url(${images[0]})`}}>
-            </div>
+            <img className="background-image" src={images[0]}/>
           </div>
           <div className="each-slide">
-            <div style={{'backgroundImage': `url(${images[1]})`}}>
-            </div>
+            <img className="background-image" src={images[1]}/>
           </div>
           <div className="each-slide">
-            <div style={{'backgroundImage': `url(${images[2]})`}}>
-            </div>
+            <img className="background-image" src={images[2]}/>
           </div>
           <div className="each-slide">
-            <div style={{'backgroundImage': `url(${images[3]})`}}>
-            </div>
+            <img className="background-image" src={images[3]}/>
           </div>
           <div className="each-slide">
-            <div style={{'backgroundImage': `url(${images[4]})`}}>
-            </div>
+            <img className="background-image" src={images[4]}/>
           </div>
           <div className="each-slide">
-            <div style={{'backgroundImage': `url(${images[5]})`}}>
-            </div>
+            <img className="background-image" src={images[5]}/>
           </div>
         </Slide>
       </div>

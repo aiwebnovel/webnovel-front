@@ -8,8 +8,11 @@ import '../style/Header.css';
 import usericon from '../public/user.png';
 import ProgressBar from "@ramonak/react-progress-bar";
 import * as config from '../config';
+import Modal from './Modal';
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
+
+
 
 class Header extends Component {
   constructor(props) {
@@ -19,14 +22,23 @@ class Header extends Component {
       userName: '로그인 되지 않은 사용자',
       userToken: 0,
       userTokenP: 0,
-      userImage: usericon
+      userImage: usericon,
+      modalOpen: false
     };
     this.showMenu = this.showMenu.bind(this);
     this.closeMenu = this.closeMenu.bind(this);
     this.signOut = this.signOut.bind(this);
     this.signIn = this.signIn.bind(this);
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
-  
+    openModal = () => {
+        this.setState({ modalOpen: true })
+    }
+    closeModal = () => {
+        this.setState({ modalOpen: false })
+    }
+
   showMenu(event) {
     event.preventDefault();
     event.stopPropagation();
@@ -91,11 +103,16 @@ class Header extends Component {
       <header>
         <span class="logo">WebNovel</span>
         <div class="loginProfile">
-          <ul className='links' onChange={this.onSelect} >
-            <a herf='/pricing'>PRICING</a>
-            <a herf='/about'>ABOUT</a>
-          </ul>
+          
+          <button className='links' onClick={ this.openModal }>PRICING</button>
+          <Modal open={ this.state.modalOpen } close={ this.closeModal } title="Create a chat room">
+              // Modal.js <main> { this.props.children } </main>에 내용이 입력된다. 
+              리액트 클래스형 모달 팝업창입니다.
+              쉽게 만들 수 있어요. 
+              같이 만들어봐요!
+          </Modal>
           { user ? localStorage.setItem('token', user.za) : null }
+          { user ? console.log(user.za) : null }
           { user ? 
             <div class="profile">
               <a onClick={this.showMenu}>

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@firebase/auth": "^0.16.5",
     "@ramonak/react-progress-bar": "^3.1.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -13,6 +14,7 @@
     "react-dropdown": "^1.9.2",
     "react-loading": "^2.0.3",
     "react-loading-io": "^2.2.1",
+    "react-modal": "^3.13.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.2",
     "react-simple-image-slider": "^2.1.0",

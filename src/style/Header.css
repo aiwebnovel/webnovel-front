@@ -101,16 +101,12 @@ header{
   margin-top: 12px;
   float: left;
   background-color: #3b2479;
-
-}
-
-
-.links > a{
-  margin-left: 50px;
-  background-color: #3b2479;
+  margin-left: 150px;
   color: #ffffff;
+  border: 0;
+  outline: 0;
+  font-size: 1rem;
 }
-
 
 @media (max-width: 700px) {
   header{
