@@ -1,16 +1,12 @@
 import { Component } from 'react';
 import axios from 'axios';
 import withFirebaseAuth from 'react-with-firebase-auth'
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import firebaseConfig from '../public/firebaseConfig';
+import { authService, firebaseInstance } from "../public/firebaseConfig";
 import '../style/Header.css';
 import usericon from '../public/user.png';
 import ProgressBar from "@ramonak/react-progress-bar";
 import * as config from '../config';
 import Modal from './Modal';
-
-const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 
 
@@ -86,6 +82,7 @@ class Header extends Component {
 
   componentDidMount(){
     this.requestProfile();
+
   }
 
   async signOut(){
@@ -93,8 +90,26 @@ class Header extends Component {
     await localStorage.removeItem('token');
   }
 
-  async signIn(){
-    await this.props.signInWithGoogle()
+  async signIn(event){
+    const { target: { name } } = event;
+    let provider = new firebaseInstance.auth.GoogleAuthProvider();
+    if (name === 'Facebook') { provider = new firebaseInstance.auth.FacebookAuthProvider(); }
+    else if (name === 'Google'){ provider = new firebaseInstance.auth.GoogleAuthProvider(); }
+
+    await authService.signInWithPopup(provider).then((result) => {
+      /** @type {firebase.auth.OAuthCredential} */
+      let credential = result.credential;
+      let user = result.user;
+      console.log(credential);
+      console.log(user.za);
+      console.log(credential.idToken);
+    })
+    .catch((error) => {
+      let errorCode = error.code;
+      let errorMessage = error.message;
+      let email = error.email;
+      let credential = error.credential;
+    });
   }
 
   render() {
@@ -119,7 +134,12 @@ class Header extends Component {
                 <img  src={this.state.userImage} class="profileicon"/>
               </a>
             </div>
-            : <button class="login" onClick={this.signIn}>Sign in with Google</button>
+            : 
+            <div>
+            <button class="login" onClick={this.signIn} name='Google'>Sign in with Google</button>
+            <button class="login" onClick={this.signIn} name='Facebook'>Sign in with Facebook</button>
+            </div>
+
           }
           { this.state.showMenu ? (
             <div ref={(element) => { this.dropdownMenu = element; }}>
@@ -141,10 +161,5 @@ class Header extends Component {
   }
 }
 
-const firebaseAppAuth = firebaseApp.auth();
-const providers = { googleProvider: new firebase.auth.GoogleAuthProvider(), };
 
-export default withFirebaseAuth({
-  providers,
-  firebaseAppAuth,
-})(Header);
+export default Header;

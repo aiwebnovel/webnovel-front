@@ -1,3 +1,6 @@
+import firebase from "firebase/app";
+import "firebase/auth";
+
 const firebaseConfig = {
   apiKey: "AIzaSyDa7N9IBIGCSsDHHWzF8OjDvy1YZ9LszbQ",
   authDomain: "webnovel-2fced.firebaseapp.com",
@@ -8,4 +11,7 @@ const firebaseConfig = {
   measurementId: "G-0MWXK0Q94K"
 };
 
-export default firebaseConfig;
+firebase.initializeApp(firebaseConfig);
+
+export const firebaseInstance = firebase; // 소셜로그인
+export const authService = firebase.auth(); // 로그인 모듈
