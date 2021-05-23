@@ -127,28 +127,7 @@ class Main extends Component {
     ];
     return (
       <div class="main">
-        <div className="slider">
-        <Slide easing="ease">
-          <div className="each-slide">
-            <img className="background-image" src={images[0]}/>
-          </div>
-          <div className="each-slide">
-            <img className="background-image" src={images[1]}/>
-          </div>
-          <div className="each-slide">
-            <img className="background-image" src={images[2]}/>
-          </div>
-          <div className="each-slide">
-            <img className="background-image" src={images[3]}/>
-          </div>
-          <div className="each-slide">
-            <img className="background-image" src={images[4]}/>
-          </div>
-          <div className="each-slide">
-            <img className="background-image" src={images[5]}/>
-          </div>
-        </Slide>
-      </div>
+
         {this.state.loading ? 
           <div class="loading">
             <Spinner size='8px' color='#3b2479'/>
@@ -177,9 +156,7 @@ class Main extends Component {
           {this.state.mainChar ? 
           <div>
             <div class="next_input">
-              <span>{this.state.mainChar}은 " </span>
               <input class="next_text" value={this.state.next} onChange={this.handleChangeN} placeholder="다음 행동을 입력하세요!"></input>
-              <span> " 하기로 했다.</span>
             </div>
             <button class="next" onClick = {() => {this.requestNextContents(this.state.next)}}>Next!</button>
           </div>

@@ -18,20 +18,19 @@ header{
   background-color: #3b2479;
   float: left;
   margin-left: 3vw;
-  margin-top: 1vh;
+  margin-top: 2vh;
   font-size: 2rem;
   color: white;
 }
 
 .login{
-  background-color: #3b2479;
-  width: 10vw;
-  height: 6vh;
-  background: white;
-  border-radius: 1vh;
-  border: 0;
-  box-shadow: 0px 0px 6px rgba(0,0,0,0.8) ,0px 0px 3px rgba(200,200,200,0.5); 
   float: right;
+  margin-top: 12px;
+  background-color: #3b2479;
+  color: #ffffff;
+  border: 0;
+  outline: 0;
+  font-size: 1rem;
 }
 
 .profile{
@@ -69,7 +68,7 @@ header{
   background: rgba(255, 255, 255, 0);
   float: right;
   margin-right: 5vw;
-  margin-top: 1.5vh;
+  margin-top: 2vh;
   font-size: 1rem;
   width: 25vw;
   height: 9vh;
@@ -101,7 +100,7 @@ header{
   margin-top: 12px;
   float: left;
   background-color: #3b2479;
-  margin-left: 150px;
+  margin-left: 200px;
   color: #ffffff;
   border: 0;
   outline: 0;

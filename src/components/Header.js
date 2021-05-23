@@ -19,7 +19,8 @@ class Header extends Component {
       userToken: 0,
       userTokenP: 0,
       userImage: usericon,
-      modalOpen: false
+      modalOpen: false,
+      user: false
     };
     this.showMenu = this.showMenu.bind(this);
     this.closeMenu = this.closeMenu.bind(this);
@@ -58,16 +59,13 @@ class Header extends Component {
     }
   }
 
-  requestProfile() {
-    let user;
-    if (this.props.user === undefined) {
-      user = localStorage.getItem('token');
-    }else{
-      user = this.props.user.za;
-    }
+  async requestProfile() {
+    let user = await localStorage.getItem('token');
+   
     if (user !== undefined) {
       axios.get(`${config.SERVER_URL}/profile`, { headers: {authentication: user} })
       .then((response) => {
+        this.setState({user: true});
         this.setState({ userName: response.data.name});
         this.setState({ userToken: response.data.token});
         this.setState({ userTokenP: response.data.tokenP});
@@ -86,8 +84,11 @@ class Header extends Component {
   }
 
   async signOut(){
-    await this.props.signOut();
     await localStorage.removeItem('token');
+    this.setState({user: false});
+    this.setState({ showMenu: false });
+    document.removeEventListener('click', this.closeMenu);
+    await authService.signOut();
   }
 
   async signIn(event){
@@ -96,13 +97,16 @@ class Header extends Component {
     if (name === 'Facebook') { provider = new firebaseInstance.auth.FacebookAuthProvider(); }
     else if (name === 'Google'){ provider = new firebaseInstance.auth.GoogleAuthProvider(); }
 
-    await authService.signInWithPopup(provider).then((result) => {
+    await authService.signInWithPopup(provider).then(async(result) => {
       /** @type {firebase.auth.OAuthCredential} */
       let credential = result.credential;
       let user = result.user;
       console.log(credential);
       console.log(user.za);
       console.log(credential.idToken);
+      await localStorage.setItem('token', user.za)
+      this.setState({user: true});
+      this.requestProfile();
     })
     .catch((error) => {
       let errorCode = error.code;
@@ -121,26 +125,19 @@ class Header extends Component {
           
           <button className='links' onClick={ this.openModal }>PRICING</button>
           <Modal open={ this.state.modalOpen } close={ this.closeModal } title="Create a chat room">
-              // Modal.js <main> { this.props.children } </main>에 내용이 입력된다. 
-              리액트 클래스형 모달 팝업창입니다.
-              쉽게 만들 수 있어요. 
-              같이 만들어봐요!
+               
+            프로토타입에서는 지원되지 않는 기능입니다.
           </Modal>
-          { user ? localStorage.setItem('token', user.za) : null }
-          { user ? console.log(user.za) : null }
-          { user ? 
+          { localStorage.getItem('token') ? console.log(localStorage.getItem('token')) : null }
+          { this.state.user ? 
             <div class="profile">
               <a onClick={this.showMenu}>
                 <img  src={this.state.userImage} class="profileicon"/>
               </a>
             </div>
-            : 
-            <div>
-            <button class="login" onClick={this.signIn} name='Google'>Sign in with Google</button>
-            <button class="login" onClick={this.signIn} name='Facebook'>Sign in with Facebook</button>
-            </div>
-
+            : <button class="login" onClick={this.signIn} name='Google'>login</button>
           }
+            {/*<button class="login" onClick={this.signIn} name='Facebook'>Sign in with Facebook</button>*/}
           { this.state.showMenu ? (
             <div ref={(element) => { this.dropdownMenu = element; }}>
               <div class="dropdown">
