@@ -20,10 +20,10 @@ class Main extends Component {
       options: ['판타지','현판','무협','미스터리','로판'],
       selectOptions: '판타지',
       Main_character: '',
-      Place: 'n/a',
-      Time: 'n/a',
-      Main_Events: 'n/a',
-      Material: 'n/a',
+      Place: '',
+      Time: '',
+      Main_Events: '',
+      Material: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -49,9 +49,7 @@ class Main extends Component {
     if (localStorage.getItem('token') !== undefined) {
     this.setState({loading: true});
     let story = '';
-    if (this.state.isFollow) {
-      story = this.state.outputBeforeTlanslate;
-    }
+    if (this.state.isFollow) { story = this.state.outputBeforeTlanslate; }
 
     axios.post(`${config.SERVER_URL}/complation`, 
     { selectOptions: this.state.selectOptions,
