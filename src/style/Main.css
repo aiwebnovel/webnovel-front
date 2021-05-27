@@ -68,7 +68,7 @@
 .start{
   position: absolute;
   left: 0%;
-  bottom: 10px;
+  bottom: 0;
   font-size: 1rem;
   width: 5vw;
   height: 5vh;
@@ -106,7 +106,18 @@
   outline: 0;
   border-radius: 1vh;
   box-shadow: 0px 0px 10px rgba(0,0,0,0.8) ,0px 0px 5px rgba(200,200,200,0.5); 
+}
 
+.followSelector{
+  width: 55%;
+  height: 5vh;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  border: 0;
+  outline: 0;
+  border-radius: 1vh;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.8) ,0px 0px 5px rgba(200,200,200,0.5); 
 }
 
 .reset{

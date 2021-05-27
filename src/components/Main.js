@@ -16,23 +16,29 @@ class Main extends Component {
       outputBeforeTlanslate: '',
       outputAfterTlanslate: '',
       loading: false,
+      isFollow: false,
       options: ['판타지','현판','무협','미스터리','로판'],
       selectOptions: '판타지',
       Main_character: '',
-      Place: '',
-      Time: '',
-      Main_Events: '',
-      Material: ''
+      Place: 'n/a',
+      Time: 'n/a',
+      Main_Events: 'n/a',
+      Material: 'n/a',
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.requestcontents = this.requestcontents.bind(this);
     this.onSelect = this.onSelect.bind(this);
+    this.onSelectFollow = this.onSelectFollow.bind(this);
     this.resetData = this.resetData.bind(this);
   }
 
   handleChange(e){
     this.setState({[e.target.name]: e.target.value});
+  }
+
+  onSelectFollow(e){
+    this.setState({ isFollow: e.target.value});
   }
 
   onSelect(e){
@@ -42,6 +48,10 @@ class Main extends Component {
   requestcontents(){
     if (localStorage.getItem('token') !== undefined) {
     this.setState({loading: true});
+    let story = '';
+    if (this.state.isFollow) {
+      story = this.state.outputBeforeTlanslate;
+    }
 
     axios.post(`${config.SERVER_URL}/complation`, 
     { selectOptions: this.state.selectOptions,
@@ -49,7 +59,8 @@ class Main extends Component {
       Place: this.state.Place,
       Time: this.state.Time,
       Main_Events: this.state.Main_Events,
-      Material: this.state.Material }, 
+      Material: this.state.Material,
+      Story: story }, 
     { headers: {authentication: localStorage.getItem('token')},
     timeout: 10000 })
     .then((response) => {
@@ -97,6 +108,10 @@ class Main extends Component {
         <input class="sub_input_text" value={this.state.Main_Events} onChange={this.handleChange} name='Main_Events' placeholder="주요 사건"></input>
         <input class="sub_input_text" value={this.state.Material} onChange={this.handleChange} name='Material' placeholder="소재"></input>
         <button class="start" onClick = {this.requestcontents}>Start!</button>
+        <select className='followSelector' onChange={this.onSelect} >
+          <option value={false}>도입부 쓰기</option>
+          <option value={true}>줄거리 쓰기</option>
+        </select>
       </div>
 
       <div class="main">
