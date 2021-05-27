@@ -37,8 +37,11 @@ class Main extends Component {
     this.setState({[e.target.name]: e.target.value});
   }
 
-  onSelectFollow(e){
-    this.setState({ isFollow: e.target.value});
+  async onSelectFollow(e){
+    console.log(e.target.value);
+    await this.setState({ isFollow: e.target.value});
+    console.log(this.state.isFollow);
+
   }
 
   onSelect(e){
@@ -49,7 +52,15 @@ class Main extends Component {
     if (localStorage.getItem('token') !== undefined) {
     this.setState({loading: true});
     let story = '';
-    if (this.state.isFollow) { story = this.state.outputBeforeTlanslate; }
+    if (this.state.isFollow == 'true') { 
+      story = this.state.outputBeforeTlanslate; 
+    }
+    else{
+
+      this.setState({ outputAfterTlanslate: ''});
+      this.setState({ outputBeforeTlanslate: ''});
+      this.setState({ output: ''});
+    }
 
     axios.post(`${config.SERVER_URL}/complation`, 
     { selectOptions: this.state.selectOptions,
@@ -106,7 +117,7 @@ class Main extends Component {
         <input class="sub_input_text" value={this.state.Main_Events} onChange={this.handleChange} name='Main_Events' placeholder="주요 사건"></input>
         <input class="sub_input_text" value={this.state.Material} onChange={this.handleChange} name='Material' placeholder="소재"></input>
         <button class="start" onClick = {this.requestcontents}>Start!</button>
-        <select className='followSelector' onChange={this.onSelect} >
+        <select className='followSelector' onChange={this.onSelectFollow} >
           <option value={false}>도입부 쓰기</option>
           <option value={true}>줄거리 쓰기</option>
         </select>
