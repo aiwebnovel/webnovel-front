@@ -49,6 +49,11 @@ class Main extends Component {
   }
 
   requestcontents(){
+    if (this.state.Main_character == '') {
+      this.setState({ output: '주인공을 입력해 주세요!'});
+      return;
+    }
+
     if (localStorage.getItem('token') !== undefined) {
     this.setState({loading: true});
     let story = '';
@@ -56,7 +61,6 @@ class Main extends Component {
       story = this.state.outputBeforeTlanslate; 
     }
     else{
-
       this.setState({ outputAfterTlanslate: ''});
       this.setState({ outputBeforeTlanslate: ''});
       this.setState({ output: ''});
@@ -79,8 +83,17 @@ class Main extends Component {
       this.setState({loading: false});
     })
     .catch((error) => {
-      this.setState({loading: false});
-      this.setState({ output: '토큰이 부족합니다!'});
+      console.log(error.response.status);
+      if (error.response.status == 412) {
+        this.setState({loading: false});
+        this.setState({ output: '재로그인이 필요합니다!'});
+        localStorage.removeItem('token');
+
+      }else{
+        this.setState({loading: false});
+        this.setState({ output: '토큰이 부족합니다!'});
+      }
+      
     })
     }else{
       this.setState({output: '로그인 후 다시 시도해 주세요!'});

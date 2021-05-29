@@ -128,7 +128,7 @@ class Header extends Component {
                
             프로토타입에서는 지원되지 않는 기능입니다.
           </Modal>
-          { localStorage.getItem('token') ? console.log(localStorage.getItem('token')) : null }
+          { localStorage.getItem('token') ? console.log(localStorage.getItem('token')) : this.signOut() }
           { this.state.user ? 
             <div class="profile">
               <a onClick={this.showMenu}>
