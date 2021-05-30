@@ -155,13 +155,13 @@ header{
   }
 
   .login{
-    background-color: #3b2479;
     width: 20vw;
     height: 7vh;
-    background: white;
-    border-radius: 1vh;
+    background-color: #3b2479;
+    color: #ffffff;
     border: 0;
-    box-shadow: 0px 0px 6px rgba(0,0,0,0.8) ,0px 0px 3px rgba(200,200,200,0.5); 
+    outline: 0;
+    margin-top: 0;
   }
 
   .loginProfile{
@@ -169,7 +169,6 @@ header{
     background: rgba(255, 255, 255, 0);
     float: right;
     margin-right: 10vw;
-    margin-top: 2.8vh;
     font-size: 1rem;
     width: 15vw;
     height: 9vh;

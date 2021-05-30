@@ -191,12 +191,13 @@
     height: 74vh;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 50vh;
     position: relative;
   }
   
   .input{
     position: relative;
-    width: 80vw;
+    width: 50vw;
     height: 10vh; 
     margin-bottom: 1vh;
   }
@@ -268,5 +269,49 @@
   .react-slideshow-container{
     margin-right: 0;
     width: 80vw;
+  }
+
+  .sub{
+    width: 80vw;
+    height: 40vh;
+    margin-top: 0;
+  }
+
+  .followSelector{
+    width: 55%;
+    height: 5vh;
+    right: 0;
+    top: 6.5vh;
+    position: absolute;
+    border: 0;
+    outline: 0;
+    border-radius: 1vh;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.8) ,0px 0px 5px rgba(200,200,200,0.5); 
+  }
+
+  .start{
+    position: absolute;
+    left: 0%;
+    top: 43vh;
+    font-size: 1rem;
+    width: 15vw;
+    height: 5vh;
+    background: #3b2479;
+    color: white;
+    border-radius: 0.5vh;
+    border: 0;
+    box-shadow: 0px 0px 6px rgba(0,0,0,0.8) ,0px 0px 3px rgba(200,200,200,0.5); 
+  }
+
+  .dropdowncategory{
+    width: 45%;
+    height: 5vh;
+    left: 0;
+    bottom: 10px;
+    position: absolute;
+    border: 0;
+    outline: 0;
+    border-radius: 1vh;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.8) ,0px 0px 5px rgba(200,200,200,0.5); 
   }
 }
