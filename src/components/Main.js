@@ -75,16 +75,17 @@ class Main extends Component {
       Material: this.state.Material,
       Story: story }, 
     { headers: {authentication: localStorage.getItem('token')},
-    timeout: 10000 })
+    timeout: 100000 })
     .then((response) => {
-      this.setState({ outputAfterTlanslate: this.state.outputAfterTlanslate + response.data.output});
-      this.setState({ outputBeforeTlanslate: this.state.outputBeforeTlanslate + response.data.outputBeforeTlanslate});
+      console.log(response.data);
+      this.setState({ outputAfterTlanslate: this.state.outputAfterTlanslate + response.data[0]});
+      this.setState({ outputBeforeTlanslate: this.state.outputBeforeTlanslate + response.data[1]});
       this.setState({ output: this.state.outputAfterTlanslate+ '\n\n원본\n'+ this.state.outputBeforeTlanslate});
       this.setState({loading: false});
     })
     .catch((error) => {
-      console.log(error.response.status);
-      if (error.response.status == 412) {
+      console.log(error);
+      if (error.response.status === 412) {
         this.setState({loading: false});
         this.setState({ output: '재로그인이 필요합니다!'});
         localStorage.removeItem('token');
