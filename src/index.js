@@ -6,6 +6,6 @@ import Root from './client/root.js';
 ReactDOM.render(
   <React.StrictMode>
     <Root />
-  </React.StrictMode>,
+  </React.StrictMode>, 
   document.getElementById('root')
 );

@@ -180,7 +180,6 @@
 .react-slideshow-container{
   margin: 0;
   width: 100%;
-
 }
 .each-slide{
   height: 30vh;
@@ -191,7 +190,11 @@
     height: 74vh;
     margin-left: auto;
     margin-right: auto;
+<<<<<<< HEAD
     margin-top: 50vh;
+=======
+    margin-top: 80vw;
+>>>>>>> master
     position: relative;
   }
   
@@ -207,6 +210,7 @@
     float: right;
     padding: 1vw;
     width: 80vw;
+    margin-top: 1vh;
     height: 35vh;
     border-radius: 1vh;
     resize: none;
@@ -222,10 +226,10 @@
 
   .start{
     position: absolute;
-    left: 87%;
-    top: 36%;
+    left: 80%;
+    top: 87%;
     font-size: 0.7rem;
-    width: 9vw;
+    width: 15vw;
     height: 5vh;
     background: #3b2479;
     color: white;
@@ -273,6 +277,7 @@
 
   .sub{
     width: 80vw;
+<<<<<<< HEAD
     height: 40vh;
     margin-top: 0;
   }
@@ -282,6 +287,26 @@
     height: 5vh;
     right: 0;
     top: 6.5vh;
+=======
+    height: 50vh;
+    margin-top: 1vh;
+    margin-left: 10vw;
+  }
+
+  .input{
+    position: relative;
+    width: 45vw;
+    height: 10vh; 
+    margin-bottom: 1vh;
+    margin-top: 2vh;
+  }
+
+  .dropdowncategory{
+    width: 50%;
+    height: 5vh;
+    left: 0;
+    bottom: 10px;
+>>>>>>> master
     position: absolute;
     border: 0;
     outline: 0;
@@ -289,6 +314,7 @@
     box-shadow: 0px 0px 10px rgba(0,0,0,0.8) ,0px 0px 5px rgba(200,200,200,0.5); 
   }
 
+<<<<<<< HEAD
   .start{
     position: absolute;
     left: 0%;
@@ -308,6 +334,13 @@
     height: 5vh;
     left: 0;
     bottom: 10px;
+=======
+  .followSelector{
+    width: 55%;
+    height: 5vh;
+    right: 0;
+    top: 5.2vh;
+>>>>>>> master
     position: absolute;
     border: 0;
     outline: 0;
