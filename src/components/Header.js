@@ -124,9 +124,31 @@ class Header extends Component {
         <div class="loginProfile">
           
           <button className='links' onClick={ this.openModal }>PRICING</button>
-          <Modal open={ this.state.modalOpen } close={ this.closeModal } title="Create a chat room">
-               
-            프로토타입에서는 지원되지 않는 기능입니다.
+          <Modal open={ this.state.modalOpen } close={ this.closeModal } title="Pricing">
+            <div class='pricing1'>
+              <h3 class='priceTitle'>free</h3>
+              <div class ='priceDiv'>
+                <span class = 'price1'>$</span>
+                <span class = 'price2'>0</span>
+                <span class = 'price3'>/month</span>
+              </div>
+              <a class='pricebutton'>currunt</a>
+              <p>✔ 1500토큰/month</p>
+              <p>✔ 파파고 번역</p>
+            </div>
+
+            <div class='pricing2'>
+              <h3 class='priceTitle'>basic</h3>
+              <div class ='priceDiv'>
+                <span class = 'price1'>$</span>
+                <span class = 'price2'>0</span>
+                <span class = 'price3'>/month</span>
+              </div>
+              <a class='pricebutton'>buy</a>
+              <p>✔ 30000토큰/month</p>
+              <p>✔ 파파고 번역</p>
+            </div>
+
           </Modal>
           { localStorage.getItem('token') ? console.log(localStorage.getItem('token')) : null }
           { this.state.user ? 

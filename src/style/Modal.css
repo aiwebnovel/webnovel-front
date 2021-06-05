@@ -14,8 +14,8 @@
   border: 0;
 }
 .modal > section {
-  width: 90%;
-  max-width: 450px;
+  width: 610px;
+  height: 48%;
   margin:0 auto;
   border-radius: .3rem;
   background-color: #fff;
@@ -25,9 +25,10 @@
 }
 .modal > section > header {
   position: relative;
-  padding: 16px 64px 16px 16px;
-  background-color: #f1f1f1;
+  height: 10%;
+  padding: 12px 64px 16px 16px;
   font-weight: 700;
+  color: #ffffff;
 }
 .modal > section > header button {
   position: absolute;
@@ -42,12 +43,13 @@
 }
 .modal > section > main {
   padding: 16px;
-  border-bottom: 1px solid #dee2e6;
-  border-top: 1px solid #dee2e6;
+  border-bottom: 1px solid #ffffff;
+  border-top: 1px solid #ffffff;
 }
 .modal > section > footer {
   padding: 12px 16px;
   text-align: right;
+  
 }
 .modal > section > footer button {
   padding: 6px 12px;
@@ -62,6 +64,86 @@
   /* 팝업이 열릴때 스르륵 열리는 효과 */
   animation: modal-bg-show .3s;
 }
+
+.pricing1{
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  height: 40vh;
+  width: 30vh;
+  float: left;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgb(0 0 0 / 80%), 0px 0px 5px rgb(200 200 200 / 30%);
+}
+
+.pricing2{
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  height: 40vh;
+  width: 30vh;
+  float: right;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgb(0 0 0 / 80%), 0px 0px 5px rgb(200 200 200 / 30%);
+}
+
+.priceTitle{
+  text-align: center;
+  color: #7856FF;
+  padding: 0 20px;
+  font-size: 2rem;
+  margin-top: 10px;
+  padding-bottom: 10px;
+}
+
+.pricebutton{
+  width: 60%;
+  height: 18%;
+  background-color: #3b2479;
+  color: #FFFFFF;
+  border-radius: 3px;
+  font-size: 1.2em;
+  line-height: 1.308em;
+  font-weight: 500;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+  margin-bottom: 20px;
+  line-height: 60px;
+}
+
+.priceDiv{
+  position: relative;
+  margin-bottom: 20px;
+}
+.price1{
+  font-size: 1em;
+  line-height: 1em;
+  color: #111324;
+  position: absolute;
+  top: 5px;
+  left: 30%;
+}
+
+.price2{
+  font-size: 2.6em;
+  line-height: 1em;
+  color: #111324;
+}
+
+.price3{
+  font-size: 1em;
+  line-height: 1em;
+  color: #111324;
+}
+
+
+
+
+
+
 @keyframes modal-show {
   from {
       opacity: 0;
