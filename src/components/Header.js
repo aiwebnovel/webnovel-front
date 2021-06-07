@@ -48,6 +48,17 @@ class Header extends Component {
       this.setState({ showMenu: true });
       document.addEventListener('click', this.closeMenu);
     }
+
+    
+    authService.currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+  // Send token to your backend via HTTPS
+  // ...
+  console.log(idToken);
+}).catch(function(error) {
+  // Handle error
+  console.log(error);
+
+});
   }
   
   closeMenu(event) {
@@ -80,6 +91,7 @@ class Header extends Component {
 
   componentDidMount(){
     this.requestProfile();
+
 
   }
 
