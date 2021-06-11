@@ -1,12 +1,15 @@
 import { Component } from 'react';
 import axios from 'axios';
-import withFirebaseAuth from 'react-with-firebase-auth'
 import { authService, firebaseInstance } from "../public/firebaseConfig";
 import '../style/Header.css';
 import usericon from '../public/user.png';
+import facebookicon from '../public/facebook.png';
+import googleicon from '../public/google.png';
 import ProgressBar from "@ramonak/react-progress-bar";
 import * as config from '../config';
 import Modal from './Modal';
+import { GoogleLogin } from 'react-google-login';
+
 
 
 
@@ -19,7 +22,8 @@ class Header extends Component {
       userToken: 0,
       userTokenP: 0,
       userImage: usericon,
-      modalOpen: false,
+      priceModalOpen: false,
+      loginModalOpen: false,
       user: false
     };
     this.showMenu = this.showMenu.bind(this);
@@ -29,12 +33,15 @@ class Header extends Component {
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
   }
-    openModal = () => {
-        this.setState({ modalOpen: true })
-    }
-    closeModal = () => {
-        this.setState({ modalOpen: false })
-    }
+
+  openModal = (event) => {
+    this.setState({ [event.target.name]: true })
+  }
+
+  closeModal = () => {
+    this.setState({ priceModalOpen: false })
+    this.setState({ loginModalOpen: false })
+  }
 
   showMenu(event) {
     event.preventDefault();
@@ -48,17 +55,6 @@ class Header extends Component {
       this.setState({ showMenu: true });
       document.addEventListener('click', this.closeMenu);
     }
-
-    
-    authService.currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
-  // Send token to your backend via HTTPS
-  // ...
-  console.log(idToken);
-}).catch(function(error) {
-  // Handle error
-  console.log(error);
-
-});
   }
   
   closeMenu(event) {
@@ -81,6 +77,7 @@ class Header extends Component {
         this.setState({ userToken: response.data.token});
         this.setState({ userTokenP: response.data.tokenP});
         this.setState({ userImage: response.data.photoURL});
+        this.closeModal();
       })
       .catch((error) => {
         
@@ -89,10 +86,22 @@ class Header extends Component {
 
   }
 
-  componentDidMount(){
-    this.requestProfile();
+  async refreshProfile() {
+    authService.onAuthStateChanged(async (user) => {
+      if (authService.currentUser) {
+        authService.currentUser.getIdToken().then(async (data) => {
+          await localStorage.setItem('token', data)
 
+        }).catch(async (error) => {
+          console.log(error);
+        });
+      }
+    });
+  }
 
+  async componentDidMount(){
+    await this.refreshProfile();
+    await this.requestProfile();
   }
 
   async signOut(){
@@ -129,49 +138,60 @@ class Header extends Component {
   }
 
   render() {
-    let { user } = this.props;  
     return (
       <header>
         <span class="logo">WebNovel</span>
         <div class="loginProfile">
-          
-          <button className='links' onClick={ this.openModal }>PRICING</button>
-          <Modal open={ this.state.modalOpen } close={ this.closeModal } title="Pricing">
+          <button className='links' onClick={ this.openModal } name='priceModalOpen'>membership</button>
+          <Modal open={ this.state.priceModalOpen } close={ this.closeModal } title="Pricing">
             <div class='pricing1'>
               <h3 class='priceTitle'>free</h3>
               <div class ='priceDiv'>
-                <span class = 'price1'>$</span>
+                <span class = 'price1'>₩</span>
                 <span class = 'price2'>0</span>
-                <span class = 'price3'>/month</span>
+                <span class = 'price3'>/mo</span>
               </div>
               <a class='pricebutton'>currunt</a>
-              <p>✔ 1500토큰/month</p>
-              <p>✔ 파파고 번역</p>
+              <p>✔ 장르 선택 및 주인공 입력 가능</p>
+              <p>✔ 국판 기준 약 1매 분량 제공</p>
             </div>
 
             <div class='pricing2'>
               <h3 class='priceTitle'>basic</h3>
               <div class ='priceDiv'>
-                <span class = 'price1'>$</span>
-                <span class = 'price2'>0</span>
-                <span class = 'price3'>/month</span>
+                <span class = 'price1'>₩</span>
+                <span class = 'price2'>10000</span>
+                <span class = 'price3'>/mo</span>
               </div>
               <a class='pricebutton'>buy</a>
-              <p>✔ 30000토큰/month</p>
-              <p>✔ 파파고 번역</p>
+              <p>✔ 장르 선택 및 주인공 입력 가능</p>
+              <p>✔ 장소, 시간, 주제, 사건 입력 가능</p>
+              <p>✔ 국판 기준 약 70매 분량 제공</p>
+              <p>* 이야기당 길이는 최대 5매 이내</p>
             </div>
 
           </Modal>
-          { localStorage.getItem('token') ? console.log(localStorage.getItem('token')) : null }
-          { this.state.user ? 
+
+          { localStorage.getItem('token') ? 
             <div class="profile">
               <a onClick={this.showMenu}>
                 <img  src={this.state.userImage} class="profileicon"/>
               </a>
             </div>
-            : <button class="login" onClick={this.signIn} name='Google'>login</button>
+            : <button className='login' onClick={ this.openModal } name='loginModalOpen'>login</button>
           }
-            {/*<button class="login" onClick={this.signIn} name='Facebook'>Sign in with Facebook</button>*/}
+
+          <Modal open={ this.state.loginModalOpen } close={ this.closeModal } title="Login">
+            <button  onClick={this.signIn} name='Google' class="loginModal">
+              <img  src={googleicon} onClick={this.signIn} name='Google' class='google'/>
+            </button>
+            <br/>
+            <button onClick={this.signIn} onClick={this.signIn} name='Google' name='Facebook' class="loginModal">
+              <img  src={facebookicon} class='facebook'/>
+            </button>
+          </Modal>
+
+
           { this.state.showMenu ? (
             <div ref={(element) => { this.dropdownMenu = element; }}>
               <div class="dropdown">

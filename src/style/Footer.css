@@ -16,3 +16,8 @@ footer{
   bottom: 0;
   width: 100%;
 }
+
+.email{
+  color: white;
+  font-size: 1rem;
+}

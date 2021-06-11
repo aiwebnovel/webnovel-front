@@ -123,12 +123,12 @@
 .reset{
   background-color: #3b2479;
   float: right;
-  top: -50px;
-  right: 10px;
+  top: -40px;
+  margin-right: 10px;
   position: relative;
   font-size: 1rem;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   background: white;
   border-radius: 70%;
   overflow: hidden;
@@ -137,7 +137,7 @@
 
 .reseticon{
   position: absolute;
-  width: 40px;
+  width: 30px;
   object-fit: cover;  
 }
 
@@ -184,6 +184,11 @@
 .each-slide{
   height: 30vh;
 }
+
+.landing{
+  font-size: 1.5rem;
+}
+
 @media (max-width: 700px) {
   .main{
     width: 80vw;

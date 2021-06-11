@@ -9,6 +9,7 @@ class Footer extends Component {
     return (
     <footer>
     <p class="info">
+      <a href="mailto:support@appplatform.co.kr" class='email'>support@appplatform.co.kr</a><br/>
       Address: #702 BS B/D seocho-daero 334 ,Seocho-gu, Seoul, Korea<br/>
       ㈜Appplatform 115-87-01388<br/>
       ©Appplatform, Inc All Rights Reserved
