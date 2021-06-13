@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import { Main, Pricing } from '../pages/index.js';
+import { Main, Membership } from '../pages/index.js';
 
 
 class App extends Component {
@@ -8,7 +8,7 @@ class App extends Component {
     return (
       <div>
         <Route exact path="/" component={Main}/>
-        <Route exact path="/pricing" component={Pricing}/>
+        <Route exact path="/membership" component={Membership}/>
       </div>
     );
   }

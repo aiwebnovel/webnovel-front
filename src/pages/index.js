@@ -1,2 +1,2 @@
 export { default as Main } from './main';
-export { default as Pricing } from './pricing';
+export { default as Membership } from './membership';
