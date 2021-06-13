@@ -9,7 +9,7 @@ import googleicon from '../public/google.png';
 import ProgressBar from "@ramonak/react-progress-bar";
 import * as config from '../config';
 import Modal from './Modal';
-import { GoogleLogin } from 'react-google-login';
+//import { GoogleLogin } from 'react-google-login';
 
 
 
