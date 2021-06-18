@@ -1,10 +1,30 @@
+.mainpage{
+  width: 85vw;
+  height: 75vh;
+  margin-top: 35px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .sub{
   width: 15vw;
   height: 50vh;
-  margin-top: 6.5vh;
-  margin-left: 10vw;
   float: left;
-  position: absolute;
+
+}
+
+.main{
+  width: 45vw;
+  height: 74vh;
+  float: left;
+  margin-left: 30px;
+  margin-right:30px;
+}
+
+.sub_right{
+  width: 15vw;
+  height: 50vh;
+  float: left;
 }
 
 .sub_input_text{
@@ -21,14 +41,9 @@
   border: 0;
 }
 
-.main{
-  width: 45vw;
-  height: 74vh;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 10vh;
-  position: relative;
-}
+
+
+
 
 .input{
   position: relative;
@@ -65,12 +80,25 @@
   outline: none;
 }
 
+.output_right{
+  position: relative;
+  float: left;
+  padding: 1vw;
+  width: 15vw;
+  height: 55vh;
+  border-radius: 1vh;
+  margin-top: 8vh;
+  resize: none;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.8) inset,0px 0px 5px rgba(200,200,200,0.5); 
+  outline: none;
+}
+
+
 .start{
-  position: absolute;
-  left: 0%;
-  bottom: 0;
+  margin-top: 10px;
+  margin-bottom: 10px;
   font-size: 1rem;
-  width: 5vw;
+  width: 12vw;
   height: 5vh;
   background: #3b2479;
   color: white;
@@ -92,8 +120,8 @@
 .loading{
   position: absolute;
   z-index: 5;
-  left: 15.2vw;
-  top: 25vh;
+  left: 40vw;
+  top: 30vh;
 }
 
 .dropdowncategory{
@@ -123,7 +151,7 @@
 .reset{
   background-color: #3b2479;
   float: right;
-  top: -40px;
+  top: 20px;
   margin-right: 10px;
   position: relative;
   font-size: 1rem;
@@ -239,6 +267,12 @@
     box-shadow: 0px 0px 6px rgba(0,0,0,0.8) ,0px 0px 3px rgba(200,200,200,0.5); 
   }
 
+  .progress{
+    position: absolute;
+    left: 80%;
+    top: 0px;
+  }
+
   .loading{
     position: absolute;
     z-index: 5;
@@ -276,12 +310,9 @@
     width: 80vw;
   }
 
-  .sub{
-    width: 80vw;
-    height: 50vh;
-    margin-top: 1vh;
-    margin-left: 10vw;
-  }
+
+
+
 
   .input{
     position: relative;

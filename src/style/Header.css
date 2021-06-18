@@ -115,12 +115,14 @@ header{
 
 .google{
   width: 20vw;
+  min-width: 120px;
   object-fit: cover;
   margin-bottom: 10px; 
 }
 
 .facebook{
   width: 20vw;
+  min-width: 120px;
   object-fit: cover; 
   margin-bottom: 10px;
 }
@@ -167,8 +169,8 @@ header{
     background-color: #3b2479;
     float: left;
     margin-left: 5vw;
-    margin-top: 4vh;
-    font-size: 1.7rem;
+    margin-top: 3vh;
+    font-size: 1.3rem;
     color: white;
   }
 
@@ -183,13 +185,26 @@ header{
     position: relative;
     background: rgba(255, 255, 255, 0);
     float: right;
-    margin-right: 10vw;
-    font-size: 1rem;
-    width: 15vw;
+    margin-right: 5vw;
+    font-size: 0.7rem;
+    width: 43vw;
     height: 9vh;
   }
 
+  .login{
+    float: right;
+    margin-top: 25px;
+    background-color: #3b2479;
+    color: #ffffff;
+    border: 0;
+    outline: 0;
+    font-size: 0.7rem;
+  }
+
   .links{
-    display: none
+    font-size: 0.7rem;
+    margin-top: 25px;
+    float: left;
+
   }
 }

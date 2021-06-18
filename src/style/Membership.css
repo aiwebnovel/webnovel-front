@@ -1,0 +1,96 @@
+.pricingDiv{
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15vh;
+  width: 65vw;
+  min-width: 250px;
+  height: 65vh;
+}
+
+.pricing{
+  margin-left: 10px;
+  margin-right: 10px;
+  text-align: center;
+  height: 45vh;
+  min-width: 370px;
+  width:19vw;
+  min-width: 230px;
+  float: left;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgb(0 0 0 / 80%), 0px 0px 5px rgb(200 200 200 / 30%);
+}
+
+.priceTitle{
+  text-align: center;
+  color: #7856FF;
+  padding: 0 20px;
+  font-size: 2rem;
+  margin-top: 10px;
+  padding-bottom: 10px;
+}
+
+.pricebutton{
+  width: 60%;
+  height: 18%;
+  background-color: #3b2479;
+  color: #FFFFFF;
+  border-radius: 3px;
+  font-size: 1.2em;
+  line-height: 1.308em;
+  font-weight: 500;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+  margin-bottom: 20px;
+  line-height: 60px;
+}
+
+.priceDiv{
+  padding-bottom: 20px;
+}
+.price1{
+  font-size: 1em;
+  line-height: 1em;
+  color: #111324;
+  margin-right: 5px;
+  margin-bottom: 50px;
+}
+
+.price2{
+  font-size: 2.6em;
+  line-height: 1em;
+  color: #111324;
+}
+
+.price3{
+  font-size: 1em;
+  line-height: 1em;
+  color: #111324;
+}
+
+@media (max-width: 700px) {
+
+  .pricingDiv{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15vh;
+    width: 65vw;
+    min-width: 250px;
+    height: 160vh;
+  }
+
+  .pricing{
+    margin-left: 10px;
+    margin-right: 10px;
+    text-align: center;
+    height: 47vh;
+    min-width: 370px;
+    width:19vw;
+    min-width: 230px;
+    float: left;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgb(0 0 0 / 80%), 0px 0px 5px rgb(200 200 200 / 30%);
+  }
+}

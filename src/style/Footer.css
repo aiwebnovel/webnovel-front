@@ -8,16 +8,15 @@ footer{
 }
 
 .info{
-  position: absolute;
   text-align: center;
   background-color: #3b2479;
   color: rgb(255, 255, 255);
-  font-size: 0.5rem;
+  font-size: 0.3rem;
   bottom: 0;
   width: 100%;
 }
 
 .email{
   color: white;
-  font-size: 1rem;
+  font-size: 0.9rem;
 }

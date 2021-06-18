@@ -80,6 +80,8 @@ class Header extends Component {
         this.setState({ userToken: response.data.token});
         this.setState({ userTokenP: response.data.tokenP});
         this.setState({ userImage: response.data.photoURL});
+        localStorage.setItem( 'userUid', response.data.Uid);
+        localStorage.setItem( 'plan', response.data.Uid);
         this.closeModal();
       })
       .catch((error) => {
@@ -140,81 +142,12 @@ class Header extends Component {
     });
   }
 
-  onClickPayment() {
-    /* 1. 가맹점 식별하기 */
-      const { IMP } = window;
-      IMP.init('imp33624147');
-
-    /* 2. 결제 데이터 정의하기 */
-    const data = {
-      pg: 'html5_inicis',                           // PG사
-      pay_method: 'tosspay',                           // 결제수단
-      merchant_uid: `mid_${new Date().getTime()}`,  // 주문번호
-      amount: 1000,                                 // 결제금액
-      name: '아임포트 결제 데이터 분석',                  // 주문명
-      buyer_name: '홍길동',                           // 구매자 이름
-      buyer_tel: '01012341234',                     // 구매자 전화번호
-      buyer_email: 'example@example',               // 구매자 이메일
-      buyer_addr: '신사동 661-16',                    // 구매자 주소
-      buyer_postcode: '06018',                      // 구매자 우편번호
-    };
-
-    /* 4. 결제 창 호출하기 */
-    IMP.request_pay(data, (response) => {
-      const {
-        success,
-        merchant_uid,
-        error_msg,
-      } = response;
-
-      if (success) {
-        console.log(success);
-        console.log(merchant_uid);
-        console.log(response);
-        alert('결제 성공');
-      } else {
-        alert(`결제 실패: ${error_msg}`);
-      }
-    });
-  }
-
-
-
-
   render() {
     return (
       <header>
       <Link to="/"><span class="logo">WebNovel</span></Link>
         <div class="loginProfile">
-          <button className='links' onClick={ this.openModal } name='priceModalOpen'>membership</button>
-          <Modal open={ this.state.priceModalOpen } close={ this.closeModal } title="Pricing">
-            <div class='pricing1'>
-              <h3 class='priceTitle'>free</h3>
-              <div class ='priceDiv'>
-                <span class = 'price1'>₩</span>
-                <span class = 'price2'>0</span>
-                <span class = 'price3'>/mo</span>
-              </div>
-              <a class='pricebutton' onClick={this.onClickPayment}>currunt</a>
-              <p>✔ 장르 선택 및 주인공 입력 가능</p>
-              <p>✔ 국판 기준 약 1매 분량 제공</p>
-            </div>
-
-            <div class='pricing2'>
-              <h3 class='priceTitle'>basic</h3>
-              <div class ='priceDiv'>
-                <span class = 'price1'>₩</span>
-                <span class = 'price2'>10000</span>
-                <span class = 'price3'>/mo</span>
-              </div>
-              <a class='pricebutton'>buy</a>
-              <p>✔ 장르 선택 및 주인공 입력 가능</p>
-              <p>✔ 장소, 시간, 주제, 사건 입력 가능</p>
-              <p>✔ 국판 기준 약 70매 분량 제공</p>
-              <p>* 이야기당 길이는 최대 5매 이내</p>
-            </div>
-
-          </Modal>
+          <Link to="/membership"><span className='links' >membership</span></Link>
 
           { localStorage.getItem('token') ? 
             <div class="profile">
@@ -226,12 +159,12 @@ class Header extends Component {
           }
 
           <Modal open={ this.state.loginModalOpen } close={ this.closeModal } title="Login">
-            <button  onClick={this.signIn} name='Google' class="loginModal">
+            <button  onClick={this.signIn} class="loginModal">
               <img  src={googleicon} onClick={this.signIn} name='Google' class='google'/>
             </button>
             <br/>
-            <button onClick={this.signIn} onClick={this.signIn} name='Google' name='Facebook' class="loginModal">
-              <img  src={facebookicon} class='facebook'/>
+            <button onClick={this.signIn} onClick={this.signIn} class="loginModal">
+              <img  src={facebookicon} name='Facebook' class='facebook'/>
             </button>
           </Modal>
 
