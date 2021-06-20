@@ -167,7 +167,9 @@ class Membership extends Component {
             </div>
             <a class='pricebutton' onClick={this.openModal} name='free'>{this.state.free}</a>
             <p>✔ 장르 선택 및 주인공 입력 가능</p>
-            <p>✔ 국판 기준 약 1매 분량 제공</p>
+            <p>✔ 장소, 시간, 주제, 사건 입력 가능</p>
+            <p>✔ 이어쓰기 2-3회 제공</p>
+
           </div>
 
           <div class='pricing'>
@@ -180,8 +182,9 @@ class Membership extends Component {
             <a class='pricebutton' onClick={this.openModal} name='basic'>{this.state.basic}</a>
             <p>✔ 장르 선택 및 주인공 입력 가능</p>
             <p>✔ 장소, 시간, 주제, 사건 입력 가능</p>
-            <p>✔ 국판 기준 약 7매 분량 제공</p>
-            <p>* 이야기당 길이는 최대 5매 이내</p>
+            <p>✔ 이어쓰기 및 이야기 완성 가능</p>
+            <p>✔ 이야기 3개 이상 창작 가능<br/>(이야기 한개당 최대 길이 a4 2장)</p>
+
           </div>
 
           <div class='pricing'>
@@ -194,8 +197,8 @@ class Membership extends Component {
             <a class='pricebutton' onClick={this.openModal} name='premium'>{this.state.premium}</a>
             <p>✔ 장르 선택 및 주인공 입력 가능</p>
             <p>✔ 장소, 시간, 주제, 사건 입력 가능</p>
-            <p>✔ 국판 기준 약 27매 분량 제공</p>
-            <p>* 이야기당 길이는 최대 5매 이내</p>
+            <p>✔ 이어쓰기 및 이야기 완성 가능</p>
+            <p>✔ 이야기 10개 이상 창작 가능<br/>(이야기 한개당 최대 길이 a4 2장)</p>
           </div>
 
           <Modal open={ this.state.showMenu } close={ this.closeModal } title="Price">

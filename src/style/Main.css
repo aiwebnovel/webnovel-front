@@ -10,7 +10,6 @@
   width: 15vw;
   height: 50vh;
   float: left;
-
 }
 
 .main{
@@ -40,10 +39,6 @@
   outline: none;
   border: 0;
 }
-
-
-
-
 
 .input{
   position: relative;
@@ -87,7 +82,7 @@
   width: 15vw;
   height: 55vh;
   border-radius: 1vh;
-  margin-top: 8vh;
+  margin-top: 6.8vh;
   resize: none;
   box-shadow: 0px 0px 10px rgba(0,0,0,0.8) inset,0px 0px 5px rgba(200,200,200,0.5); 
   outline: none;
@@ -218,20 +213,35 @@
 }
 
 @media (max-width: 700px) {
-  .main{
-    width: 80vw;
-    height: 74vh;
+  .mainpage{
+    width: 85vw;
+    height: 130vh;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 50vh;
+  }
+
+  
+  .main{
+    width: 80vw;
+    height: 50vh;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0vh;
     position: relative;
   }
   
   .input{
     position: relative;
-    width: 50vw;
+    width: 80vw;
     height: 10vh; 
-    margin-bottom: 1vh;
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+
+  .sub{
+    width: 80vw;
+    height: 48vh;
+    float: left;
   }
   
   .output{
@@ -247,6 +257,25 @@
     outline: none;
   }
 
+  .sub_right{
+    width: 80vw;
+    height: 20vh;
+    float: left;
+  }
+
+  .output_right{
+    position: relative;
+    float: left;
+    padding: 1vw;
+    width: 100%;
+    height: 20vh;
+    border-radius: 1vh;
+    margin-top: 3vh;
+    resize: none;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.8) inset,0px 0px 5px rgba(200,200,200,0.5); 
+    outline: none;
+  }
+  
   .middleTitle{
     font-size: 1.5rem;
     margin-bottom: 2vh;
@@ -254,11 +283,8 @@
   }
 
   .start{
-    position: absolute;
-    left: 80%;
-    top: 87%;
     font-size: 0.7rem;
-    width: 15vw;
+    width: 30vw;
     height: 5vh;
     background: #3b2479;
     color: white;
@@ -267,11 +293,6 @@
     box-shadow: 0px 0px 6px rgba(0,0,0,0.8) ,0px 0px 3px rgba(200,200,200,0.5); 
   }
 
-  .progress{
-    position: absolute;
-    left: 80%;
-    top: 0px;
-  }
 
   .loading{
     position: absolute;
@@ -308,18 +329,6 @@
   .react-slideshow-container{
     margin-right: 0;
     width: 80vw;
-  }
-
-
-
-
-
-  .input{
-    position: relative;
-    width: 45vw;
-    height: 10vh; 
-    margin-bottom: 1vh;
-    margin-top: 2vh;
   }
 
   .dropdowncategory{

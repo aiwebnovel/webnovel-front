@@ -16,8 +16,8 @@ code {
     monospace;
 }
 
-#root > div > div{
-min-height: 100%;
+#root{
+min-height: 100vh;
 position: relative;
 padding-bottom: 10vh; /* footer height */
 }
