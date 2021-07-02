@@ -2,11 +2,12 @@ import { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { authService, firebaseInstance } from "../public/firebaseConfig";
+import { ToastContainer, toast } from 'react-toastify';
+import ProgressBar from "@ramonak/react-progress-bar";
 import '../style/Header.css';
 import usericon from '../public/user.png';
 import facebookicon from '../public/facebook.png';
 import googleicon from '../public/google.png';
-import ProgressBar from "@ramonak/react-progress-bar";
 import * as config from '../config';
 import Modal from './Modal';
 //import { GoogleLogin } from 'react-google-login';
@@ -98,7 +99,7 @@ class Header extends Component {
           await localStorage.setItem('token', data)
 
         }).catch(async (error) => {
-          console.log(error);
+          //console.log(error);
         });
       }
     });
@@ -127,11 +128,20 @@ class Header extends Component {
       /** @type {firebase.auth.OAuthCredential} */
       let credential = result.credential;
       let user = result.user;
-      console.log(credential);
-      console.log(user.za);
-      console.log(credential.idToken);
+      //console.log(credential);
+      //console.log(user.za);
+      //console.log(credential.idToken);
       await localStorage.setItem('token', user.za)
       this.setState({user: true});
+      toast(`Thank you for visiting our site. The service is currently awaiting approval. I'll let you know as soon as it starts.`, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
       this.requestProfile();
     })
     .catch((error) => {
@@ -184,6 +194,19 @@ class Header extends Component {
             </div> ) : (null)
           }
         </div>
+
+
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss={false}
+          draggable
+          pauseOnHover
+        />
       </header>
     );
   }
