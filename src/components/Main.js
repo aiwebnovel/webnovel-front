@@ -90,9 +90,9 @@ class Main extends Component {
 
       if (language[0] == 'english') {
         this.setState({progress: ((this.state.outputAfterTlanslate.length - this.state.tempLength) * 100) / 150 });
-      console.log((this.state.outputAfterTlanslate.length - this.state.tempLength) * 100 / 150);
+      //console.log((this.state.outputAfterTlanslate.length - this.state.tempLength) * 100 / 150);
       }else{
-      console.log((this.state.outputAfterTlanslate.length - this.state.tempLength) * 100 / 100);
+      //console.log((this.state.outputAfterTlanslate.length - this.state.tempLength) * 100 / 100);
         this.setState({progress: ((this.state.outputAfterTlanslate.length - this.state.tempLength) * 100) / 100 });
       }
     }
@@ -133,7 +133,7 @@ class Main extends Component {
       }
 
       if (e.target.name == 'reset') {
-        console.log('reset');
+        //console.log('reset');
         selectOptions = this.state.before_selectOptions;
         Main_character = this.state.before_Main_character;
         Place = this.state.before_Place;
@@ -221,7 +221,7 @@ class Main extends Component {
         { headers: {authentication: localStorage.getItem('token')},
         timeout: 100000 })
       .then((response) => {
-        console.log(response.data);
+        //console.log(response.data);
         this.setState({ outputAfterTlanslate: this.state.outputAfterTlanslate + response.data[0]});
         this.setState({ outputBeforeTlanslate: this.state.outputBeforeTlanslate + response.data[1]});
         this.setState({ output: this.state.outputAfterTlanslate+ '\n\n원본\n'+ this.state.outputBeforeTlanslate});
@@ -231,18 +231,10 @@ class Main extends Component {
         this.setState({tempWrite: this.state.outputAfterTlanslate});
         this.setState({Start: 'Continue'});
         this.setState({isHuman: true});
-        console.log(response.data.warn);
-        toast(`이어지는 내용을 100자 이상 쓰면, 이야기를 계속 이어갈 수 있습니다.`, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-        if(response.data[2] >= 3){
-          toast.error(`폭력적이거나 선정적인 결과값이 도출되었을 수 있어요!`, {
+        //console.log(response.data.warn);
+
+        if(response.data[2] >= 2){
+          toast.error(`결과물에 유해한 내용이 포함되어 있어서 표시할 수 없습니다. 입력하신 내용을 수정해서 다시 입력해보세요`, {
             position: "top-right",
             autoClose: 4000,
             hideProgressBar: false,
@@ -251,7 +243,19 @@ class Main extends Component {
             draggable: true,
             progress: undefined,
           });
+          this.setState({isHuman: false});
+        }else{
+          toast(`이어지는 내용을 100자 이상 쓰면, 이야기를 계속 이어갈 수 있습니다.`, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
         }
+
 
         this.setState({before_selectOptions: selectOptions});
         this.setState({before_Main_character: Main_character});
@@ -263,10 +267,18 @@ class Main extends Component {
 
  
       }).catch((error) => {
-        console.log(error);
+        //console.log(error);
         if (error.response.status === 412) {
           this.setState({loading: false});
-          this.setState({ output: '재로그인이 필요합니다!'});
+          toast.error(`로그인이 필요합니다!`, {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
           localStorage.removeItem('token');
         }else{
           if (error.response.status === 403 && error.response.data.errorCode == '001') {
@@ -310,7 +322,7 @@ class Main extends Component {
         authService.currentUser.getIdToken().then(async (data) => {
           await localStorage.setItem('token', data)
         }).catch(async (error) => {
-          console.log(error);
+          //console.log(error);
         });
       }
     });
@@ -351,30 +363,33 @@ class Main extends Component {
             AI가 당신의 이야기에 필요한 영감을 제공합니다.
           </div>
           {this.state.loading ? <div class="loading"> <Spinner size='8px' color='#3b2479'/> </div> : null}
-          <textarea class="output" value={this.state.outputAfterTlanslate} onChange={this.handleStory}></textarea>
-          <div class="reset">
-            <a onClick={this.resetData}>
-              <img  src={trashicon} class="reseticon"/>
-            </a>
+          <div class="outputDiv">
+            <textarea class="output" value={this.state.outputAfterTlanslate} onChange={this.handleStory}></textarea>
+            <textarea class="output_right" value={this.state.outputBeforeTlanslate} readOnly></textarea>
           </div>
-          <div class="reset">
-            <CopyToClipboard text={this.state.outputAfterTlanslate}>
-              <a>
-                <img  src={copyicon} class="reseticon"/>
+          <div class="resetDiv">
+            <div class="reset">
+              <a onClick={this.resetData}>
+                <img  src={trashicon} class="reseticon"/>
               </a>
-            </CopyToClipboard>
-          </div>
-          <div class="reset">
-            <a onClick={this.requestcontents}>
-              <img  src={reseticon} class="reseticon"  name="reset"/>
-            </a>
+            </div>
+            <div class="reset">
+              <CopyToClipboard text={this.state.outputAfterTlanslate}>
+                <a>
+                  <img  src={copyicon} class="reseticon"/>
+                </a>
+              </CopyToClipboard>
+            </div>
+            <div class="reset">
+              <a onClick={this.requestcontents}>
+                <img  src={reseticon} class="reseticon"  name="reset"/>
+              </a>
+            </div>
           </div>
         </div>
 
 
-        <div class="sub_right">
-          <textarea class="output_right" value={this.state.outputBeforeTlanslate} readOnly></textarea>
-        </div>
+        
       </div>
 
 

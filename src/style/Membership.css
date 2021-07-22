@@ -11,7 +11,7 @@
   margin-left: 10px;
   margin-right: 10px;
   text-align: center;
-  height: 45vh;
+  height: 50vh;
   min-width: 370px;
   width:19vw;
   min-width: 230px;
@@ -74,17 +74,17 @@
   .pricingDiv{
     margin-left: auto;
     margin-right: auto;
-    margin-top: 15vh;
+    margin-top: 5vh;
     width: 65vw;
     min-width: 250px;
-    height: 160vh;
+    height: 170vh;
   }
 
   .pricing{
     margin-left: 10px;
     margin-right: 10px;
     text-align: center;
-    height: 47vh;
+    height: 53vh;
     min-width: 370px;
     width:19vw;
     min-width: 230px;
