@@ -24,7 +24,6 @@ class Membership extends Component {
     this.requestPay = this.requestPay.bind(this);
     this.requestProfile = this.requestProfile.bind(this);
   }
-<<<<<<< HEAD
 
   openModal = (e) => {
     authService.onAuthStateChanged(async (user) => {
@@ -69,64 +68,6 @@ class Membership extends Component {
     this.setState({ showMenu: true });
   };
 
-=======
-/*
-  openModal = async (e) => {
-    const token = localStorage.getItem("token");
-    axios
-      .post(
-        `${config.SERVER_URL}/event`,
-        {},
-        { headers: { authentication: token } }
-      )
-      .then((response) => {
-        toast(
-          `감사합니다~유료로 가입을 원하시는 분들께 아래 내용을 알려드립니다.  
-당사는 SMART TECH KOREA 2021 행사 참여 기념으로 유료 가입자들에게는
-6월23일~6월30일까지 무료 체험 사용에 대한 보너스를 드릴 예정입니다
-유료 결재를 원하시는 분은 무료 체험을 해보시고 
-7월1일 이후 구독 결재를 선택해 주시면 됩니다. 
-가입하신 메일에 안내를 드리겠습니다.`,
-          {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          }
-        );
-      })
-      .catch((error) => {
-        if (error.response.status === 412) {
-          this.setState({ loading: false });
-          toast.error(`로그인이 필요합니다.`, {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
-          localStorage.removeItem("token");
-        } else {
-          this.setState({ loading: false });
-          toast.error(`중복 결제는 불가능합니다!`, {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
-        }
-      });
-  };
-*/
->>>>>>> master
   closeModal = () => {
     this.setState({ showMenu: false });
   };
@@ -147,23 +88,15 @@ class Membership extends Component {
     /* 2. 결제 데이터 정의하기 */
     const data = {
       //pg: 'kakaopay',
-<<<<<<< HEAD
-      pg: "paypal",
-=======
+
       pg: e.target.name,
->>>>>>> master
       pay_method: "card", // "card"만 지원됩니다
       merchant_uid: "merchant_" + new Date().getTime(), // 빌링키 발급용 주문번호
       //customer_uid: "gildong_0001_1234", // 카드(빌링키)와 1:1로 대응하는 값
       name: this.state.plan,
-<<<<<<< HEAD
       amount: 0, // 0 으로 설정하여 빌링키 발급만 진행합니다.
       buyer_Uid: localStorage.getItem("userUid"),
-      m_redirect_url : 'http://localhost:3000/membership'
-=======
-      amount: amount, // 0 으로 설정하여 빌링키 발급만 진행합니다.
-      buyer_Uid: localStorage.getItem("userUid"),
->>>>>>> master
+      m_redirect_url: "http://localhost:3000/membership",
     };
 
     /* 4. 결제 창 호출하기 */
@@ -171,17 +104,11 @@ class Membership extends Component {
       const { success, merchant_uid, imp_uid, error_msg } = response;
 
       if (success) {
-<<<<<<< HEAD
         console.log(success);
         console.log(merchant_uid);
         console.log(imp_uid);
         console.log(response);
-=======
-        //console.log(success);
-        //console.log(merchant_uid);
-        //console.log(imp_uid);
-        //console.log(response);
->>>>>>> master
+
         alert("결제 성공");
         this.requestPay(this.state.plan, imp_uid, merchant_uid);
       } else {
@@ -205,19 +132,11 @@ class Membership extends Component {
           { headers: { authentication: user } }
         )
         .then((response) => {
-<<<<<<< HEAD
-          console.log(response.data);
-          this.closeModal();
-        })
-        .catch((error) => {
-          console.log(error);
-=======
           //console.log(response.data);
           this.closeModal();
         })
         .catch((error) => {
           //console.log(error);
->>>>>>> master
         });
     }
   }
@@ -276,11 +195,7 @@ class Membership extends Component {
           <p>✔ 장소, 시간, 주제, 사건 입력 가능</p>
           <p>✔ 이어쓰기 및 이야기 완성 가능</p>
           <p>
-<<<<<<< HEAD
-            ✔ 이야기 3개 이상 창작 가능
-=======
             ✔ 이야기 2개 이상 창작 가능
->>>>>>> master
             <br />
             (이야기 한개당 최대 길이 a4 2장)
           </p>
@@ -300,11 +215,7 @@ class Membership extends Component {
           <p>✔ 장소, 시간, 주제, 사건 입력 가능</p>
           <p>✔ 이어쓰기 및 이야기 완성 가능</p>
           <p>
-<<<<<<< HEAD
-            ✔ 이야기 10개 이상 창작 가능
-=======
             ✔ 이야기 7개 이상 창작 가능
->>>>>>> master
             <br />
             (이야기 한개당 최대 길이 a4 2장)
           </p>
@@ -319,11 +230,7 @@ class Membership extends Component {
             일반결제
           </a>
           <a class="pricebutton" onClick={this.onClickPayment} name="kakaopay">
-<<<<<<< HEAD
             페이팔
-=======
-            카카오
->>>>>>> master
           </a>
         </Modal>
 

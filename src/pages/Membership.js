@@ -3,7 +3,7 @@ import Header from "../components/Header.js";
 import Footer from "../components/Footer.js";
 import Price from "../components/Membership.js";
 
-const Membership = () => {
+const membership = () => {
   return (
     <div>
       <Header />
@@ -13,4 +13,4 @@ const Membership = () => {
   );
 };
 
-export default Membership;
+export default membership;
