@@ -1,4 +1,4 @@
-.pricingDiv{
+.pricingDiv {
   margin-left: auto;
   margin-right: auto;
   margin-top: 15vh;
@@ -7,13 +7,13 @@
   height: 65vh;
 }
 
-.pricing{
+.pricing {
   margin-left: 10px;
   margin-right: 10px;
   text-align: center;
   height: 50vh;
   min-width: 370px;
-  width:19vw;
+  width: 19vw;
   min-width: 230px;
   float: left;
   margin-bottom: 15px;
@@ -21,20 +21,20 @@
   box-shadow: 0px 0px 10px rgb(0 0 0 / 80%), 0px 0px 5px rgb(200 200 200 / 30%);
 }
 
-.priceTitle{
+.priceTitle {
   text-align: center;
-  color: #7856FF;
+  color: #7856ff;
   padding: 0 20px;
   font-size: 2rem;
   margin-top: 10px;
   padding-bottom: 10px;
 }
 
-.pricebutton{
+.pricebutton {
   width: 60%;
   height: 18%;
   background-color: #3b2479;
-  color: #FFFFFF;
+  color: #ffffff;
   border-radius: 3px;
   font-size: 1.2em;
   line-height: 1.308em;
@@ -46,10 +46,10 @@
   line-height: 60px;
 }
 
-.priceDiv{
+.priceDiv {
   padding-bottom: 20px;
 }
-.price1{
+.price1 {
   font-size: 1em;
   line-height: 1em;
   color: #111324;
@@ -57,21 +57,86 @@
   margin-bottom: 50px;
 }
 
-.price2{
+.price2 {
   font-size: 2.6em;
   line-height: 1em;
   color: #111324;
 }
 
-.price3{
+.price3 {
   font-size: 1em;
   line-height: 1em;
   color: #111324;
 }
 
-@media (max-width: 700px) {
+.creditCard {
+  width: 100%;
+  height: 30%;
 
-  .pricingDiv{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.creditCardButton {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3vh;
+  width: 40%;
+  height: 18%;
+  background-color: #3b2479;
+  color: #ffffff;
+  border-radius: 3px;
+  font-size: 1.2em;
+  line-height: 1.308em;
+  font-weight: 500;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+  line-height: 60px;
+}
+
+.changeButton {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3vh;
+  width: 100%;
+  height: 18%;
+  background-color: #3b2479;
+  color: #ffffff;
+  border-radius: 3px;
+  font-size: 1.2em;
+  line-height: 1.308em;
+  font-weight: 500;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+  line-height: 60px;
+}
+
+.creditCardDiv {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: 30%;
+}
+
+.creditCardPwd {
+  margin-left: auto;
+  margin-right: auto;
+  width: 5vw;
+  padding: 1vw;
+  height: 5vh;
+  margin-top: 5px;
+  border-radius: 1vh;
+  resize: none;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.8) inset,
+    0px 0px 5px rgba(200, 200, 200, 0.5);
+  outline: none;
+  border: 0;
+}
+
+@media (max-width: 700px) {
+  .pricingDiv {
     margin-left: auto;
     margin-right: auto;
     margin-top: 5vh;
@@ -80,17 +145,18 @@
     height: 170vh;
   }
 
-  .pricing{
+  .pricing {
     margin-left: 10px;
     margin-right: 10px;
     text-align: center;
     height: 53vh;
     min-width: 370px;
-    width:19vw;
+    width: 19vw;
     min-width: 230px;
     float: left;
     margin-bottom: 15px;
     border-radius: 5px;
-    box-shadow: 0px 0px 10px rgb(0 0 0 / 80%), 0px 0px 5px rgb(200 200 200 / 30%);
+    box-shadow: 0px 0px 10px rgb(0 0 0 / 80%),
+      0px 0px 5px rgb(200 200 200 / 30%);
   }
 }

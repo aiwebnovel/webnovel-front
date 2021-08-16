@@ -1,6 +1,8 @@
 import { Component } from "react";
 import { Link } from "react-router-dom";
+import ReactCodeInput from "react-code-input";
 import axios from "axios";
+import CreditCardInput from "react-credit-card-input";
 import { authService, firebaseInstance } from "../public/firebaseConfig";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -17,12 +19,31 @@ class Membership extends Component {
       free: "currunt",
       basic: "change",
       premium: "change",
+      cardNum: "",
+      buyerName: "",
+      idNum: "",
+      cardExpire: "",
+      cardCvc: "",
+      cardPwd: "",
+      Price: "",
     };
-    //this.openModal = this.openModal.bind(this);
+    this.openModal = this.openModal.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleNumber = this.handleNumber.bind(this);
     this.closeModal = this.closeModal.bind(this);
-    this.onClickPayment = this.onClickPayment.bind(this);
-    this.requestPay = this.requestPay.bind(this);
+    this.requestBill = this.requestBill.bind(this);
+    this.changeBill = this.changeBill.bind(this);
     this.requestProfile = this.requestProfile.bind(this);
+  }
+
+  handleChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
+  handleNumber(e) {
+    if (isNaN(e.target.value) === false) {
+      this.setState({ [e.target.name]: e.target.value });
+    }
   }
 
   openModal = (e) => {
@@ -32,11 +53,10 @@ class Membership extends Component {
           .getIdToken()
           .then(async (data) => {
             await localStorage.setItem("token", data);
-            this.setState({ plan: e.target.name });
-            if (e.target.name === "free") {
-              this.requestPay("free", 0, 0, localStorage.getItem("token"));
-              return;
-            }
+            console.log(e.target.name.split(" ")[0]);
+            console.log(e.target.name.split(" ")[1]);
+            this.setState({ plan: e.target.name.split(" ")[0] });
+            this.setState({ Price: e.target.name.split(" ")[1] });
             this.setState({ showMenu: true });
           })
           .catch(async (error) => {
@@ -72,71 +92,82 @@ class Membership extends Component {
     this.setState({ showMenu: false });
   };
 
-  onClickPayment(e) {
-    /* 1. 가맹점 식별하기 */
-    const { IMP } = window;
-    IMP.init("imp33624147");
-
-    let amount = 0;
-    if (this.state.plan === "basic") {
-      amount = 10000;
-    } else if (this.state.plan === "premium") {
-      amount = 29000;
-    } else {
-      return;
+  async requestBill() {
+    let user = await localStorage.getItem("token");
+    if (user !== undefined) {
+      const now = new Date();
+      const option = {
+        arsUseYn: "N",
+        buyerName: this.state.buyerName, //등록자 이름
+        cardExpire:
+          this.state.cardExpire.split(" / ")[1] +
+          this.state.cardExpire.split(" / ")[0], //유효기간
+        cardNum: this.state.cardNum.replaceAll(" ", ""), //카드번호 (숫자)
+        cardPwd: this.state.cardPwd, //카드 비밀번호 앞 2 자리
+        idNum: this.state.idNum, //주민번호 앞 6 자리
+        mid: "arstest03m", //상점 아이디
+        moid:
+          now.getFullYear() +
+          "" +
+          (now.getMonth() + 1) +
+          now.getDate() +
+          now.getHours() +
+          now.getMinutes() +
+          now.getSeconds(), //가맹점 주문번호
+        userId: (await localStorage.getItem("userUid")) + Math.random(),
+      };
+      console.log(option);
+      axios
+        .post(`https://api.innopay.co.kr/api/regAutoCardBill`, option)
+        .then((response) => {
+          console.log(response.data);
+          if (response.data.resultCode === "0000") {
+            axios
+              .post(
+                `${config.SERVER_URL}/pay`,
+                {
+                  billKey: response.data.billKey,
+                  plan: this.state.plan,
+                  name: this.state.buyerName,
+                },
+                { headers: { authentication: user } }
+              )
+              .then((response) => {
+                console.log(response);
+                this.closeModal();
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          } else {
+            throw new Error();
+          }
+          this.closeModal();
+        })
+        .catch((error) => {
+          console.log(error);
+          this.closeModal();
+        });
     }
-    /* 2. 결제 데이터 정의하기 */
-    const data = {
-      //pg: 'kakaopay',
-
-      pg: e.target.name,
-      pay_method: "card", // "card"만 지원됩니다
-      merchant_uid: "merchant_" + new Date().getTime(), // 빌링키 발급용 주문번호
-      //customer_uid: "gildong_0001_1234", // 카드(빌링키)와 1:1로 대응하는 값
-      name: this.state.plan,
-      amount: 0, // 0 으로 설정하여 빌링키 발급만 진행합니다.
-      buyer_Uid: localStorage.getItem("userUid"),
-      m_redirect_url: "http://localhost:3000/membership",
-    };
-
-    /* 4. 결제 창 호출하기 */
-    IMP.request_pay(data, (response) => {
-      const { success, merchant_uid, imp_uid, error_msg } = response;
-
-      if (success) {
-        console.log(success);
-        console.log(merchant_uid);
-        console.log(imp_uid);
-        console.log(response);
-
-        alert("결제 성공");
-        this.requestPay(this.state.plan, imp_uid, merchant_uid);
-      } else {
-        alert(`결제 실패: ${error_msg}`);
-      }
-    });
   }
 
-  async requestPay(plan, imp_uid, merchant_uid) {
+  async changeBill() {
     let user = await localStorage.getItem("token");
-
     if (user !== undefined) {
       axios
-        .post(
+        .put(
           `${config.SERVER_URL}/pay`,
           {
-            imp_uid: imp_uid,
-            merchant_uid: merchant_uid,
-            plan: plan,
+            plan: this.state.plan,
           },
           { headers: { authentication: user } }
         )
         .then((response) => {
-          //console.log(response.data);
+          console.log(response);
           this.closeModal();
         })
         .catch((error) => {
-          //console.log(error);
+          console.log(error);
         });
     }
   }
@@ -150,7 +181,7 @@ class Membership extends Component {
           headers: { authentication: user },
         })
         .then((response) => {
-          localStorage.setItem("userUid", response.data.Uid);
+          localStorage.setItem("userUid", response.data.uid);
           localStorage.setItem("plan", response.data.plan);
           this.closeModal();
         })
@@ -163,6 +194,7 @@ class Membership extends Component {
     this.setState({ free: "change" });
     this.setState({ [localStorage.getItem("plan")]: "currunt" });
   }
+
   render() {
     return (
       <div class="pricingDiv">
@@ -173,7 +205,7 @@ class Membership extends Component {
             <span class="price2">0</span>
             <span class="price3">/mo</span>
           </div>
-          <a class="pricebutton" onClick={this.openModal} name="free">
+          <a class="pricebutton" onClick={this.openModal} name="free 0">
             {this.state.free}
           </a>
           <p>✔ 장르 선택 및 주인공 입력 가능</p>
@@ -188,7 +220,7 @@ class Membership extends Component {
             <span class="price2">10000</span>
             <span class="price3">/mo</span>
           </div>
-          <a class="pricebutton" onClick={this.openModal} name="basic">
+          <a class="pricebutton" onClick={this.openModal} name="basic 10000">
             {this.state.basic}
           </a>
           <p>✔ 장르 선택 및 주인공 입력 가능</p>
@@ -208,7 +240,7 @@ class Membership extends Component {
             <span class="price2">30000</span>
             <span class="price3">/mo</span>
           </div>
-          <a class="pricebutton" onClick={this.openModal} name="premium">
+          <a class="pricebutton" onClick={this.openModal} name="premium 30000">
             {this.state.premium}
           </a>
           <p>✔ 장르 선택 및 주인공 입력 가능</p>
@@ -222,16 +254,70 @@ class Membership extends Component {
         </div>
 
         <Modal open={this.state.showMenu} close={this.closeModal} title="Price">
-          <a
-            class="pricebutton"
-            onClick={this.onClickPayment}
-            name="html5_inicis"
-          >
-            일반결제
-          </a>
-          <a class="pricebutton" onClick={this.onClickPayment} name="kakaopay">
-            페이팔
-          </a>
+          {localStorage.getItem("isBill") !== "true" ? (
+            <div class="creditCard">
+              <CreditCardInput
+                cardNumberInputProps={{
+                  value: this.state.cardNum,
+                  onChange: this.handleChange,
+                  name: "cardNum",
+                }}
+                cardExpiryInputProps={{
+                  value: this.state.cardExpire,
+                  onChange: this.handleChange,
+                  name: "cardExpire",
+                }}
+                cardCVCInputProps={{
+                  value: this.state.cardCvc,
+                  onChange: this.handleChange,
+                  name: "cardCvc",
+                }}
+                fieldClassName="input"
+              />
+              <div class="creditCardDiv">
+                <span>비밀번호</span>
+                <input
+                  class="creditCardPwd"
+                  value={this.state.cardPwd}
+                  onChange={this.handleNumber}
+                  name="cardPwd"
+                  maxLength="2"
+                ></input>
+                <span>**</span>
+              </div>
+              <div class="creditCardDiv">
+                <span>주민번호</span>
+                <input
+                  class="creditCardPwd"
+                  value={this.state.idNum}
+                  onChange={this.handleNumber}
+                  name="idNum"
+                  maxLength="6"
+                ></input>
+                <span>-*******</span>
+              </div>
+              <div class="creditCardDiv">
+                <span>이름</span>
+                <input
+                  class="creditCardPwd"
+                  value={this.state.buyerName}
+                  onChange={this.handleChange}
+                  name="buyerName"
+                  maxLength="4"
+                ></input>
+              </div>
+
+              <a class="creditCardButton" onClick={this.requestBill}>
+                {this.state.Price}원 결제하기
+              </a>
+            </div>
+          ) : (
+            <div class="creditCard">
+              <a class="changeButton" onClick={this.changeBill}>
+                플랜 바꾸기
+              </a>
+            </div>
+          )}
         </Modal>
 
         <ToastContainer
