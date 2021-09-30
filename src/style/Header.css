@@ -1,105 +1,96 @@
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Ubuntu', sans-serif;
-  font-family: 'Noto Sans KR', sans-serif;
+  /* font-family: 'Ubuntu', sans-serif;
+  font-family: 'Noto Sans KR', sans-serif; */
 }
 
 header{
-  background-color: #3b2479;
   width: 100%;
-  height: 10vh;
-  box-shadow: 0px 0px 10px rgba(0,0,0,0.8),0px 0px 5px rgba(200,200,200,0.5); 
+  height: 60px;
+  /* box-shadow: 2px 1px 8px #b6b6b6; */
+  box-shadow: 2px 3px 8px #EDEDED;
+  border: 1px solid #dedede;
+  margin-bottom : 3px;
+  padding : 0 20px;
 }
 
 .logo{
-  background-color: #3b2479;
-  float: left;
-  margin-left: 3vw;
-  margin-top: 2vh;
-  font-size: 2rem;
-  color: white;
+  /* font-size: 2rem;
+  color: #000; */
+  text-decoration: none;
+  padding-top : 8px;
+}
+
+.logo > img {
+  width: 120px;
+}
+
+.Menu {
+  align-items: center;
 }
 
 .login{
-  float: right;
-  margin-top: 12px;
-  background-color: #3b2479;
-  color: #ffffff;
-  border: 0;
+  /* float: right; */
+  /* margin-top: 12px; */
+  /* background-color: #3b2479; */
+  /* background: transparent;*/
+  /* border: 0;
   outline: 0;
-  font-size: 1rem;
-}
-
-.profile{
-  background-color: #3b2479;
-  float: right;
-  position: relative;
-  font-size: 1rem;
-  width: 50px;
-  height: 50px;
-  background: white;
-  border-radius: 70%;
-  overflow: hidden;
-  box-shadow: 0px 0px 15px rgba(0,0,0,0.8),0px 0px 5px rgba(200,200,200,0.5); 
-}
-
-.profileicon{
-  position: absolute;
-  width: 50px;
-  object-fit: cover;
+  font-size: 1rem; */
 }
 
 .dropdown{
-  position: absolute;
+  /* position: absolute;
   float: right;
   top: 10vh;
   right: 0;
   width: 200px;
   height: 130px;
   box-shadow: 0px 0px 10px #000000cc,0px 0px 5px rgba(200,200,200,0.5); 
-  z-index: 5;
+  z-index: 5; */
 }
 
 .loginProfile{
-  position: relative;
+  /* position: relative;
   background: rgba(255, 255, 255, 0);
   float: right;
   margin-right: 5vw;
   margin-top: 2vh;
   font-size: 1rem;
   width: 20vw;
-  height: 9vh;
+  height: 9vh; */
 }
 
 .logout{
-  width: 100%;
+  /* width: 100%;
   height: 30%;
   border: 0;
   outline: 0;
-  background: #3b2479;
-  color: white;
+  /* background: #3b2479; */
+  /*color: #000; */
 }
 
 .name{
-  width: 100%;
+  /* width: 100%;
   height: 25%;
-  padding: 5px;
+  padding: 5px; */
 }
 
 .token{
-  width: 100%;
+  /* width: 100%;
   height: 45%;
   border-top: 1px solid #3b2479;
-  padding: 5px;
+  padding: 5px; */
 }
 
 .links{
-  margin-top: 12px;
-  float: left;
-  background-color: #3b2479;
-  color: #ffffff;
+  /* margin-top: 12px;
+  float: left; */
+  /* background-color: #3b2479; */
+  color: #000;
   border: 0;
   outline: 0;
   font-size: 1rem;
@@ -129,23 +120,23 @@ header{
 
 @media (max-width: 700px) {
   header{
-    background-color: #3b2479;
+    /* background-color: #3b2479; */
     width: 100%;
     height: 12vh;
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.8),0px 0px 5px rgba(200,200,200,0.5); 
+    /* box-shadow: 0px 0px 10px rgba(0,0,0,0.8),0px 0px 5px rgba(200,200,200,0.5);  */
   }
 
   .profile{
-    background-color: #3b2479;
+    /* background-color: #3b2479; */
     float: right;
     position: relative;
     font-size: 1rem;
     width: 45px;
     height: 45px;
-    background: white;
+    /* background: white; */
     border-radius: 70%;
     overflow: hidden;
-    box-shadow: 0px 0px 15px rgba(0,0,0,0.8),0px 0px 5px rgba(200,200,200,0.5); 
+    /* box-shadow: 0px 0px 15px rgba(0,0,0,0.8),0px 0px 5px rgba(200,200,200,0.5);  */
   }
 
   .profileicon{
@@ -161,17 +152,21 @@ header{
     top: 10vh;
     width: 200px;
     height: 130px;
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.8),0px 0px 5px rgba(200,200,200,0.5); 
+    /* box-shadow: 0px 0px 10px rgba(0,0,0,0.8),0px 0px 5px rgba(200,200,200,0.5);  */
     z-index: 5;
   }
 
   .logo{
-    background-color: #3b2479;
-    float: left;
+    /* background-color: #3b2479; */
+    /* float: left;
     margin-left: 5vw;
     margin-top: 3vh;
     font-size: 1.3rem;
-    color: white;
+    color: white; */
+  }
+
+  .login {
+    background: transparent
   }
 
   .loginModal {
@@ -194,7 +189,7 @@ header{
   .login{
     float: right;
     margin-top: 25px;
-    background-color: #3b2479;
+    /* background-color: #3b2479; */
     color: #ffffff;
     border: 0;
     outline: 0;

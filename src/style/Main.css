@@ -1,179 +1,129 @@
-.mainpage{
-  width: 85vw;
-  height: 75vh;
-  margin-top: 35px;
-  margin-left: auto;
-  margin-right: auto;
+
+.mainpage {
+  height: 100vh;
+  background-color: #f8f8f8;
 }
 
-.sub{
-  width: 15vw;
-  height: 50vh;
-  float: left;
+.SiderBox{
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 30px 10px 20pxs;
 }
 
-.main{
-  width: 45vw;
-  height: 74vh;
-  float: left;
-  margin-left: 30px;
-  margin-right:30px;
+.dropdowncategory{
+  border: 0;
+  outline: 0;
+  border-radius: 5px;
+  width: 200px;
+  height: 30px;
+  margin : 20px 0;
+  color : #fff;
+  /* background-color : #3b2479; */
+  background-color: #3D138D;
+  text-align: center;
+  cursor: pointer;
+
+  /* select 화살표 없애기 */
+  appearance : none ;
+  -webkit-appearance : none ;
+
 }
 
-.sub_right{
-  width: 15vw;
-  height: 50vh;
-  float: left;
+select::-ms-expand {
+  display : none ;
 }
 
 .sub_input_text{
-  padding: 1vw;
-  width: 100%;
-  height: 5vh;
-  bottom: 10px;
-  left: 27%;
-  margin-top: 5px;
-  border-radius: 1vh;
+  padding: 10px;
+  width: 200px;
+  margin-top: 15px;
+  border-radius: 5px;
   resize: none;
-  box-shadow: 0px 0px 10px rgba(0,0,0,0.8) inset,0px 0px 5px rgba(200,200,200,0.5); 
   outline: none;
-  border: 0;
-}
+  border:0;
+  border-bottom: 1px solid #dedede;
+  border-right: 1px solid #dedede;
 
-.input{
-  position: relative;
-  width: 45vw;
-  height: 10vh; 
-  margin-bottom: 1vh;
-  margin-top: 3vh;
-}
-
-.input_text{
-  position: absolute;
-  padding: 1vw;
-  width: 59%;
-  height: 5vh;
-  bottom: 10px;
-  left: 27%;
-  border-radius: 1vh;
-  resize: none;
-  box-shadow: 0px 0px 10px rgba(0,0,0,0.8) inset,0px 0px 5px rgba(200,200,200,0.5); 
-  outline: none;
-  border: 0;
-}
-
-.outputDiv{
-  width: 55vw;
-  height: 55vh;
-}
-
-.output{
-  position: relative;
-  float: left;
-  padding: 1vw;
-  width: 27vw;
-  height: 55vh;
-  border-radius: 1vh;
-  margin-top: 3vh;
-  resize: none;
-  box-shadow: 0px 0px 10px rgba(0,0,0,0.8) inset,0px 0px 5px rgba(200,200,200,0.5); 
-  outline: none;
-}
-
-.output_right{
-  position: relative;
-  float: right;
-  padding: 1vw;
-  width: 27vw;
-  height: 55vh;
-  border-radius: 1vh;
-  margin-top: 3vh;
-  resize: none;
-  box-shadow: 0px 0px 10px rgba(0,0,0,0.8) inset,0px 0px 5px rgba(200,200,200,0.5); 
-  outline: none;
+  background-color: transparent;
 }
 
 
-.start{
-  margin-top: 10px;
-  margin-bottom: 10px;
+.create{
+  margin-top: 30px;
   font-size: 1rem;
-  width: 12vw;
-  height: 5vh;
-  background: #3b2479;
-  color: white;
-  border-radius: 0.5vh;
+  width: 150px;
+  height: 30px;
+  border-radius: 10px;
+  background-color: #3D138D;
+  color: #fff;
   border: 0;
-  box-shadow: 0px 0px 6px rgba(0,0,0,0.8) ,0px 0px 3px rgba(200,200,200,0.5); 
+  cursor: pointer;
 }
+
+
+.create:hover {
+  background-color: #7D4CDB;
+  color: #f3f3f3;
+  
+}
+
+.outputContainer{
+  width:100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+/* .landing {
+ font-size: 15px;
+} */
+
+.output, .output_right{
+  border-radius: 10px;
+  height: 400px;
+  resize: none;
+  border:0;
+  outline: none;
+  width: 45%;
+  background-color: #f8f8f8;
+  box-shadow: 2px 3px 8px #DaDaDa;
+}
+
+.iconDetail{
+  /* position: absolute;
+  width: 30px;
+  object-fit: cover;   */
+}
+
+
 
 .middleTitle{
-  position: relative;
+  /* position: relative;
   margin-bottom: 2vh;
-  margin-top: 3vh;
+  margin-top: 3vh; */
 }
 
 .middleTitle > span{
   font-size: 2rem;
 }
 
-.loading{
-  position: absolute;
-  z-index: 5;
-  left: 40vw;
-  top: 30vh;
-}
-
-.dropdowncategory{
-  width: 25%;
-  height: 5vh;
-  left: 0;
-  bottom: 10px;
-  position: absolute;
-  border: 0;
-  outline: 0;
-  border-radius: 1vh;
-  box-shadow: 0px 0px 10px rgba(0,0,0,0.8) ,0px 0px 5px rgba(200,200,200,0.5); 
-}
 
 .followSelector{
   width: 55%;
   height: 5vh;
-  right: 0;
-  bottom: 0;
-  position: absolute;
+  /* right: 0;
+  bottom: 0; */
+  /* position: absolute; */
   border: 0;
   outline: 0;
   border-radius: 1vh;
-  box-shadow: 0px 0px 10px rgba(0,0,0,0.8) ,0px 0px 5px rgba(200,200,200,0.5); 
-}
-
-.reset{
-  background-color: #3b2479;
-  float: right;
-  top: 20px;
-  margin-right: 10px;
-  position: relative;
-  font-size: 1rem;
-  width: 30px;
-  height: 30px;
-  background: white;
-  border-radius: 70%;
-  overflow: hidden;
-  box-shadow: 0px 0px 10px rgba(0,0,0,0.8),0px 0px 4px rgba(200,200,200,0.5); 
-}
-
-.reseticon{
-  position: absolute;
-  width: 30px;
-  object-fit: cover;  
 }
 
 .resetDiv{
-  width: 20vw;
-  height: 10vh;
-  margin-left: 7vw;
+  display: flex;
 }
+
 
 .next{
   position: absolute;
@@ -195,7 +145,7 @@
   height: 5vh;
   border-radius: 1vh;
   resize: none;
-  box-shadow: 0px 0px 10px rgba(0,0,0,0.8) inset,0px 0px 5px rgba(200,200,200,0.5); 
+  /* box-shadow: 0px 0px 10px rgba(0,0,0,0.8) inset,0px 0px 5px rgba(200,200,200,0.5);  */
   outline: none;
   border: 0;
 }
@@ -219,9 +169,7 @@
   height: 30vh;
 }
 
-.landing{
-  font-size: 1.5rem;
-}
+
 
 @media (max-width: 700px) {
   .mainpage{
@@ -269,7 +217,7 @@
     height: 35vh;
     border-radius: 1vh;
     resize: none;
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.8) inset,0px 0px 5px rgba(200,200,200,0.5); 
+    /* box-shadow: 0px 0px 10px rgba(0,0,0,0.8) inset,0px 0px 5px rgba(200,200,200,0.5);  */
     outline: none;
   }
 
@@ -288,7 +236,7 @@
     border-radius: 1vh;
     margin-top: 6vh;
     resize: none;
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.8) inset,0px 0px 5px rgba(200,200,200,0.5); 
+    /* box-shadow: 0px 0px 10px rgba(0,0,0,0.8) inset,0px 0px 5px rgba(200,200,200,0.5);  */
     outline: none;
   }
   
@@ -306,7 +254,7 @@
     color: white;
     border-radius: 0.5vh;
     border: 0;
-    box-shadow: 0px 0px 6px rgba(0,0,0,0.8) ,0px 0px 3px rgba(200,200,200,0.5); 
+    /* box-shadow: 0px 0px 6px rgba(0,0,0,0.8) ,0px 0px 3px rgba(200,200,200,0.5);  */
   }
 
 
@@ -362,7 +310,7 @@
     border: 0;
     outline: 0;
     border-radius: 1vh;
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.8) ,0px 0px 5px rgba(200,200,200,0.5); 
+    /* box-shadow: 0px 0px 10px rgba(0,0,0,0.8) ,0px 0px 5px rgba(200,200,200,0.5);  */
   }
 
   .followSelector{

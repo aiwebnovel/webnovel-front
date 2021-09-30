@@ -11,6 +11,9 @@ import googleicon from "../public/google.png";
 import * as config from "../config";
 import Modal from "./Modal";
 //import { GoogleLogin } from 'react-google-login';
+import { Header as HeaderLayout, Nav, Anchor, Button, Avatar } from 'grommet';
+
+
 
 class Header extends Component {
   constructor(props) {
@@ -162,32 +165,49 @@ class Header extends Component {
 
   render() {
     return (
-      <header>
-        <Link to="/">
-          <span class="logo">WebNovel</span>
+      <>
+      <HeaderLayout background="light-1" className="header">
+        <Link to="/" className="logo">
+          <img src="/logo.png" alt="logo"/>
         </Link>
-        <div class="loginProfile">
-          <Link to="/membership">
+        <Nav direction="row" className="Menu">
+          <Anchor
+            color="#3b2479"
+            label="Membership"
+            href="/membership"
+          >
+          {/* <Link to="/membership">
             <span className="links">membership</span>
-          </Link>
+          </Link> */}
+          </Anchor>
 
           {localStorage.getItem("token") ? (
-            <div class="profile">
-              <a onClick={this.showMenu}>
-                <img src={this.state.userImage} class="profileicon" />
-              </a>
-            </div>
+            <Anchor 
+            className="profile" 
+            onClick={this.showMenu}>
+                <Avatar 
+                src={this.state.userImage} 
+                className="profileicon"
+                style={{width: '40px',height:'40px'}}
+                />
+            </Anchor>
           ) : (
-            <button
+            // <Anchor
+            //   background="#3b2479"
+            //   color="light-1">
+            //   login
+            // </Anchor>
+            <Button
+              label="Login"
               className="login"
               onClick={this.openModal}
               name="loginModalOpen"
-            >
-              login
-            </button>
+              primary
+            />
           )}
-
-          <Modal
+          </Nav>
+      </HeaderLayout>
+      <Modal
             open={this.state.loginModalOpen}
             close={this.closeModal}
             title="Login"
@@ -235,7 +255,7 @@ class Header extends Component {
               </div>
             </div>
           ) : null}
-        </div>
+      
 
         <ToastContainer
           position="top-right"
@@ -248,7 +268,7 @@ class Header extends Component {
           draggable
           pauseOnHover
         />
-      </header>
+      </>
     );
   }
 }

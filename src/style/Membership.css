@@ -33,7 +33,7 @@
 .pricebutton {
   width: 60%;
   height: 18%;
-  background-color: #3b2479;
+  /* background-color: #3b2479; */
   color: #ffffff;
   border-radius: 3px;
   font-size: 1.2em;
@@ -83,7 +83,7 @@
   margin-top: 3vh;
   width: 40%;
   height: 18%;
-  background-color: #3b2479;
+  /* background-color: #3b2479; */
   color: #ffffff;
   border-radius: 3px;
   font-size: 1.2em;
@@ -101,7 +101,7 @@
   margin-top: 3vh;
   width: 100%;
   height: 18%;
-  background-color: #3b2479;
+  /* background-color: #3b2479; */
   color: #ffffff;
   border-radius: 3px;
   font-size: 1.2em;

@@ -1,14 +1,17 @@
+* {
+  font-family: "Nanum Gothic";
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", 나눔고딕, "Nanum Gothic", "Noto Sans KR", "Noto Sans CJK KR", arial, 돋움, Dotum, Tahoma, Geneva, sans-serif;
+  /* font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", 나눔고딕, "Nanum Gothic", "Noto Sans KR", "Noto Sans CJK KR", arial, 돋움, Dotum, Tahoma, Geneva, sans-serif; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  position: relative;
-  min-height: 100vh;
+  /* position: relative; */
+  /* min-height: 100vh; */
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
 -moz-box-sizing: border-box;
-
 }
 
 code {
@@ -16,8 +19,8 @@ code {
     monospace;
 }
 
-#root{
-min-height: 100vh;
-position: relative;
-padding-bottom: 10vh; /* footer height */
+#root {
+  min-height: 100vh;
+  /* position: relative; */
+  /* padding-bottom: 10vh; footer height */
 }
