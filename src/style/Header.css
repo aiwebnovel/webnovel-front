@@ -11,7 +11,7 @@ header{
   width: 100%;
   height: 70px;
   background-color: #ffffff;
-  /* box-shadow: 2px 3px 8px #EDEDED; */
+  box-shadow: 2px 3px 8px #EDEDED;
   border-bottom: 1px solid #dedede;
   padding : 0 35px;
 }

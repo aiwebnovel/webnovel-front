@@ -10,7 +10,9 @@ import "../style/Membership.css";
 import Modal from "./Modal";
 import * as config from "../config";
 
-import { Box, Grid } from "grommet";
+import styled from "styled-components";
+
+import { Box, Grid, Text } from "grommet";
 
 class Membership extends Component {
   constructor(props) {
@@ -201,87 +203,140 @@ class Membership extends Component {
     return (
       <>
         <Box
-          
           width='100%'
           height='100vh'
           background='#f9f9f9'
-          justify='center'
+          direction='column'
+          justify='evenly'
           align='center'
         >
-          <Box 
-          direction='row-responsive' 
-          justify='center' 
-          align='start'>
+          <Box justify='center' align='center'>
+            <h1 className='MenuMark'>Membership</h1>
+            <div className='DecoBox'></div>
+          </Box>
+          <Box direction='row-responsive' justify='center' align='center'>
             <Grid
               columns={{
-                count: 4,
-                size: 'auto',
+                count: 3,
+                size: "auto",
               }}
-              gap="small"
+              gap='medium'
             >
-              <h1 className='MenuMark'>Membership</h1>
-              <div class='pricing'>
-                <h3 class='priceTitle'>free</h3>
-                <div class='priceDiv'>
-                  <span class='price1'>₩</span>
-                  <span class='price2'>0</span>
-                  <span class='price3'>/mo</span>
+              <Card>
+                <div className='CardTitle'>
+                  <h2>Free</h2>
                 </div>
-                <a class='pricebutton' onClick={this.openModal} name='free 0'>
-                  {this.state.free}
-                </a>
-                <p>✔ 장르 선택 및 주인공 입력 가능</p>
-                <p>✔ 장소, 시간, 주제, 사건 입력 가능</p>
-                <p>✔ 이어쓰기 2-3회 제공</p>
-              </div>
-
-              <div class='pricing'>
-                <h3 class='priceTitle'>basic</h3>
-                <div class='priceDiv'>
-                  <span class='price1'>₩</span>
-                  <span class='price2'>10000</span>
-                  <span class='price3'>/mo</span>
-                </div>
-                <a
-                  class='pricebutton'
-                  onClick={this.openModal}
-                  name='basic 10000'
+                <Grid
+                  align='center'
+                  rows={{
+                    count: 3,
+                    size: "auto",
+                  }}
+                  gap='medium'
                 >
-                  {this.state.basic}
-                </a>
-                <p>✔ 장르 선택 및 주인공 입력 가능</p>
-                <p>✔ 장소, 시간, 주제, 사건 입력 가능</p>
-                <p>✔ 이어쓰기 및 이야기 완성 가능</p>
-                <p>
-                  ✔ 이야기 2개 이상 창작 가능
-                  <br />
-                  (이야기 한개당 최대 길이 a4 2장)
-                </p>
-              </div>
+                  <div className='CardPrice'>
+                    <Text size='2xl' color='#000' weight='bold'>
+                      ₩0
+                    </Text>
+                    <Text size='small' color='dark-3'>
+                      /month
+                    </Text>
+                  </div>
+                  <div style={{ textAlign: "center" }}>
+                    <button
+                      className='PriceButton'
+                      onClick={this.openModal}
+                      name='free 0'
+                    >
+                      {this.state.free}
+                    </button>
+                  </div>
+                  <div class='CardContent'>
+                    <p>✔ 장르 선택 및 주인공 입력 가능</p>
+                    <p>✔ 장소, 시간, 주제, 사건 입력 가능</p>
+                    <p>✔ 이어쓰기 2-3회 제공</p>
+                  </div>
+                </Grid>
+              </Card>
 
-              <div class='pricing'>
-                <h3 class='priceTitle'>premium</h3>
-                <div class='priceDiv'>
-                  <span class='price1'>₩</span>
-                  <span class='price2'>30000</span>
-                  <span class='price3'>/mo</span>
+              <Card>
+                <div className='CardTitle'>
+                  <h2>Basic</h2>
                 </div>
-                <a
-                  class='pricebutton'
-                  onClick={this.openModal}
-                  name='premium 30000'
+                <Grid
+                  align='center'
+                  rows={{
+                    count: 3,
+                    size: "auto",
+                  }}
+                  gap='medium'
                 >
-                  {this.state.premium}
-                </a>
-                <p>✔ 장르 선택 및 주인공 입력 가능</p>
-                <p>✔ 장소, 시간, 주제, 사건 입력 가능</p>
-                <p>✔ 이어쓰기 및 이야기 완성 가능</p>
-                <p>
-                  ✔ 이야기 7개 이상 창작 가능
-                  <br />
-                  (이야기 한개당 최대 길이 a4 2장)
-                </p>
-              </div>
+                <div className='CardPrice'>
+                  <Text size='xlarge' color='#000' weight='bold'>
+                    ₩10,000
+                  </Text>
+                  <Text size='small' color='dark-3'>
+                    /month
+                  </Text>
+                </div>
+                <div style={{ textAlign: "center" }}>
+                  <button
+                    className='PriceButton'
+                    onClick={this.openModal}
+                    name='basic 10000'
+                  >
+                    {this.state.free}
+                  </button>
+                </div>
+                <div class='CardContent'>
+                  <p>✔ 장르 선택 및 주인공 입력 가능</p>
+                  <p>✔ 장소, 시간, 주제, 사건 입력 가능</p>
+                  <p>✔ 이어쓰기 및 이야기 완성 가능</p>
+                  <p>✔ 이야기 2개 이상 창작 가능</p>
+                  <p>(이야기 한개당 최대 길이 a4 2장)</p>
+                </div>
+                </Grid>
+              </Card>
+
+              <Card>
+                <div className='CardTitle'>
+                  <h2>Premium</h2>
+                </div>
+                <Grid
+                  align='center'
+                  rows={{
+                    count: 3,
+                    size: "auto",
+                  }}
+                  gap='medium'
+                >
+                  <div className='CardPrice'>
+                    <Text size='xlarge' color='#000' weight='bold'>
+                      ₩30,000
+                    </Text>
+                    <Text size='small' color='dark-3'>
+                      /month
+                    </Text>
+                  </div>
+                  <div style={{ textAlign: "center" }}>
+                    <button
+                      className='PriceButton'
+                      onClick={this.openModal}
+                      name='premium 30000'
+                    >
+                      {this.state.free}
+                    </button>
+                  </div>
+                  <div class='CardContent'>
+                    <p>✔ 장르 선택 및 주인공 입력 가능</p>
+                    <p>✔ 장소, 시간, 주제, 사건 입력 가능</p>
+                    <p>✔ 이어쓰기 2-3회 제공</p>
+                    <p>✔ 이어쓰기 및 이야기 완성 가능</p>
+                    <p>✔ 이야기 7개 이상 창작 가능</p>
+                    <p>(이야기 한개당 최대 길이 a4 2장)</p>
+                  </div>
+                </Grid>
+              </Card>
             </Grid>
           </Box>
 
@@ -374,3 +429,13 @@ class Membership extends Component {
 }
 
 export default Membership;
+
+const Card = styled.div`
+  text-align: center;
+  height: 60vh;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 5px 6px 8px rgba(0, 0, 0, 0.16);
+  border-radius: 15px;
+  /* border : 1px solid #ededed; */
+`;

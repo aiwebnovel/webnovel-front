@@ -393,7 +393,7 @@ class Main extends Component {
           >
             <Box
               gridArea='sidebar'
-              background='#fff'
+              background='#f9f9f9'
               width='small'
               animation={[
                 { type: "fadeIn", duration: 300 },
