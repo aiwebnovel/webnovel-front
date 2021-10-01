@@ -166,7 +166,7 @@ class Header extends Component {
   render() {
     return (
       <>
-      <HeaderLayout background="light-1" className="header">
+      <HeaderLayout background="#fff" className="header">
         <Link to="/" className="logo">
           <img src="/logo.png" alt="logo"/>
         </Link>

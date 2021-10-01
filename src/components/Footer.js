@@ -8,7 +8,7 @@ class Footer extends Component {
 
   render() {
     return (
-    <FooterLayout background="light-3" pad="small" style={footerStyle}>
+    <FooterLayout background="light-2" pad="small" style={footerStyle}>
         <img src={footerLogo} alt="footer_logo" className="footer-logo"/>
        
           <div className="InfoBox">

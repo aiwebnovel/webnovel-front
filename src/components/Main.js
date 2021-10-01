@@ -380,7 +380,7 @@ class Main extends Component {
   }
   render() {
     return (
-      <>
+    
         <div class='mainpage'>
           <Grid
             fill
@@ -393,7 +393,7 @@ class Main extends Component {
           >
             <Box
               gridArea='sidebar'
-              background='#f8f8f8'
+              background='#fff'
               width='small'
               animation={[
                 { type: "fadeIn", duration: 300 },
@@ -487,7 +487,7 @@ class Main extends Component {
             </Box>
             <Box
               gridArea='main'
-              background='light-1'
+              background='#f9f9f9'
               justify='center'
               align='center'
             >
@@ -542,7 +542,7 @@ class Main extends Component {
             />
           </Grid>
         </div>
-      </>
+      
     );
   }
 }
@@ -551,11 +551,10 @@ export default Main;
 
 const SiderStyle = {
   width: "250px",
-  backgroudColor : '#f8f8f8',
   boxShadow: "2px 3px 8px #EDEDED",
-  margin: "20px 0 ",
+  margin: "20px 0 0 0",
   borderRadius:'5px',
-  border: '1px solid #dedede'
+  //border: '1px solid #dedede'
 };
 
 const IconBox = {

@@ -10,6 +10,8 @@ import "../style/Membership.css";
 import Modal from "./Modal";
 import * as config from "../config";
 
+import { Box, Grid } from "grommet";
+
 class Membership extends Component {
   constructor(props) {
     super(props);
@@ -197,141 +199,176 @@ class Membership extends Component {
 
   render() {
     return (
-      <div class="pricingDiv">
-        <div class="pricing">
-          <h3 class="priceTitle">free</h3>
-          <div class="priceDiv">
-            <span class="price1">₩</span>
-            <span class="price2">0</span>
-            <span class="price3">/mo</span>
-          </div>
-          <a class="pricebutton" onClick={this.openModal} name="free 0">
-            {this.state.free}
-          </a>
-          <p>✔ 장르 선택 및 주인공 입력 가능</p>
-          <p>✔ 장소, 시간, 주제, 사건 입력 가능</p>
-          <p>✔ 이어쓰기 2-3회 제공</p>
-        </div>
-
-        <div class="pricing">
-          <h3 class="priceTitle">basic</h3>
-          <div class="priceDiv">
-            <span class="price1">₩</span>
-            <span class="price2">10000</span>
-            <span class="price3">/mo</span>
-          </div>
-          <a class="pricebutton" onClick={this.openModal} name="basic 10000">
-            {this.state.basic}
-          </a>
-          <p>✔ 장르 선택 및 주인공 입력 가능</p>
-          <p>✔ 장소, 시간, 주제, 사건 입력 가능</p>
-          <p>✔ 이어쓰기 및 이야기 완성 가능</p>
-          <p>
-            ✔ 이야기 2개 이상 창작 가능
-            <br />
-            (이야기 한개당 최대 길이 a4 2장)
-          </p>
-        </div>
-
-        <div class="pricing">
-          <h3 class="priceTitle">premium</h3>
-          <div class="priceDiv">
-            <span class="price1">₩</span>
-            <span class="price2">30000</span>
-            <span class="price3">/mo</span>
-          </div>
-          <a class="pricebutton" onClick={this.openModal} name="premium 30000">
-            {this.state.premium}
-          </a>
-          <p>✔ 장르 선택 및 주인공 입력 가능</p>
-          <p>✔ 장소, 시간, 주제, 사건 입력 가능</p>
-          <p>✔ 이어쓰기 및 이야기 완성 가능</p>
-          <p>
-            ✔ 이야기 7개 이상 창작 가능
-            <br />
-            (이야기 한개당 최대 길이 a4 2장)
-          </p>
-        </div>
-
-        <Modal open={this.state.showMenu} close={this.closeModal} title="Price">
-          {localStorage.getItem("isBill") !== "true" ? (
-            <div class="creditCard">
-              <CreditCardInput
-                cardNumberInputProps={{
-                  value: this.state.cardNum,
-                  onChange: this.handleChange,
-                  name: "cardNum",
-                }}
-                cardExpiryInputProps={{
-                  value: this.state.cardExpire,
-                  onChange: this.handleChange,
-                  name: "cardExpire",
-                }}
-                cardCVCInputProps={{
-                  value: this.state.cardCvc,
-                  onChange: this.handleChange,
-                  name: "cardCvc",
-                }}
-                fieldClassName="input"
-              />
-              <div class="creditCardDiv">
-                <span>비밀번호</span>
-                <input
-                  class="creditCardPwd"
-                  value={this.state.cardPwd}
-                  onChange={this.handleNumber}
-                  name="cardPwd"
-                  maxLength="2"
-                ></input>
-                <span>**</span>
-              </div>
-              <div class="creditCardDiv">
-                <span>주민번호</span>
-                <input
-                  class="creditCardPwd"
-                  value={this.state.idNum}
-                  onChange={this.handleNumber}
-                  name="idNum"
-                  maxLength="6"
-                ></input>
-                <span>-*******</span>
-              </div>
-              <div class="creditCardDiv">
-                <span>이름</span>
-                <input
-                  class="creditCardPwd"
-                  value={this.state.buyerName}
-                  onChange={this.handleChange}
-                  name="buyerName"
-                  maxLength="4"
-                ></input>
+      <>
+        <Box
+          
+          width='100%'
+          height='100vh'
+          background='#f9f9f9'
+          justify='center'
+          align='center'
+        >
+          <Box 
+          direction='row-responsive' 
+          justify='center' 
+          align='start'>
+            <Grid
+              columns={{
+                count: 4,
+                size: 'auto',
+              }}
+              gap="small"
+            >
+              <h1 className='MenuMark'>Membership</h1>
+              <div class='pricing'>
+                <h3 class='priceTitle'>free</h3>
+                <div class='priceDiv'>
+                  <span class='price1'>₩</span>
+                  <span class='price2'>0</span>
+                  <span class='price3'>/mo</span>
+                </div>
+                <a class='pricebutton' onClick={this.openModal} name='free 0'>
+                  {this.state.free}
+                </a>
+                <p>✔ 장르 선택 및 주인공 입력 가능</p>
+                <p>✔ 장소, 시간, 주제, 사건 입력 가능</p>
+                <p>✔ 이어쓰기 2-3회 제공</p>
               </div>
 
-              <a class="creditCardButton" onClick={this.requestBill}>
-                {this.state.Price}원 결제하기
-              </a>
-            </div>
-          ) : (
-            <div class="creditCard">
-              <a class="changeButton" onClick={this.changeBill}>
-                플랜 바꾸기
-              </a>
-            </div>
-          )}
-        </Modal>
+              <div class='pricing'>
+                <h3 class='priceTitle'>basic</h3>
+                <div class='priceDiv'>
+                  <span class='price1'>₩</span>
+                  <span class='price2'>10000</span>
+                  <span class='price3'>/mo</span>
+                </div>
+                <a
+                  class='pricebutton'
+                  onClick={this.openModal}
+                  name='basic 10000'
+                >
+                  {this.state.basic}
+                </a>
+                <p>✔ 장르 선택 및 주인공 입력 가능</p>
+                <p>✔ 장소, 시간, 주제, 사건 입력 가능</p>
+                <p>✔ 이어쓰기 및 이야기 완성 가능</p>
+                <p>
+                  ✔ 이야기 2개 이상 창작 가능
+                  <br />
+                  (이야기 한개당 최대 길이 a4 2장)
+                </p>
+              </div>
 
-        <ToastContainer
-          position="top-right"
-          autoClose={3000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss={false}
-          draggable
-          pauseOnHover
-        />
-      </div>
+              <div class='pricing'>
+                <h3 class='priceTitle'>premium</h3>
+                <div class='priceDiv'>
+                  <span class='price1'>₩</span>
+                  <span class='price2'>30000</span>
+                  <span class='price3'>/mo</span>
+                </div>
+                <a
+                  class='pricebutton'
+                  onClick={this.openModal}
+                  name='premium 30000'
+                >
+                  {this.state.premium}
+                </a>
+                <p>✔ 장르 선택 및 주인공 입력 가능</p>
+                <p>✔ 장소, 시간, 주제, 사건 입력 가능</p>
+                <p>✔ 이어쓰기 및 이야기 완성 가능</p>
+                <p>
+                  ✔ 이야기 7개 이상 창작 가능
+                  <br />
+                  (이야기 한개당 최대 길이 a4 2장)
+                </p>
+              </div>
+            </Grid>
+          </Box>
+
+          <Modal
+            open={this.state.showMenu}
+            close={this.closeModal}
+            title='Price'
+          >
+            {localStorage.getItem("isBill") !== "true" ? (
+              <div class='creditCard'>
+                <CreditCardInput
+                  cardNumberInputProps={{
+                    value: this.state.cardNum,
+                    onChange: this.handleChange,
+                    name: "cardNum",
+                  }}
+                  cardExpiryInputProps={{
+                    value: this.state.cardExpire,
+                    onChange: this.handleChange,
+                    name: "cardExpire",
+                  }}
+                  cardCVCInputProps={{
+                    value: this.state.cardCvc,
+                    onChange: this.handleChange,
+                    name: "cardCvc",
+                  }}
+                  fieldClassName='input'
+                />
+                <div class='creditCardDiv'>
+                  <span>비밀번호</span>
+                  <input
+                    class='creditCardPwd'
+                    value={this.state.cardPwd}
+                    onChange={this.handleNumber}
+                    name='cardPwd'
+                    maxLength='2'
+                  ></input>
+                  <span>**</span>
+                </div>
+                <div class='creditCardDiv'>
+                  <span>주민번호</span>
+                  <input
+                    class='creditCardPwd'
+                    value={this.state.idNum}
+                    onChange={this.handleNumber}
+                    name='idNum'
+                    maxLength='6'
+                  ></input>
+                  <span>-*******</span>
+                </div>
+                <div class='creditCardDiv'>
+                  <span>이름</span>
+                  <input
+                    class='creditCardPwd'
+                    value={this.state.buyerName}
+                    onChange={this.handleChange}
+                    name='buyerName'
+                    maxLength='4'
+                  ></input>
+                </div>
+
+                <a class='creditCardButton' onClick={this.requestBill}>
+                  {this.state.Price}원 결제하기
+                </a>
+              </div>
+            ) : (
+              <div class='creditCard'>
+                <a class='changeButton' onClick={this.changeBill}>
+                  플랜 바꾸기
+                </a>
+              </div>
+            )}
+          </Modal>
+
+          <ToastContainer
+            position='top-right'
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss={false}
+            draggable
+            pauseOnHover
+          />
+        </Box>
+      </>
     );
   }
 }

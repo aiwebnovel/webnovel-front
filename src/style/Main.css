@@ -2,6 +2,7 @@
 .mainpage {
   height: 100vh;
   background-color: #f8f8f8;
+  
 }
 
 .SiderBox{
@@ -9,7 +10,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px 30px 10px 20pxs;
+  padding: 20px 30px 10px 20px;
 }
 
 .dropdowncategory{
@@ -81,13 +82,15 @@ select::-ms-expand {
 
 .output, .output_right{
   border-radius: 10px;
-  height: 400px;
+  height: 60vh;
   resize: none;
   border:0;
   outline: none;
   width: 45%;
-  background-color: #f8f8f8;
+  background-color: #f9f9f9;
   box-shadow: 2px 3px 8px #DaDaDa;
+  padding: 15px;
+  font-size : 1.3rem;
 }
 
 .iconDetail{
