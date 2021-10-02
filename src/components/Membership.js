@@ -380,7 +380,7 @@ class Membership extends Component {
                   name='idNum'
                   maxLength='6'
                 ></input>
-                <span>-*******</span>
+                <span> - *******</span>
               </div>
 
               <div style={payButton}>
@@ -419,7 +419,7 @@ export default Membership;
 
 const Card = styled.div`
   text-align: center;
-  height: 60vh;
+  height: 100%;
   border-radius: 5px;
   background-color: #fff;
   box-shadow: 5px 6px 8px rgba(0, 0, 0, 0.16);
@@ -428,7 +428,7 @@ const Card = styled.div`
 `;
 
 const payButton = {
-  padding: '10px 0',
   borderTop: '1px solid #ededed',
-  textAlign:'center'
+  textAlign:'center',
+  paddingTop: '15px'
 }

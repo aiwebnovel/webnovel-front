@@ -32,9 +32,9 @@ export default Modal;
 
 const Container = styled.div`
     max-width: 900px;
-    min-width: 300px;
-    max-height: 70%;
-    min-height: 100px;
+    min-width: 400px;
+    // max-height: 70%;
+    // min-height: 100px;
     margin:0 auto;
     border-radius: 10px;
     background-color: #fff;
@@ -64,7 +64,7 @@ const ModalHeader = styled.div`
     padding: 10px 20px;
     font-weight: 700;
     color: #ffffff;
-    // border-bottom : 1px solid #f3f3f3;
+    border-bottom : 1px solid #ededed;
 `
 
 const Button = styled.button`
@@ -74,13 +74,13 @@ const Button = styled.button`
   border: 0;
 `
 const ModalMain = styled.div`
-    padding: 0 16px;
+    padding: 16px;
     border-bottom: 1px solid #ffffff;
     border-top: 1px solid #ffffff;
         
     > h3 {
         text-align: center;
         color : #090909;
-        padding-bottom: 20px;
+        padding: 10px 0 15px 0;
     }
 `
