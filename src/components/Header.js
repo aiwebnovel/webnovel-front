@@ -212,21 +212,21 @@ class Header extends Component {
             close={this.closeModal}
             title="Login"
           >
-            <button onClick={this.signIn} class="loginModal">
+            <button onClick={this.signIn} className="loginModal">
               <img
                 src={googleicon}
                 onClick={this.signIn}
                 name="Google"
-                class="google"
+                className="google"
               />
             </button>
             <br />
             <button
               onClick={this.signIn}
               onClick={this.signIn}
-              class="loginModal"
+              className="loginModal"
             >
-              <img src={facebookicon} name="Facebook" class="facebook" />
+              <img src={facebookicon} name="Facebook" className="facebook" />
             </button>
           </Modal>
 
@@ -236,11 +236,11 @@ class Header extends Component {
                 this.dropdownMenu = element;
               }}
             >
-              <div class="dropdown">
-                <div class="name">
+              <div className="dropdown">
+                <div className="name">
                   <p>{this.state.userName}</p>
                 </div>
-                <div class="token">
+                <div className="token">
                   <ProgressBar
                     completed={this.state.userTokenP}
                     height="8px"
@@ -249,7 +249,7 @@ class Header extends Component {
                   <span>{this.state.userToken} token</span>
                   <p>{localStorage.getItem("plan")}</p>
                 </div>
-                <button onClick={this.signOut} class="logout">
+                <button onClick={this.signOut} className="logout">
                   logout
                 </button>
               </div>

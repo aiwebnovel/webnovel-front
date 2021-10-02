@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import '../style/Modal.css';
-import '../style/Header.css';
+import styled from 'styled-components'
+import { Close } from 'grommet-icons';
 
 export class Modal extends Component {
 
@@ -12,15 +13,15 @@ export class Modal extends Component {
         return (
             <div className={ open ? 'openModal modal': 'modal' }>
                 { open ? (  
-                    <section>
-                        <header>
-                            {title}
-                            <button className="close" onClick={close} > &times; </button>
-                        </header>
-                        <main>
+                    <Container>
+                        <ModalHeader>
+                            <Button onClick={close} > <Close size="15px"/> </Button>
+                        </ModalHeader>
+                        <ModalMain>
+                            <h3>{title}</h3>
                             {this.props.children}
-                        </main>
-                    </section>
+                        </ModalMain>
+                    </Container>
                 ) : null }
             </div>
         )
@@ -28,3 +29,58 @@ export class Modal extends Component {
 }
 
 export default Modal;
+
+const Container = styled.div`
+    max-width: 900px;
+    min-width: 300px;
+    max-height: 70%;
+    min-height: 100px;
+    margin:0 auto;
+    border-radius: 10px;
+    background-color: #fff;
+    
+    
+    /* 팝업이 열릴때 스르륵 열리는 효과 */
+    animation: modal-show 0.3s;
+    overflow: hidden;
+
+
+    @keyframes modal-show {
+        from {
+            opacity: 0;
+            margin-top: -50px;
+        }
+        to {
+            opacity: 1;
+            margin-top: 0;
+        }
+    }
+` 
+
+const ModalHeader = styled.div`
+    display: flex;
+    align-items : center;
+    justify-content: flex-end;
+    padding: 10px 20px;
+    font-weight: 700;
+    color: #ffffff;
+    // border-bottom : 1px solid #f3f3f3;
+`
+
+const Button = styled.button`
+  background-color : transparent;  
+  outline: none;
+  cursor: pointer;
+  border: 0;
+`
+const ModalMain = styled.div`
+    padding: 0 16px;
+    border-bottom: 1px solid #ffffff;
+    border-top: 1px solid #ffffff;
+        
+    > h3 {
+        text-align: center;
+        color : #090909;
+        padding-bottom: 20px;
+    }
+`

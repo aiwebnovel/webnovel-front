@@ -381,7 +381,7 @@ class Main extends Component {
   render() {
     return (
     
-        <div class='mainpage'>
+        <div className='mainpage'>
           <Grid
             fill
             rows={["auto", "flex"]}
@@ -496,10 +496,10 @@ class Main extends Component {
                   <Spinner size='8px' color='#3b2479' />
                 </div>
               )}
-              {/* <div class='landing'>
+              {/* <div className='landing'>
                 AI가 당신의 이야기에 필요한 영감을 제공합니다.
               </div> */}
-              <div class='outputContainer'>
+              <div className='outputContainer'>
                 <textarea
                   className='output'
                   value={this.state.outputAfterTlanslate}
@@ -513,17 +513,17 @@ class Main extends Component {
                 ></textarea>
             </div>
               <ResetDiv>
-                  <Update size="medium" color="brand" class='iconDetail' onClick={this.resetData}/>
+                  <Update size="medium" color="brand" className='iconDetail' onClick={this.resetData}/>
 
 
                   <CopyToClipboard text={this.state.outputAfterTlanslate}>
                     <div onClick={this.state.outputAfterTlanslate}>
-                    <Copy color="brand"  size="medium" class='iconDetail' onClick={this.resetData}/>       
+                    <Copy color="brand"  size="medium" className='iconDetail' onClick={this.resetData}/>       
                     </div>
                   </CopyToClipboard>
                
               
-                  <Undo color="brand" size="medium" class='iconDetail' name='reset'  onClick={this.requestcontents}/>
+                  <Undo color="brand" size="medium" className='iconDetail' name='reset'  onClick={this.requestcontents}/>
         
               
               </ResetDiv>

@@ -1,4 +1,6 @@
 
+/*멤버쉽 화면*/
+
 .MenuMark {
   font-family : -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   color: #000;
@@ -42,79 +44,71 @@
   outline : 0;
   color: #fff;
   border-radius: 10px;
-  font-size : 1.2em;
+  font-size : 1em;
   font-weight: 600;
   text-align: center;
   cursor: pointer;
-  padding: 5px
+  padding: 7px
 }
 
+
+/*카드 결제 모달창 */
 
 .creditCard {
   width: 100%;
-  height: 30%;
-
-  margin-left: auto;
-  margin-right: auto;
+  /* height: 30%; */
+  padding-bottom: 10px;
 }
 
+.creditCard > h3 {
+  padding-bottom : 20px;
+}
+
+.ElementBox {
+  border-color: #ededed;
+  padding-bottom: 10px;
+}
+
+
+.ElementBox
+> p{
+  font-size: 0.9em;
+}
+
+.ElementBox > input {
+  outline: 0;
+  border: 1px solid #ededed;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+
 .creditCardButton {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 3vh;
-  width: 40%;
-  height: 18%;
-  /* background-color: #3b2479; */
+  background-color: #30009C;
   color: #ffffff;
-  border-radius: 3px;
-  font-size: 1.2em;
-  line-height: 1.308em;
-  font-weight: 500;
-  display: inline-block;
+  border-radius: 8px;
+  padding: 10px;
   text-align: center;
   cursor: pointer;
-  line-height: 60px;
+  border: 0;
+  outline : 0;
+
 }
 
 .changeButton {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 3vh;
-  width: 100%;
-  height: 18%;
-  /* background-color: #3b2479; */
+ 
+  background-color: #5600E8;
   color: #ffffff;
-  border-radius: 3px;
-  font-size: 1.2em;
-  line-height: 1.308em;
-  font-weight: 500;
-  display: inline-block;
+  border-radius: 10px;
+
   text-align: center;
   cursor: pointer;
-  line-height: 60px;
+  
 }
 
-.creditCardDiv {
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
-  height: 30%;
-}
 
-.creditCardPwd {
-  margin-left: auto;
-  margin-right: auto;
-  width: 5vw;
-  padding: 1vw;
-  height: 5vh;
-  margin-top: 5px;
-  border-radius: 1vh;
-  resize: none;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.8) inset,
-    0px 0px 5px rgba(200, 200, 200, 0.5);
-  outline: none;
-  border: 0;
-}
+
+ 
 
 @media (max-width: 768px) {
   /* .pricingDiv {

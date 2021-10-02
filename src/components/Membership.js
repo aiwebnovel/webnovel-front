@@ -20,9 +20,9 @@ class Membership extends Component {
     this.state = {
       showMenu: false,
       plan: "free",
-      free: "currunt",
-      basic: "change",
-      premium: "change",
+      free: "",
+      basic: "가입하기",
+      premium: "가입하기",
       cardNum: "",
       buyerName: "",
       idNum: "",
@@ -226,14 +226,6 @@ class Membership extends Component {
                 <div className='CardTitle'>
                   <h2>Free</h2>
                 </div>
-                <Grid
-                  align='center'
-                  rows={{
-                    count: 3,
-                    size: "auto",
-                  }}
-                  gap='medium'
-                >
                   <div className='CardPrice'>
                     <Text size='2xl' color='#000' weight='bold'>
                       ₩0
@@ -242,7 +234,7 @@ class Membership extends Component {
                       /month
                     </Text>
                   </div>
-                  <div style={{ textAlign: "center" }}>
+                  <div style={{ textAlign: "center", padding: '20px'  }}>
                     <button
                       className='PriceButton'
                       onClick={this.openModal}
@@ -251,26 +243,18 @@ class Membership extends Component {
                       {this.state.free}
                     </button>
                   </div>
-                  <div class='CardContent'>
+                  <div className='CardContent'>
                     <p>✔ 장르 선택 및 주인공 입력 가능</p>
                     <p>✔ 장소, 시간, 주제, 사건 입력 가능</p>
                     <p>✔ 이어쓰기 2-3회 제공</p>
                   </div>
-                </Grid>
+                
               </Card>
 
               <Card>
                 <div className='CardTitle'>
                   <h2>Basic</h2>
                 </div>
-                <Grid
-                  align='center'
-                  rows={{
-                    count: 3,
-                    size: "auto",
-                  }}
-                  gap='medium'
-                >
                 <div className='CardPrice'>
                   <Text size='xlarge' color='#000' weight='bold'>
                     ₩10,000
@@ -279,37 +263,29 @@ class Membership extends Component {
                     /month
                   </Text>
                 </div>
-                <div style={{ textAlign: "center" }}>
+                <div style={{ textAlign: "center", padding: '20px'  }}>
                   <button
                     className='PriceButton'
                     onClick={this.openModal}
                     name='basic 10000'
                   >
-                    {this.state.free}
+                    {this.state.basic}
                   </button>
                 </div>
-                <div class='CardContent'>
+                <div className='CardContent'>
                   <p>✔ 장르 선택 및 주인공 입력 가능</p>
                   <p>✔ 장소, 시간, 주제, 사건 입력 가능</p>
                   <p>✔ 이어쓰기 및 이야기 완성 가능</p>
                   <p>✔ 이야기 2개 이상 창작 가능</p>
                   <p>(이야기 한개당 최대 길이 a4 2장)</p>
                 </div>
-                </Grid>
+                
               </Card>
 
               <Card>
                 <div className='CardTitle'>
                   <h2>Premium</h2>
                 </div>
-                <Grid
-                  align='center'
-                  rows={{
-                    count: 3,
-                    size: "auto",
-                  }}
-                  gap='medium'
-                >
                   <div className='CardPrice'>
                     <Text size='xlarge' color='#000' weight='bold'>
                       ₩30,000
@@ -318,16 +294,16 @@ class Membership extends Component {
                       /month
                     </Text>
                   </div>
-                  <div style={{ textAlign: "center" }}>
+                  <div style={{ textAlign: "center", padding: '20px' }}>
                     <button
                       className='PriceButton'
                       onClick={this.openModal}
                       name='premium 30000'
                     >
-                      {this.state.free}
+                      {this.state.premium}
                     </button>
                   </div>
-                  <div class='CardContent'>
+                  <div className='CardContent'>
                     <p>✔ 장르 선택 및 주인공 입력 가능</p>
                     <p>✔ 장소, 시간, 주제, 사건 입력 가능</p>
                     <p>✔ 이어쓰기 2-3회 제공</p>
@@ -335,7 +311,7 @@ class Membership extends Component {
                     <p>✔ 이야기 7개 이상 창작 가능</p>
                     <p>(이야기 한개당 최대 길이 a4 2장)</p>
                   </div>
-                </Grid>
+                
               </Card>
             </Grid>
           </Box>
@@ -343,11 +319,12 @@ class Membership extends Component {
           <Modal
             open={this.state.showMenu}
             close={this.closeModal}
-            title='Price'
+            title='Payment'
           >
             {localStorage.getItem("isBill") !== "true" ? (
-              <div class='creditCard'>
-                <CreditCardInput
+            <>
+              <div className='creditCard'>
+                <CreditCardInput  
                   cardNumberInputProps={{
                     value: this.state.cardNum,
                     onChange: this.handleChange,
@@ -364,33 +341,17 @@ class Membership extends Component {
                     name: "cardCvc",
                   }}
                   fieldClassName='input'
+
+                  containerStyle={{
+                    borderBottom: '1px solid #ededed'
+                  }}
                 />
-                <div class='creditCardDiv'>
-                  <span>비밀번호</span>
+              </div>
+              
+                <div className='ElementBox'>
+                  <p>이름</p>
                   <input
-                    class='creditCardPwd'
-                    value={this.state.cardPwd}
-                    onChange={this.handleNumber}
-                    name='cardPwd'
-                    maxLength='2'
-                  ></input>
-                  <span>**</span>
-                </div>
-                <div class='creditCardDiv'>
-                  <span>주민번호</span>
-                  <input
-                    class='creditCardPwd'
-                    value={this.state.idNum}
-                    onChange={this.handleNumber}
-                    name='idNum'
-                    maxLength='6'
-                  ></input>
-                  <span>-*******</span>
-                </div>
-                <div class='creditCardDiv'>
-                  <span>이름</span>
-                  <input
-                    class='creditCardPwd'
+                    className='LabelElement'
                     value={this.state.buyerName}
                     onChange={this.handleChange}
                     name='buyerName'
@@ -398,16 +359,42 @@ class Membership extends Component {
                   ></input>
                 </div>
 
-                <a class='creditCardButton' onClick={this.requestBill}>
+                <div className='ElementBox'>
+                  <p>비밀번호</p>
+                  <input
+                    className='PwElement'
+                    value={this.state.cardPwd}
+                    onChange={this.handleNumber}
+                    name='cardPwd'
+                    maxLength='2'
+                  ></input>
+                  <span>**</span>
+                </div>
+              
+              <div className='ElementBox'>
+                <p>주민번호</p>
+                <input
+                  className='BuyerElement'
+                  value={this.state.idNum}
+                  onChange={this.handleNumber}
+                  name='idNum'
+                  maxLength='6'
+                ></input>
+                <span>-*******</span>
+              </div>
+
+              <div style={payButton}>
+                <button className='creditCardButton' onClick={this.requestBill}>
                   {this.state.Price}원 결제하기
-                </a>
+                </button>
               </div>
+            </>  
             ) : (
-              <div class='creditCard'>
-                <a class='changeButton' onClick={this.changeBill}>
+              <div style={payButton}>
+              <button className='changeButton' onClick={this.changeBill}>
                   플랜 바꾸기
-                </a>
-              </div>
+              </button>
+            </div>
             )}
           </Modal>
 
@@ -439,3 +426,9 @@ const Card = styled.div`
   border-radius: 15px;
   /* border : 1px solid #ededed; */
 `;
+
+const payButton = {
+  padding: '10px 0',
+  borderTop: '1px solid #ededed',
+  textAlign:'center'
+}
