@@ -71,25 +71,38 @@ header{
 
   border:0;
   border-radius: 8px;
-
+  cursor: pointer;
 }
 
 .googleButton {
   background: #fff;
+  transition: all 0.5s ease-in-out;
 }
 
 .googleButton > svg {
   background-color: #fff;
   margin-right: 7px;
+  transition: all 0.5s ease-in-out;
+}
+
+.googleButton:hover, .googleButton:hover > svg {
+  background-color: #eee;
 }
 
 .facebookButton {
   background-color: #3C5997;
   color: #fff;
+  transition: all 0.5s ease-in-out;
 }
 
 .facebookButton >svg {
   margin-right : 7px;
+  background-color: #fff;
+  transition: all 0.5s ease-in-out;
+}
+
+.facebookButton:hover, .facebookButton >svg:hover {
+  background-color: #2B3F6B;
 }
 
 @media (max-width: 700px) {

@@ -11,7 +11,7 @@ import * as config from "../config";
 import Modal from "./Modal";
 //import { GoogleLogin } from 'react-google-login';
 import { Header as HeaderLayout, Nav, Anchor, Button, Avatar } from 'grommet';
-import {Google , Facebook} from 'grommet-icons';
+import {Google , FacebookOption} from 'grommet-icons';
 
 
 
@@ -226,7 +226,7 @@ class Header extends Component {
               onClick={this.signIn}
               className="facebookButton"
             >
-              <Facebook color="plain" size="medium"/> Sign in with Facebook
+              <FacebookOption color="plain" size="medium"/> Sign in with Facebook
             </button>
             </div>
             </div>
