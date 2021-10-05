@@ -64,7 +64,7 @@ const ModalHeader = styled.div`
     padding: 10px 20px;
     font-weight: 700;
     color: #ffffff;
-    border-bottom : 1px solid #ededed;
+    // border-bottom : 1px solid #ededed;
 `
 
 const Button = styled.button`
@@ -74,13 +74,14 @@ const Button = styled.button`
   border: 0;
 `
 const ModalMain = styled.div`
-    padding: 16px;
+    padding: 16px 20px;
     border-bottom: 1px solid #ffffff;
     border-top: 1px solid #ffffff;
         
     > h3 {
         text-align: center;
         color : #090909;
-        padding: 10px 0 15px 0;
+        padding-bottom: 25px;
+        // padding: 10px 0 15px 0;
     }
 `

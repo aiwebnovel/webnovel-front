@@ -342,6 +342,9 @@ class Membership extends Component {
                   }}
                   fieldClassName='input'
 
+                  fieldStyle= {{
+                    width:'100%',
+                  }}
                   containerStyle={{
                     borderBottom: '1px solid #ededed'
                   }}
@@ -368,7 +371,7 @@ class Membership extends Component {
                     name='cardPwd'
                     maxLength='2'
                   ></input>
-                  <span>**</span>
+                  <span><b>**</b></span>
                 </div>
               
               <div className='ElementBox'>
@@ -380,12 +383,14 @@ class Membership extends Component {
                   name='idNum'
                   maxLength='6'
                 ></input>
-                <span> - *******</span>
+                <span> - <b>*******</b></span>
               </div>
-
+              <div className="PriceBox">
+                <p>₩{this.state.Price}</p>
+              </div>
               <div style={payButton}>
                 <button className='creditCardButton' onClick={this.requestBill}>
-                  {this.state.Price}원 결제하기
+                결제하기
                 </button>
               </div>
             </>  
@@ -428,7 +433,7 @@ const Card = styled.div`
 `;
 
 const payButton = {
-  borderTop: '1px solid #ededed',
+
   textAlign:'center',
   paddingTop: '15px'
 }
