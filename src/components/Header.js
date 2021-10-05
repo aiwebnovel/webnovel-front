@@ -7,11 +7,11 @@ import ProgressBar from "@ramonak/react-progress-bar";
 import "../style/Header.css";
 import usericon from "../public/user.png";
 import facebookicon from "../public/facebook.png";
-import googleicon from "../public/google.png";
 import * as config from "../config";
 import Modal from "./Modal";
 //import { GoogleLogin } from 'react-google-login';
 import { Header as HeaderLayout, Nav, Anchor, Button, Avatar } from 'grommet';
+import {Google , Facebook} from 'grommet-icons';
 
 
 
@@ -212,22 +212,24 @@ class Header extends Component {
             close={this.closeModal}
             title="Login"
           >
-            <button onClick={this.signIn} className="loginModal">
-              <img
-                src={googleicon}
-                onClick={this.signIn}
-                name="Google"
-                className="google"
-              />
+            <div className="AvatarBox">
+              <img src={usericon} alt="singinUser" className="loginAvatar"/>
+            </div>
+            <div class="signBox">
+            <button onClick={this.signIn} className="googleButton">
+              <Google color="plain" size="medium" /> Sign in with Google
             </button>
             <br />
+            
+            <div className="AvatarBox">
             <button
               onClick={this.signIn}
-              onClick={this.signIn}
-              className="loginModal"
+              className="facebookButton"
             >
-              <img src={facebookicon} name="Facebook" className="facebook" />
+              <Facebook color="plain" size="medium"/> Sign in with Facebook
             </button>
+            </div>
+            </div>
           </Modal>
 
           {this.state.showMenu ? (
