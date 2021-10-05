@@ -10,10 +10,16 @@ import usericon from "../public/user.png";
 import * as config from "../config";
 import Modal from "./Modal";
 //import { GoogleLogin } from 'react-google-login';
-import { Header as HeaderLayout, Nav, Anchor, Button, Avatar } from 'grommet';
-import {Google , FacebookOption  } from 'grommet-icons';
-
-
+import {
+  Header as HeaderLayout,
+  Nav,
+  Anchor,
+  Button,
+  Avatar,
+  ResponsiveContext,
+  Box,
+} from "grommet";
+import { Google, FacebookOption, Menu } from "grommet-icons";
 
 class Header extends Component {
   constructor(props) {
@@ -27,7 +33,8 @@ class Header extends Component {
       priceModalOpen: false,
       loginModalOpen: false,
       user: false,
-      isChecked:true,
+      isChecked: false,
+      isOpen: false,
     };
     this.showMenu = this.showMenu.bind(this);
     this.closeMenu = this.closeMenu.bind(this);
@@ -36,12 +43,18 @@ class Header extends Component {
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.isChecked = this.isChecked.bind(this);
+    this.isOpen = this.isOpen.bind(this);
   }
 
   isChecked = () => {
-    this.setState({isChecked: !this.state.isChecked} )
+    this.setState({ isChecked: !this.state.isChecked });
     console.log(this.state.isChecked);
-  }
+  };
+
+  isOpen = () => {
+    this.setState({ isOpen: !this.state.isOpen });
+    console.log(this.state.isOpen);
+  };
 
   openModal = (event) => {
     this.setState({ [event.target.name]: true });
@@ -127,152 +140,207 @@ class Header extends Component {
   }
 
   async signIn(event) {
-    const {
-      target: { name },
-    } = event;
-    let provider = new firebaseInstance.auth.GoogleAuthProvider();
-    if (name === "Facebook") {
-      provider = new firebaseInstance.auth.FacebookAuthProvider();
-    } else if (name === "Google") {
-      provider = new firebaseInstance.auth.GoogleAuthProvider();
-    }
+    if (this.state.isChecked == true) {
+      const {
+        target: { name },
+      } = event;
+      let provider = new firebaseInstance.auth.GoogleAuthProvider();
+      if (name === "Facebook") {
+        provider = new firebaseInstance.auth.FacebookAuthProvider();
+      } else if (name === "Google") {
+        provider = new firebaseInstance.auth.GoogleAuthProvider();
+      }
 
-    await authService
-      .signInWithPopup(provider)
-      .then(async (result) => {
-        /** @type {firebase.auth.OAuthCredential} */
-        let credential = result.credential;
-        let user = result.user;
-        //console.log(credential);
-        //console.log(user.za);
-        //console.log(credential.idToken);
-        await localStorage.setItem("token", user.za);
-        this.setState({ user: true });
-        toast(
-          `Thank you for visiting our site. The service is currently awaiting approval. I'll let you know as soon as it starts.`,
-          {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          }
-        );
-        this.requestProfile();
-      })
-      .catch((error) => {
-        let errorCode = error.code;
-        let errorMessage = error.message;
-        let email = error.email;
-        let credential = error.credential;
-      });
+      await authService
+        .signInWithPopup(provider)
+        .then(async (result) => {
+          /** @type {firebase.auth.OAuthCredential} */
+          let credential = result.credential;
+          let user = result.user;
+          //console.log(credential);
+          //console.log(user.za);
+          //console.log(credential.idToken);
+          await localStorage.setItem("token", user.za);
+          this.setState({ user: true });
+          toast(
+            `Thank you for visiting our site. The service is currently awaiting approval. I'll let you know as soon as it starts.`,
+            {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            }
+          );
+          this.requestProfile();
+        })
+        .catch((error) => {
+          let errorCode = error.code;
+          let errorMessage = error.message;
+          let email = error.email;
+          let credential = error.credential;
+        });
+    } else {
+      alert("이용약관 및 개인정보처리방침에 동의해주세요!");
+    }
   }
 
   render() {
     return (
       <>
-      <HeaderLayout background="#fff" className="header">
-        <Link to="/" className="logo">
-          <img src="/logo.png" alt="logo"/>
-        </Link>
-        <Nav direction="row" className="Menu">
-          <Anchor
-            color="#3b2479"
-            label="Membership"
-            href="/membership"
-          >
-          {/* <Link to="/membership">
-            <span className="links">membership</span>
-          </Link> */}
-          </Anchor>
+        <HeaderLayout background='#fff' className='header'>
+          <Link to='/' className='logo'>
+            <img src='/logo.png' alt='logo' />
+          </Link>
+          <ResponsiveContext.Consumer>
+            {(size) =>
+              size === "small" ? (
+                <Nav>
+                  <Anchor>
+                    <Menu color='brand' size='medium' onClick={this.isOpen} />
+                  </Anchor>
+                </Nav>
+              ) : (
+                <Nav direction='row' className='Menu'>
+                  <Anchor
+                    color='#3b2479'
+                    label='Membership'
+                    href='/membership'
+                  ></Anchor>
 
-          {localStorage.getItem("token") ? (
-            <Anchor 
-            className="profile" 
-            onClick={this.showMenu}>
-                <Avatar 
-                src={this.state.userImage} 
-                className="profileicon"
-                style={{width: '40px',height:'40px'}}
+                  {localStorage.getItem("token") ? (
+                    <Anchor className='profile' onClick={this.showMenu}>
+                      <Avatar
+                        src={this.state.userImage}
+                        className='profileicon'
+                        style={{ width: "40px", height: "40px" }}
+                      />
+                    </Anchor>
+                  ) : (
+                    <Button
+                      label='Login'
+                      className='login'
+                      onClick={this.openModal}
+                      name='loginModalOpen'
+                      primary
+                    />
+                  )}
+                </Nav>
+              )
+            }
+          </ResponsiveContext.Consumer>
+        </HeaderLayout>
+
+        <Modal
+          open={this.state.loginModalOpen}
+          close={this.closeModal}
+          title='Login'
+        >
+          <div className='AvatarBox'>
+            <img src={usericon} alt='singinUser' className='loginAvatar' />
+          </div>
+
+          <div className='signBox'>
+            <button onClick={this.signIn} className='googleButton'>
+              <Google color='plain' size='medium' /> Sign in with Google
+            </button>
+
+            <div className='signBox'>
+              <button onClick={this.signIn} className='facebookButton'>
+                <FacebookOption color='plain' size='medium' /> Sign in with
+                Facebook
+              </button>
+            </div>
+            <div className='isChecked'>
+              <input
+                type='checkbox'
+                name='agree'
+                value={this.state.isChecked}
+                onClick={this.isChecked}
+                style={{ width: "18px", height: "18px", marginRight: "5px" }}
+              />
+              <a
+                href='https://appplatform.notion.site/8be8232fff0341799cf8c13728610b6b'
+                target='_blank'
+                rel='noreferrer'
+              >
+                이용약관
+              </a>
+              과 &nbsp;
+              <a
+                href='https://www.notion.so/appplatform/d99f247a66d141bbbdf227739861a0a2'
+                target='_blank'
+                rel='noreferrer'
+              >
+                개인정보처리방침
+              </a>
+              에&nbsp;동의합니다.
+            </div>
+          </div>
+        </Modal>
+
+        {this.state.showMenu ? (
+          <div
+            ref={(element) => {
+              this.dropdownMenu = element;
+            }}
+          >
+            <div className='afterLogin'>
+              <div className='Username'>
+                <p>{this.state.userName}</p>
+              </div>
+              <div className='token'>
+                <ProgressBar
+                  completed={this.state.userTokenP}
+                  height='8px'
+                  isLabelVisible={false}
+                  bgColor='#7D4CDB'
+                  margin='5px 0'
                 />
-            </Anchor>
-          ) : (
-
-            <Button
-              label="Login"
-              className="login"
-              onClick={this.openModal}
-              name="loginModalOpen"
-              primary
-            />
-          )}
-          </Nav>
-      </HeaderLayout>
-      <Modal
-            open={this.state.loginModalOpen}
-            close={this.closeModal}
-            title="Login"
-          >
-            <div className="AvatarBox">
-              <img src={usericon} alt="singinUser" className="loginAvatar"/>
-            </div>
-
-            <div className="signBox">
-            <button onClick={this.signIn} className="googleButton">
-              <Google color="plain" size="medium" /> Sign in with Google
-            </button>
-
-            <div className="signBox">
-            <button
-              onClick={this.signIn}
-              className="facebookButton"
-            >
-              <FacebookOption color="plain" size="medium"/> Sign in with Facebook
-            </button>
-            </div>
-            <div className="isChecked" >
-              <input type="checkbox" name="agree" value={this.state.isChecked} onClick={this.isChecked} style={{width:'18px',height:'18px', marginRight:'5px'}}/><a href="https://appplatform.notion.site/8be8232fff0341799cf8c13728610b6b" target="_blank" rel="noreferrer" >이용약관</a>과 &nbsp;<a href="https://www.notion.so/appplatform/d99f247a66d141bbbdf227739861a0a2" target="_blank" rel="noreferrer" >개인정보처리방침</a>에&nbsp;동의합니다.</div>
-            </div>
-          </Modal>
-
-          {this.state.showMenu ? (
-            <div
-              ref={(element) => {
-                this.dropdownMenu = element;
-              }}
-            >
-              <div className="afterLogin">
-                <div className="Username">
-                  <p>{this.state.userName}</p>
-                </div>
-                <div className="token">
-                  <ProgressBar
-                    completed={this.state.userTokenP}
-                    height="8px"
-                    isLabelVisible={false}
-                    bgColor="#7D4CDB"
-                    margin="5px 0"
-                  />
-                  <span>{this.state.userToken} token</span>
-                  <p>{localStorage.getItem("plan")}</p>
-                </div>
-                <div className="logout">
-                <Button 
-                primary
-                label="logout"
-                onClick={this.signOut}
-                >
-                </Button>
-                </div>
+                <span>{this.state.userToken} token</span>
+                <p>{localStorage.getItem("plan")}</p>
+              </div>
+              <div className='logout'>
+                <Button primary label='logout' onClick={this.signOut}></Button>
               </div>
             </div>
-          ) : null}
-      
+          </div>
+        ) : null}
+
+    <ResponsiveContext.Consumer>
+      {(size) => size === 'small' && this.state.isOpen && (
+          <Nav direction='column' className='MobileMenu'>
+            <Anchor
+              color='#3b2479'
+              label='Membership'
+              href='/membership'
+            ></Anchor>
+            {localStorage.getItem("token") ? (
+              <Anchor className='profile' onClick={this.showMenu}>
+                <Avatar
+                  src={this.state.userImage}
+                  className='profileicon'
+                  style={{ width: "40px", height: "40px" }}
+                />
+              </Anchor>
+            ) : (
+              <Button
+                style={mobileButton}
+                label='Login'
+                className='login'
+                onClick={this.openModal}
+                name='loginModalOpen'
+                primary
+              />
+            )}
+          </Nav>
+        )}
+        </ResponsiveContext.Consumer>
 
         <ToastContainer
-          position="top-right"
+          position='top-right'
           autoClose={3000}
           hideProgressBar={false}
           newestOnTop={false}
@@ -288,3 +356,9 @@ class Header extends Component {
 }
 
 export default Header;
+
+
+const mobileButton = {
+  width: '100%',
+  borderRadius: 0
+}
