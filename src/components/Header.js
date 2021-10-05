@@ -6,7 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import ProgressBar from "@ramonak/react-progress-bar";
 import "../style/Header.css";
 import usericon from "../public/user.png";
-import facebookicon from "../public/facebook.png";
+
 import * as config from "../config";
 import Modal from "./Modal";
 //import { GoogleLogin } from 'react-google-login';
@@ -192,11 +192,7 @@ class Header extends Component {
                 />
             </Anchor>
           ) : (
-            // <Anchor
-            //   background="#3b2479"
-            //   color="light-1">
-            //   login
-            // </Anchor>
+
             <Button
               label="Login"
               className="login"
@@ -238,8 +234,8 @@ class Header extends Component {
                 this.dropdownMenu = element;
               }}
             >
-              <div className="dropdown">
-                <div className="name">
+              <div className="afterLogin">
+                <div className="Username">
                   <p>{this.state.userName}</p>
                 </div>
                 <div className="token">
@@ -247,13 +243,21 @@ class Header extends Component {
                     completed={this.state.userTokenP}
                     height="8px"
                     isLabelVisible={false}
+                    bgColor="#7D4CDB"
+                    margin="5px 0"
                   />
                   <span>{this.state.userToken} token</span>
                   <p>{localStorage.getItem("plan")}</p>
                 </div>
-                <button onClick={this.signOut} className="logout">
-                  logout
-                </button>
+                <div className="logout">
+                <Button 
+                primary
+                label="logout"
+                onClick={this.signOut}
+                
+                >
+                </Button>
+                </div>
               </div>
             </div>
           ) : null}
