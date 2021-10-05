@@ -154,7 +154,10 @@ header{
 
 @media (max-width: 768px) {
 
-
+  .MobileMem {
+    padding: 0;
+    padding: 15px 0 10px 0;
+  }
    
   .profile{
     /* background-color: #3b2479; */

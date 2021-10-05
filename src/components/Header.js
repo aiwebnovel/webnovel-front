@@ -311,19 +311,24 @@ class Header extends Component {
 
     <ResponsiveContext.Consumer>
       {(size) => size === 'small' && this.state.isOpen && (
-          <Nav direction='column' className='MobileMenu'>
+          <Nav gap="small" direction='column' className='Menu' justify="center" align="center">
             <Anchor
+              className="MobileMem"
               color='#3b2479'
               label='Membership'
               href='/membership'
             ></Anchor>
             {localStorage.getItem("token") ? (
-              <Anchor className='profile' onClick={this.showMenu}>
-                <Avatar
+              <Anchor 
+              className='profile' 
+              label='My Page'
+              style={MypageButton}
+              onClick={this.showMenu}>
+                {/* <Avatar
                   src={this.state.userImage}
                   className='profileicon'
                   style={{ width: "40px", height: "40px" }}
-                />
+                /> */}
               </Anchor>
             ) : (
               <Button
@@ -360,5 +365,16 @@ export default Header;
 
 const mobileButton = {
   width: '100%',
-  borderRadius: 0
+  borderRadius: 0,
+  padding: '10px 0',
+  
+}
+
+const MypageButton = {
+  backgroundColor:'#3b2479',
+  color: '#fff',
+  width: '100%',
+  borderRadius: 0,
+  padding: '10px 0',
+  textAlign: 'center'
 }
