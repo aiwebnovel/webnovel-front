@@ -66,6 +66,7 @@ header{
 
   width: 100%;
   padding: 15px 0;
+  margin-bottom: 16px;
   font-size: 20px;
   box-shadow: 2px 3px 3px rgb(0, 0, 0, 0.16);
 
@@ -103,6 +104,19 @@ header{
 
 .facebookButton:hover, .facebookButton >svg:hover {
   background-color: #2B3F6B;
+}
+
+.isChecked {
+  font-size: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.isChecked > a {
+  font-size: 15px;
+  font-weight: 600;
 }
 
 

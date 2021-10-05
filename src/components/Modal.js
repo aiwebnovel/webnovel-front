@@ -74,6 +74,7 @@ const Button = styled.button`
   border: 0;
 `
 const ModalMain = styled.div`
+
     padding: 16px 20px;
     border-bottom: 1px solid #ffffff;
     border-top: 1px solid #ffffff;
@@ -83,5 +84,6 @@ const ModalMain = styled.div`
         color : #090909;
         padding-bottom: 25px;
         // padding: 10px 0 15px 0;
+        font-family: 'Noto Sans KR', sans-serif; 
     }
 `

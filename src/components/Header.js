@@ -11,7 +11,7 @@ import * as config from "../config";
 import Modal from "./Modal";
 //import { GoogleLogin } from 'react-google-login';
 import { Header as HeaderLayout, Nav, Anchor, Button, Avatar } from 'grommet';
-import {Google , FacebookOption} from 'grommet-icons';
+import {Google , FacebookOption  } from 'grommet-icons';
 
 
 
@@ -27,6 +27,7 @@ class Header extends Component {
       priceModalOpen: false,
       loginModalOpen: false,
       user: false,
+      isChecked:true,
     };
     this.showMenu = this.showMenu.bind(this);
     this.closeMenu = this.closeMenu.bind(this);
@@ -34,6 +35,12 @@ class Header extends Component {
     this.signIn = this.signIn.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.isChecked = this.isChecked.bind(this);
+  }
+
+  isChecked = () => {
+    this.setState({isChecked: !this.state.isChecked} )
+    console.log(this.state.isChecked);
   }
 
   openModal = (event) => {
@@ -211,13 +218,13 @@ class Header extends Component {
             <div className="AvatarBox">
               <img src={usericon} alt="singinUser" className="loginAvatar"/>
             </div>
-            <div class="signBox">
+
+            <div className="signBox">
             <button onClick={this.signIn} className="googleButton">
               <Google color="plain" size="medium" /> Sign in with Google
             </button>
-            <br />
-            
-            <div className="AvatarBox">
+
+            <div className="signBox">
             <button
               onClick={this.signIn}
               className="facebookButton"
@@ -225,6 +232,8 @@ class Header extends Component {
               <FacebookOption color="plain" size="medium"/> Sign in with Facebook
             </button>
             </div>
+            <div className="isChecked" >
+              <input type="checkbox" name="agree" value={this.state.isChecked} onClick={this.isChecked} style={{width:'18px',height:'18px', marginRight:'5px'}}/><a href="https://appplatform.notion.site/8be8232fff0341799cf8c13728610b6b" target="_blank" rel="noreferrer" >이용약관</a>과 &nbsp;<a href="https://www.notion.so/appplatform/d99f247a66d141bbbdf227739861a0a2" target="_blank" rel="noreferrer" >개인정보처리방침</a>에&nbsp;동의합니다.</div>
             </div>
           </Modal>
 
@@ -254,7 +263,6 @@ class Header extends Component {
                 primary
                 label="logout"
                 onClick={this.signOut}
-                
                 >
                 </Button>
                 </div>
