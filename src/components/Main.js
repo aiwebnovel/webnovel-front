@@ -13,11 +13,10 @@ import styled from "styled-components";
 import { Grid, Box, ResponsiveContext } from "grommet";
 import {
   FormEdit,
-  FormPrevious,
   FormDown,
   FormSubtract,
   Update,
-  Undo,
+  LinkNext,
   Copy,
 } from "grommet-icons";
 
@@ -530,7 +529,9 @@ class Main extends Component {
                       readOnly
                     ></textarea>
                   </div>
-                  <ResetDiv>
+                  <div
+                  className="ButtonDiv"
+                  >
                     <Update
                       size='medium'
                       color='brand'
@@ -544,19 +545,19 @@ class Main extends Component {
                           color='brand'
                           size='medium'
                           className='iconDetail'
-                          onClick={this.resetData}
+                          // onClick={this.resetData}
                         />
                       </div>
                     </CopyToClipboard>
 
-                    <Undo
+                    <LinkNext
                       color='brand'
                       size='medium'
                       className='iconDetail'
                       name='reset'
                       onClick={this.requestcontents}
                     />
-                  </ResetDiv>
+                  </div>
                 </Box>
 
                 <ToastContainer
@@ -700,15 +701,13 @@ class Main extends Component {
                   background='#f9f9f9'
                   justify='center'
                   align='center'
+                
                 >
                   {this.state.loading && (
                     <div className='loading'>
                       <Spinner size='8px' color='#3b2479' />
                     </div>
                   )}
-                  {/* <div className='landing'>
-                AI가 당신의 이야기에 필요한 영감을 제공합니다.
-              </div> */}
                   <div className='outputContainer'>
                     <textarea
                       className='output'
@@ -722,7 +721,7 @@ class Main extends Component {
                       readOnly
                     ></textarea>
                   </div>
-                  <ResetDiv>
+                  <div className="ButtonDiv">
                     <Update
                       size='medium'
                       color='brand'
@@ -741,14 +740,14 @@ class Main extends Component {
                       </div>
                     </CopyToClipboard>
 
-                    <Undo
+                    <LinkNext
                       color='brand'
                       size='medium'
                       className='iconDetail'
                       name='reset'
                       onClick={this.requestcontents}
                     />
-                  </ResetDiv>
+                  </div>
                 </Box>
               </Grid>
             )
@@ -780,9 +779,9 @@ const IconBox = {
   height: "40px",
 };
 
-const ResetDiv = styled.div`
-  display: flex;
-  padding: 20px 10px 0;
-  width: 20%;
-  justify-content: space-around;
-`;
+// const ButtonsDiv = styled.div`
+//   display: flex;
+//   padding: 20px 10px 0;
+//   width: 25%;
+//   justify-content: space-evenly;
+// `;

@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { Component, useContext } from "react";
 import { Link } from "react-router-dom";
 import ReactCodeInput from "react-code-input";
 import axios from "axios";
@@ -12,7 +12,8 @@ import * as config from "../config";
 
 import styled from "styled-components";
 
-import { Box, Grid, Text } from "grommet";
+import { Box, Grid, Text, ResponsiveContext, Card as Cards } from "grommet";
+
 
 class Membership extends Component {
   constructor(props) {
@@ -199,28 +200,42 @@ class Membership extends Component {
     this.setState({ [localStorage.getItem("plan")]: "currunt" });
   }
 
+
   render() {
+    
     return (
       <>
         <Box
           width='100%'
-          height='100vh'
+          height={this.props.sizes !== 'small' ? '100vh' : '100%'}
           background='#f9f9f9'
           direction='column'
           justify='evenly'
           align='center'
+          overflow="scroll"
+          pad="large"
         >
-          <Box justify='center' align='center'>
+          <Box 
+          justify='center' 
+          align='center' 
+          pad="large"
+         
+          >
             <h1 className='MenuMark'>Membership</h1>
             <div className='DecoBox'></div>
           </Box>
-          <Box direction='row-responsive' justify='center' align='center'>
-            <Grid
-              columns={{
+          <Box 
+          className="MobileCardContainer"
+          justify='center'
+          align='center' 
+          direction="row-responsive">
+          <Grid
+              
+              columns={this.props.sizes !== 'small' ? ({
                 count: 3,
                 size: "auto",
-              }}
-              gap='medium'
+              }) : '100%'}
+              gap='small'
             >
               <Card>
                 <div className='CardTitle'>
@@ -433,7 +448,6 @@ const Card = styled.div`
 `;
 
 const payButton = {
-
   textAlign:'center',
   paddingTop: '15px'
 }
