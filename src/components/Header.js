@@ -371,7 +371,8 @@ const mobileButton = {
 }
 
 const MypageButton = {
-  backgroundColor:'#3b2479',
+  // backgroundColor:'#3b2479',
+  backgroundColor:'#7D4CDB',
   color: '#fff',
   width: '100%',
   borderRadius: 0,

@@ -1,7 +1,7 @@
 
 .footer{
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-gap : 10px;
   /* justify-content: center;
   align-items: center; */
@@ -10,10 +10,13 @@
   background-color : '#F2F2F2',
 }
 
+.footerBox {
+  display:flex;
+}
+
 
 .InfoBox {
   font-size : 0.9rem;
-  margin-right: 15px;
   display: flex;
   flex-direction: column;
 }
@@ -35,11 +38,28 @@ a {
   color : #000
 }
 
-.address {
-
+a:hover {
+  font-weight: 600;
 }
+
 
 .footer-logo {
   width: 100px;
   height: 100px;
+}
+
+@media (max-width: 768px)  {
+  .Mobilefooter{
+    flex-direction: column!important;
+    align-items: center!important;
+  }
+
+  .footerBox {
+    width: 100%;
+    justify-content: space-around;
+  }
+
+  .MobileIcon {
+    text-align: center;
+  }
 }
