@@ -166,4 +166,12 @@
   .MobileCardContainer {
     width: 100%;
   }
+
+  #field-wrapper > label > input{
+    font-size : 0.7em;
+  }
+
+  .PriceBox > p {
+    font-size: 0.9em;
+  }
 }

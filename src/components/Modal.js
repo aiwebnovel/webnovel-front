@@ -32,7 +32,7 @@ export default Modal;
 
 const Container = styled.div`
     max-width: 900px;
-    min-width: 400px;
+    // min-width: 250px;
     // max-height: 70%;
     // min-height: 100px;
     margin:0 auto;
