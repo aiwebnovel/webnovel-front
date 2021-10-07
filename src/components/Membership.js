@@ -224,13 +224,13 @@ class Membership extends Component {
             <h1 className='MenuMark'>Membership</h1>
             <div className='DecoBox'></div>
           </Box>
+          
           <Box 
           className="MobileCardContainer"
           justify='center'
           align='center' 
           direction="row-responsive">
           <Grid
-              
               columns={this.props.sizes !== 'small' ? ({
                 count: 3,
                 size: "auto",

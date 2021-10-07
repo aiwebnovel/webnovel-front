@@ -130,10 +130,14 @@
   }
 
   .MobileCardContainer {
-    width: 100%;
+    width: 70%;
     padding: 30px 0;
   }
   
+  .MenuMark {
+    font-size: 25px;
+  }
+
   /* .pricingDiv {
     margin-left: auto;
     margin-right: auto;
@@ -157,4 +161,9 @@
     box-shadow: 0px 0px 10px rgb(0 0 0 / 80%),
       0px 0px 5px rgb(200 200 200 / 30%);
   } */
+}
+@media (max-width: 680px) {
+  .MobileCardContainer {
+    width: 100%;
+  }
 }

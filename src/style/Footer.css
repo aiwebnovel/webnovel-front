@@ -1,32 +1,11 @@
 
-.footer{
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap : 10px;
-  /* justify-content: center;
-  align-items: center; */
-  color: #000;
-  width: 100%;
-  background-color : '#F2F2F2',
-}
-
-.footerBox {
-  display:flex;
-}
-
-
 .InfoBox {
-  font-size : 0.9rem;
   display: flex;
   flex-direction: column;
 }
 
 .InfoBox > p,a {
-  font-size: 0.85rem;
-}
-
-.IconBox {
-  flex-direction: row;
+  font-size: 0.75rem;
 }
 
 .IconBox > svg {
@@ -48,18 +27,33 @@ a:hover {
   height: 100px;
 }
 
-@media (max-width: 768px)  {
-  .Mobilefooter{
+.copyRight {
+  font-size : 0.85rem;
+}
+
+@media screen and (max-width: 680px)  {
+
+  .MobileFooterContainer {
     flex-direction: column!important;
-    align-items: center!important;
   }
 
-  .footerBox {
+  .MobileFooter {
+    align-items: baseline;
     width: 100%;
-    justify-content: space-around;
   }
 
-  .MobileIcon {
-    text-align: center;
+  .footer-logo {
+    display: none;
+  }  
+
+  .MobileCopyRight {
+    flex-direction: column-reverse!important;
   }
+
+  .IconBox > svg{
+    width:20px;
+    height:20px;
+  }
+
+
 }

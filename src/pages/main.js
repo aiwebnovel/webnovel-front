@@ -4,7 +4,6 @@ import Mainapi from '../components/Main.js';
 import Footer from '../components/Footer.js';
 
 
-
 const Main = () => {
 
   return (

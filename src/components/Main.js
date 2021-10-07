@@ -9,7 +9,6 @@ import ProgressBar from "@ramonak/react-progress-bar";
 import "react-toastify/dist/ReactToastify.css";
 import "../style/Main.css";
 
-import styled from "styled-components";
 import { Grid, Box, ResponsiveContext } from "grommet";
 import {
   FormEdit,
@@ -589,6 +588,10 @@ class Main extends Component {
                     background='#fff'
                     width='small'
                     style={MobileSider}
+                    animation={[
+                      { type: "fadeIn", duration: 300 },
+                      {type: "slideDown", size: "small", duration: 300 },
+                    ]}
                   >
                     <div className='SiderBox'>
                       <select
