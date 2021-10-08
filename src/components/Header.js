@@ -140,7 +140,7 @@ class Header extends Component {
   }
 
   async signIn(event) {
-    if (this.state.isChecked == true) {
+    if (this.state.isChecked === true) {
       const {
         target: { name },
       } = event;

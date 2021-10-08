@@ -4,7 +4,7 @@ import { Spinner } from "react-loading-io";
 import { authService, firebaseInstance } from "../public/firebaseConfig";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import * as config from "../config";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import ProgressBar from "@ramonak/react-progress-bar";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -61,19 +61,25 @@ class Main extends Component {
     this.onSelect = this.onSelect.bind(this);
     this.resetData = this.resetData.bind(this);
     this.handleStory = this.handleStory.bind(this);
-    this.onCopied = this.onCopied.bind(this);
+    // this.onCopied = this.onCopied.bind(this);
 
 
 
   }
 
+  NoticeWriteIcon = () => {
+    if(this.state.outputKorean === ""){
+      toast.warning('연필 아이콘을 눌러 키워드를 넣어주세요!');
+    }else {
+      return
+    }
+}
+  
   onCopied = () => {
     if (this.state.outputKorean !== "") {
       this.setState({ copied: true });
     } else {
-      // alert('연필 아이콘을 눌러 글을 만들어주세요!');
-      console.log("tagging");
-      toast.warning('연필 아이콘을 눌러 키워드를 넣어주세요!',{ autoClose:2000});
+      toast.warn("연필 아이콘을 눌러 키워드를 넣어주세요!");
   
     }
   };
@@ -84,22 +90,14 @@ class Main extends Component {
     } else if (e.target.value.length < 10) {
       this.setState({ [e.target.name]: e.target.value });
     } else {
-      toast.error(`🦄 ${e.target.value.length}글자를 넘어갈 수 없어요!`, {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      toast.error(`😭 ${e.target.value.length}글자를 넘어갈 수 없어요!`);
     }
   }
 
   async handleStory(e) {
     this.setState({ outputKorean: e.target.value });
     this.setState({ isChange: true });
-    if (this.state.isHuman == false) {
+    if (this.state.isHuman === false) {
       if (e.target.value.length > 0) {
         this.setState({ Start: "Continue" });
       } else {
@@ -139,15 +137,7 @@ class Main extends Component {
   async requestcontents(e) {
     await this.refreshProfile();
     if (this.state.isHuman == true && this.state.progress < 100) {
-      toast.error(`추가 이야기의 길이가 부족해요ㅠㅠ`, {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      toast.error(`😭 추가 이야기의 길이가 부족해요ㅠㅠ`);
       return;
     } else {
       this.setState({ isHuman: false });
@@ -166,7 +156,7 @@ class Main extends Component {
         story = this.state.outputKorean;
       }
 
-      if (e.target.name == "reset") {
+      if (e.target.name === "reset") {
         //console.log('reset');
         selectOptions = this.state.before_selectOptions;
         Main_character = this.state.before_Main_character;
@@ -184,60 +174,20 @@ class Main extends Component {
         await this.setState({ outputEnglish: story });
       }
 
-      if (Main_character == "") {
-        toast.error(`주인공을 입력해 주세요!`, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+      if (Main_character === "") {
+        toast.error(`주인공을 입력해 주세요!`);
         return;
-      } else if (Place == "") {
-        toast.error(`장소를 입력해 주세요!`, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+      } else if (Place === "") {
+        toast.error(`장소를 입력해 주세요!`);
         return;
-      } else if (Time == "") {
-        toast.error(`시간대를 입력해 주세요!`, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+      } else if (Time === "") {
+        toast.error(`시간대를 입력해 주세요!`);
         return;
-      } else if (Main_Events == "") {
-        toast.error(`주요 사건을 입력해 주세요!`, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+      } else if (Main_Events === "") {
+        toast.error(`주요 사건을 입력해 주세요!`);
         return;
-      } else if (Material == "") {
-        toast.error(`소재를 입력해 주세요!`, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+      } else if (Material === "") {
+        toast.error(`소재를 입력해 주세요!`);
         return;
       }
       this.setState({ loading: true });
@@ -281,31 +231,14 @@ class Main extends Component {
 
           if (response.data[2] >= 2) {
             toast.error(
-              `결과물에 유해한 내용이 포함되어 있어서 표시할 수 없습니다. 입력하신 내용을 수정해서 다시 입력해보세요`,
-              {
-                position: "top-right",
-                autoClose: 4000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              }
-            );
+              `결과물에 유해한 내용이 포함되어 있어서 표시할 수 없습니다. 입력하신 내용을 수정해서 다시 입력해보세요`);
             this.setState({ isHuman: false });
           } else {
-            toast(
-              `이어지는 내용을 100자 이상 쓰면, 이야기를 계속 이어갈 수 있습니다.`,
-              {
-                position: "top-right",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              }
-            );
+            toast.info(
+              `이어지는 내용을 100자 이상 쓰면, 이야기를 계속 이어갈 수 있습니다.`, {
+                style:{backgroundColor:'#fff', color:'#000'},
+                 progressStyle:{backgroundColor:'#7D4CDB'}
+                });
           }
 
           this.setState({ before_selectOptions: selectOptions });
@@ -320,30 +253,17 @@ class Main extends Component {
           //console.log(error);
           if (error.response.status === 412) {
             this.setState({ loading: false });
-            toast.error(`로그인이 필요합니다!`, {
-              position: "top-right",
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
+            toast.info(`로그인이 필요합니다!`, {
+            style:{backgroundColor:'#fff', color:'#000'},
+             progressStyle:{backgroundColor:'#7D4CDB'}
             });
             localStorage.removeItem("token");
           } else {
             if (
               error.response.status === 403 &&
-              error.response.data.errorCode == "001"
+              error.response.data.errorCode === "001"
             ) {
-              toast.error(`이야기의 길이가 너무 길어요ㅠ`, {
-                position: "top-right",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              });
+              toast.error(`이야기의 길이가 너무 길어요ㅠ`);
               this.setState({ loading: false });
             } else {
               this.setState({ loading: false });
@@ -523,13 +443,7 @@ class Main extends Component {
                       className='output'
                       value={this.state.outputKorean}
                       placeholder="write 버튼을 눌러 글을 만들어주세요!"
-                      onClick={()=> {
-                        if(this.state.outputKorean === ""){
-                          toast.warning('연필 아이콘을 눌러 키워드를 넣어주세요!');
-                        }else {
-                          return
-                        }
-                      }}
+                      onClick={this.NoticeWriteIcon}
                       onChange={this.handleStory}
                     ></textarea>
 
@@ -720,6 +634,7 @@ class Main extends Component {
                     <textarea
                       className='output'
                       placeholder="write 버튼을 눌러 글을 만들어주세요!"
+                      onClick={this.NoticeWriteIcon}
                       value={this.state.outputKorean}
                       onChange={this.handleStory}
                     ></textarea>
@@ -752,7 +667,7 @@ class Main extends Component {
                     {this.state.copied ? (
                       <div className='copyStyle'>Copied!</div>
                     ) : null}
-
+                    {/* 이어쓰기 */}
                     <LinkNext
                       color='brand'
                       size='medium'
