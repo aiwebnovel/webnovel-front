@@ -105,6 +105,18 @@ select::-ms-expand {
   justify-content: space-evenly;
 }
 
+.ButtonDiv > svg {
+    cursor: pointer;
+}
+
+.copyStyle {
+  background-color:#7D4CDB;
+  color:#fff;
+  padding: 0 5px;
+  border-radius : 5px;
+  font-size: 0.9em;
+}
+
 
 .iconDetail{
   /* position: absolute;
@@ -128,9 +140,6 @@ select::-ms-expand {
 .followSelector{
   width: 55%;
   height: 5vh;
-  /* right: 0;
-  bottom: 0; */
-  /* position: absolute; */
   border: 0;
   outline: 0;
   border-radius: 1vh;
@@ -152,7 +161,6 @@ select::-ms-expand {
   color: rgb(8, 8, 8);
   border-radius: 0.5vh;
   border: 0;
-  box-shadow: 0px 0px 6px rgba(0,0,0,0.8) ,0px 0px 3px rgba(200,200,200,0.5); 
 }
 
 .next_text{
@@ -161,7 +169,6 @@ select::-ms-expand {
   height: 5vh;
   border-radius: 1vh;
   resize: none;
-  /* box-shadow: 0px 0px 10px rgba(0,0,0,0.8) inset,0px 0px 5px rgba(200,200,200,0.5);  */
   outline: none;
   border: 0;
 }

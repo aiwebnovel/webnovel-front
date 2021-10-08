@@ -27,8 +27,8 @@ class Main extends Component {
     this.state = {
       input: "",
       output: "",
-      outputBeforeTlanslate: "",
-      outputAfterTlanslate: "",
+      outputEnglish: "",
+      outputKorean: "",
       loading: false,
       options: ["판타지", "현판", "무협", "미스터리", "로판"],
       selectOptions: "판타지",
@@ -44,6 +44,7 @@ class Main extends Component {
       isHuman: false,
       isChange: false,
       isSider: false,
+      copied : false,
 
       before_selectOptions: "판타지",
       before_Main_character: "",
@@ -51,7 +52,7 @@ class Main extends Component {
       before_Time: "",
       before_Main_Events: "",
       before_Material: "",
-      before_outputBeforeTlanslate: "",
+      before_outputEnglish: "",
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -59,13 +60,27 @@ class Main extends Component {
     this.onSelect = this.onSelect.bind(this);
     this.resetData = this.resetData.bind(this);
     this.handleStory = this.handleStory.bind(this);
-    this.handleSider = this.handleSider(this);
+    this.onCopied = this.onCopied.bind(this);
   }
 
-  handleSider = () => {
-    this.setState({ isSider: !this.state.isSider });
-    console.log(this.state.isSider);
-  };
+  onCopied = () => {
+      if(this.state.outputKorean !== ""){    
+      this.setState({copied: true})   
+   
+    } else {
+      // alert('연필 아이콘을 눌러 글을 만들어주세요!');
+      toast.warning(`연필 아이콘을 눌러 글을 만들어주세요!`, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  }
+  
 
   handleChange(e) {
     if (e.target.value.length < 20 && e.target.name === "Main_Events") {
@@ -86,7 +101,7 @@ class Main extends Component {
   }
 
   async handleStory(e) {
-    this.setState({ outputAfterTlanslate: e.target.value });
+    this.setState({ outputKorean: e.target.value });
     this.setState({ isChange: true });
     if (this.state.isHuman == false) {
       if (e.target.value.length > 0) {
@@ -98,7 +113,7 @@ class Main extends Component {
       this.setState({ Start: "Need write" });
       const lngDetector = new LanguageDetect();
       const language = await lngDetector.detect(
-        this.state.outputAfterTlanslate,
+        this.state.outputKorean,
         1
       );
 
@@ -109,16 +124,16 @@ class Main extends Component {
       if (language[0] == "english") {
         this.setState({
           progress:
-            ((this.state.outputAfterTlanslate.length - this.state.tempLength) *
+            ((this.state.outputKorean.length - this.state.tempLength) *
               100) /
             150,
         });
-        //console.log((this.state.outputAfterTlanslate.length - this.state.tempLength) * 100 / 150);
+        //console.log((this.state.outputKorean.length - this.state.tempLength) * 100 / 150);
       } else {
-        //console.log((this.state.outputAfterTlanslate.length - this.state.tempLength) * 100 / 100);
+        //console.log((this.state.outputKorean.length - this.state.tempLength) * 100 / 100);
         this.setState({
           progress:
-            ((this.state.outputAfterTlanslate.length - this.state.tempLength) *
+            ((this.state.outputKorean.length - this.state.tempLength) *
               100) /
             100,
         });
@@ -148,7 +163,7 @@ class Main extends Component {
     }
 
     if (localStorage.getItem("token") !== undefined) {
-      let story = this.state.outputBeforeTlanslate;
+      let story = this.state.outputEnglish;
       let selectOptions = this.state.selectOptions;
       let Main_character = this.state.Main_character;
       let Place = this.state.Place;
@@ -157,7 +172,7 @@ class Main extends Component {
       let Material = this.state.Material;
 
       if (this.state.isChange === true) {
-        story = this.state.outputAfterTlanslate;
+        story = this.state.outputKorean;
       }
 
       if (e.target.name == "reset") {
@@ -168,14 +183,14 @@ class Main extends Component {
         Time = this.state.before_Time;
         Main_Events = this.state.before_Main_Events;
         Material = this.state.before_Material;
-        story = this.state.before_outputBeforeTlanslate;
+        story = this.state.before_outputEnglish;
         await this.setState({ selectOptions: selectOptions });
         await this.setState({ Main_character: Main_character });
         await this.setState({ Place: Place });
         await this.setState({ Time: Time });
         await this.setState({ Main_Events: Main_Events });
         await this.setState({ Material: Material });
-        await this.setState({ outputBeforeTlanslate: story });
+        await this.setState({ outputEnglish: story });
       }
 
       if (Main_character == "") {
@@ -256,23 +271,23 @@ class Main extends Component {
         .then((response) => {
           //console.log(response.data);
           this.setState({
-            outputAfterTlanslate:
-              this.state.outputAfterTlanslate + response.data[0],
+            outputKorean:
+              this.state.outputKorean + response.data[0],
           });
           this.setState({
-            outputBeforeTlanslate:
-              this.state.outputBeforeTlanslate + response.data[1],
+            outputEnglish:
+              this.state.outputEnglish + response.data[1],
           });
           this.setState({
             output:
-              this.state.outputAfterTlanslate +
+              this.state.outputKorean +
               "\n\n원본\n" +
-              this.state.outputBeforeTlanslate,
+              this.state.outputEnglish,
           });
           this.setState({ loading: false });
           this.setState({ isChange: false });
-          this.setState({ tempLength: this.state.outputAfterTlanslate.length });
-          this.setState({ tempWrite: this.state.outputAfterTlanslate });
+          this.setState({ tempLength: this.state.outputKorean.length });
+          this.setState({ tempWrite: this.state.outputKorean });
           this.setState({ Start: "Continue" });
           this.setState({ isHuman: true });
           //console.log(response.data.warn);
@@ -312,7 +327,7 @@ class Main extends Component {
           this.setState({ before_Time: Time });
           this.setState({ before_Main_Events: Main_Events });
           this.setState({ before_Material: Material });
-          this.setState({ before_outputBeforeTlanslate: story });
+          this.setState({ before_outputEnglish: story });
         })
         .catch((error) => {
           //console.log(error);
@@ -358,13 +373,14 @@ class Main extends Component {
     this.setState({ next: "" });
     this.setState({ input: "" });
     this.setState({ output: "" });
-    this.setState({ outputBeforeTlanslate: "" });
-    this.setState({ outputAfterTlanslate: "" });
+    this.setState({ outputEnglish: "" });
+    this.setState({ outputKorean: "" });
     this.setState({ Main_character: "" });
     this.setState({ Place: "" });
     this.setState({ Time: "" });
     this.setState({ Main_Events: "" });
     this.setState({ Material: "" });
+    this.setState({copied: false})
   }
 
   async refreshProfile() {
@@ -405,7 +421,7 @@ class Main extends Component {
                   style={IconBox}
                   onClick={() => {
                     this.setState({ isSider: !this.state.isSider });
-                    console.log(this.state.isSider);
+                    
                   }}
                 >
                   <FormEdit
@@ -512,43 +528,46 @@ class Main extends Component {
                       <Spinner size='8px' color='#3b2479' />
                     </div>
                   )}
-                  {/* <div className='landing'>
-                AI가 당신의 이야기에 필요한 영감을 제공합니다.
-              </div> */}
                   <div className='outputContainer'>
                     <textarea
                       className='output'
-                      value={this.state.outputAfterTlanslate}
+                      value={this.state.outputKorean}
                       onChange={this.handleStory}
                     ></textarea>
 
                     <textarea
                       className='output_right'
-                      value={this.state.outputBeforeTlanslate}
+                      value={this.state.outputEnglish}
                       readOnly
                     ></textarea>
                   </div>
+                  
                   <div
                   className="ButtonDiv"
                   >
+                    {/* 리셋 */}
                     <Update
                       size='medium'
                       color='brand'
                       className='iconDetail'
                       onClick={this.resetData}
                     />
-
-                    <CopyToClipboard text={this.state.outputAfterTlanslate}>
-                      <div onClick={this.state.outputAfterTlanslate}>
-                        <Copy
-                          color='brand'
-                          size='medium'
-                          className='iconDetail'
-                          // onClick={this.resetData}
-                        />
-                      </div>
+                    {/* 복사 */}
+                    <CopyToClipboard 
+                    text={this.state.outputKorean}
+                    onCopy={this.onCopied}
+                    >
+                    <Copy
+                      color='brand'
+                      size='medium'
+                      className='iconDetail'
+                    />
                     </CopyToClipboard>
-
+                    {this.state.copied ? 
+                    <div className="copyStyle">Copied!</div> : null
+                   }
+                   
+                    {/* 이어쓰기 */}
                     <LinkNext
                       color='brand'
                       size='medium'
@@ -561,12 +580,13 @@ class Main extends Component {
 
                 <ToastContainer
                   position='top-right'
-                  autoClose={3000}
+                  autoClose={2000}
                   hideProgressBar={false}
                   newestOnTop={false}
                   closeOnClick
                   rtl={false}
                   pauseOnFocusLoss={false}
+                  style={{fontSize : '0.9em'}}
                   draggable
                   pauseOnHover
                 />
@@ -714,13 +734,13 @@ class Main extends Component {
                   <div className='outputContainer'>
                     <textarea
                       className='output'
-                      value={this.state.outputAfterTlanslate}
+                      value={this.state.outputKorean}
                       onChange={this.handleStory}
                     ></textarea>
 
                     <textarea
                       className='output_right'
-                      value={this.state.outputBeforeTlanslate}
+                      value={this.state.outputEnglish}
                       readOnly
                     ></textarea>
                   </div>
@@ -732,17 +752,21 @@ class Main extends Component {
                       onClick={this.resetData}
                     />
 
-                    <CopyToClipboard text={this.state.outputAfterTlanslate}>
-                      <div onClick={this.state.outputAfterTlanslate}>
-                        <Copy
-                          color='brand'
-                          size='medium'
-                          className='iconDetail'
-                          onClick={this.resetData}
-                        />
-                      </div>
+                  {/* 복사 */}
+                  <CopyToClipboard 
+                    text={this.state.outputKorean}
+                    onCopy={this.onCopied}
+                    >
+                    <Copy
+                      color='brand'
+                      size='medium'
+                      className='iconDetail'
+                    />
                     </CopyToClipboard>
-
+                    {this.state.copied ? 
+                    <div className="copyStyle">Copied!</div> : null
+                   }
+                   
                     <LinkNext
                       color='brand'
                       size='medium'
@@ -781,10 +805,3 @@ const IconBox = {
   padding: "10px",
   height: "40px",
 };
-
-// const ButtonsDiv = styled.div`
-//   display: flex;
-//   padding: 20px 10px 0;
-//   width: 25%;
-//   justify-content: space-evenly;
-// `;
