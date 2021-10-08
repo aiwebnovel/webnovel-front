@@ -95,12 +95,12 @@ select::-ms-expand {
   background-color: #ffff;
   box-shadow: 1px 1px 2px rgb(0 0 0 / 25%);
   padding: 15px;
-  font-size : 1.3rem;
+  font-size : 1.1rem;
 }
 
 .ButtonDiv {
   display: flex;
-  padding: 20px 10px 0;
+  padding: 20px 10px;
   width: 25%;
   justify-content: space-evenly;
 }
@@ -214,6 +214,7 @@ select::-ms-expand {
 
   .output, .output_right {
     width: 70%;
+    font-size: 0.95rem;
   }
 
   .output {

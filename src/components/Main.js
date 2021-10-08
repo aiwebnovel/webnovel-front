@@ -7,6 +7,7 @@ import * as config from "../config";
 import { ToastContainer, toast } from "react-toastify";
 import ProgressBar from "@ramonak/react-progress-bar";
 import "react-toastify/dist/ReactToastify.css";
+
 import "../style/Main.css";
 
 import { Grid, Box, ResponsiveContext } from "grommet";
@@ -44,7 +45,7 @@ class Main extends Component {
       isHuman: false,
       isChange: false,
       isSider: false,
-      copied : false,
+      copied: false,
 
       before_selectOptions: "판타지",
       before_Main_character: "",
@@ -61,26 +62,29 @@ class Main extends Component {
     this.resetData = this.resetData.bind(this);
     this.handleStory = this.handleStory.bind(this);
     this.onCopied = this.onCopied.bind(this);
+
+
+
   }
 
   onCopied = () => {
-      if(this.state.outputKorean !== ""){    
-      this.setState({copied: true})   
-   
+    if (this.state.outputKorean !== "") {
+      this.setState({ copied: true });
     } else {
       // alert('연필 아이콘을 눌러 글을 만들어주세요!');
-      toast.warning(`연필 아이콘을 눌러 글을 만들어주세요!`, {
+      console.log("tagging");
+      toast.warn('연필 아이콘을 눌러 키워드를 넣어주세요!', {
         position: "top-right",
-        autoClose: 2000,
+        autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
+        pauseOnHover: false,
+        draggable: false,
         progress: undefined,
-      });
-    }
-  }
+        });
   
+    }
+  };
 
   handleChange(e) {
     if (e.target.value.length < 20 && e.target.name === "Main_Events") {
@@ -112,10 +116,7 @@ class Main extends Component {
     } else {
       this.setState({ Start: "Need write" });
       const lngDetector = new LanguageDetect();
-      const language = await lngDetector.detect(
-        this.state.outputKorean,
-        1
-      );
+      const language = await lngDetector.detect(this.state.outputKorean, 1);
 
       if (this.state.progress >= 100) {
         this.setState({ Start: "Continue" });
@@ -124,8 +125,7 @@ class Main extends Component {
       if (language[0] == "english") {
         this.setState({
           progress:
-            ((this.state.outputKorean.length - this.state.tempLength) *
-              100) /
+            ((this.state.outputKorean.length - this.state.tempLength) * 100) /
             150,
         });
         //console.log((this.state.outputKorean.length - this.state.tempLength) * 100 / 150);
@@ -133,8 +133,7 @@ class Main extends Component {
         //console.log((this.state.outputKorean.length - this.state.tempLength) * 100 / 100);
         this.setState({
           progress:
-            ((this.state.outputKorean.length - this.state.tempLength) *
-              100) /
+            ((this.state.outputKorean.length - this.state.tempLength) * 100) /
             100,
         });
       }
@@ -271,18 +270,14 @@ class Main extends Component {
         .then((response) => {
           //console.log(response.data);
           this.setState({
-            outputKorean:
-              this.state.outputKorean + response.data[0],
+            outputKorean: this.state.outputKorean + response.data[0],
           });
           this.setState({
-            outputEnglish:
-              this.state.outputEnglish + response.data[1],
+            outputEnglish: this.state.outputEnglish + response.data[1],
           });
           this.setState({
             output:
-              this.state.outputKorean +
-              "\n\n원본\n" +
-              this.state.outputEnglish,
+              this.state.outputKorean + "\n\n원본\n" + this.state.outputEnglish,
           });
           this.setState({ loading: false });
           this.setState({ isChange: false });
@@ -380,7 +375,7 @@ class Main extends Component {
     this.setState({ Time: "" });
     this.setState({ Main_Events: "" });
     this.setState({ Material: "" });
-    this.setState({copied: false})
+    this.setState({ copied: false });
   }
 
   async refreshProfile() {
@@ -401,8 +396,10 @@ class Main extends Component {
   async copyContents() {
     document.execCommand("copy");
   }
+
   render() {
-    return (
+    return (   
+    <>
       <div className='mainpage'>
         <ResponsiveContext.Consumer>
           {(size) =>
@@ -421,7 +418,6 @@ class Main extends Component {
                   style={IconBox}
                   onClick={() => {
                     this.setState({ isSider: !this.state.isSider });
-                    
                   }}
                 >
                   <FormEdit
@@ -429,6 +425,7 @@ class Main extends Component {
                     size='medium'
                     style={{ cursor: "pointer" }}
                   />
+                  <p><b>Write</b></p>
                 </div>
                 {this.state.isSider && (
                   <Box
@@ -515,6 +512,7 @@ class Main extends Component {
                         />
                       </div>
                     </div>
+                    
                   </Box>
                 )}
                 <Box
@@ -532,6 +530,13 @@ class Main extends Component {
                     <textarea
                       className='output'
                       value={this.state.outputKorean}
+                      onClick={()=> {
+                        if(this.state.outputKorean === ""){
+                          toast.warning('연필 아이콘을 눌러 키워드를 넣어주세요!');
+                        }else {
+                          return
+                        }
+                      }}
                       onChange={this.handleStory}
                     ></textarea>
 
@@ -541,10 +546,8 @@ class Main extends Component {
                       readOnly
                     ></textarea>
                   </div>
-                  
-                  <div
-                  className="ButtonDiv"
-                  >
+
+                  <div className='ButtonDiv'>
                     {/* 리셋 */}
                     <Update
                       size='medium'
@@ -553,20 +556,20 @@ class Main extends Component {
                       onClick={this.resetData}
                     />
                     {/* 복사 */}
-                    <CopyToClipboard 
-                    text={this.state.outputKorean}
-                    onCopy={this.onCopied}
+                    <CopyToClipboard
+                      text={this.state.outputKorean}
+                      onCopy={this.onCopied}
                     >
-                    <Copy
-                      color='brand'
-                      size='medium'
-                      className='iconDetail'
-                    />
+                      <Copy
+                        color='brand'
+                        size='medium'
+                        className='iconDetail'
+                      />
                     </CopyToClipboard>
-                    {this.state.copied ? 
-                    <div className="copyStyle">Copied!</div> : null
-                   }
-                   
+                    {this.state.copied ? (
+                      <div className='copyStyle'>Copied!</div>
+                    ) : null}
+
                     {/* 이어쓰기 */}
                     <LinkNext
                       color='brand'
@@ -577,19 +580,6 @@ class Main extends Component {
                     />
                   </div>
                 </Box>
-
-                <ToastContainer
-                  position='top-right'
-                  autoClose={2000}
-                  hideProgressBar={false}
-                  newestOnTop={false}
-                  closeOnClick
-                  rtl={false}
-                  pauseOnFocusLoss={false}
-                  style={{fontSize : '0.9em'}}
-                  draggable
-                  pauseOnHover
-                />
               </Grid>
             ) : (
               /* 768px 이하에서 적용 */
@@ -610,7 +600,7 @@ class Main extends Component {
                     style={MobileSider}
                     animation={[
                       { type: "fadeIn", duration: 300 },
-                      {type: "slideDown", size: "small", duration: 300 },
+                      { type: "slideDown", size: "small", duration: 300 },
                     ]}
                   >
                     <div className='SiderBox'>
@@ -709,9 +699,12 @@ class Main extends Component {
                       console.log(this.state.isSider);
                     }}
                   >
-                    <FormEdit color='#fff'
-                    size='medium'
-                    style={{ cursor: "pointer" }}/>
+                    <FormEdit
+                      color='#fff'
+                      size='medium'
+                      style={{ cursor: "pointer" }}
+                    />
+                    <p><b>Write</b></p>
                     <FormDown
                       color='#fff'
                       size='medium'
@@ -724,7 +717,6 @@ class Main extends Component {
                   background='#f9f9f9'
                   justify='center'
                   align='center'
-                
                 >
                   {this.state.loading && (
                     <div className='loading'>
@@ -744,7 +736,7 @@ class Main extends Component {
                       readOnly
                     ></textarea>
                   </div>
-                  <div className="ButtonDiv">
+                  <div className='ButtonDiv'>
                     <Update
                       size='medium'
                       color='brand'
@@ -752,21 +744,21 @@ class Main extends Component {
                       onClick={this.resetData}
                     />
 
-                  {/* 복사 */}
-                  <CopyToClipboard 
-                    text={this.state.outputKorean}
-                    onCopy={this.onCopied}
+                    {/* 복사 */}
+                    <CopyToClipboard
+                      text={this.state.outputKorean}
+                      onCopy={this.onCopied}
                     >
-                    <Copy
-                      color='brand'
-                      size='medium'
-                      className='iconDetail'
-                    />
+                      <Copy
+                        color='brand'
+                        size='medium'
+                        className='iconDetail'
+                      />
                     </CopyToClipboard>
-                    {this.state.copied ? 
-                    <div className="copyStyle">Copied!</div> : null
-                   }
-                   
+                    {this.state.copied ? (
+                      <div className='copyStyle'>Copied!</div>
+                    ) : null}
+
                     <LinkNext
                       color='brand'
                       size='medium'
@@ -781,7 +773,18 @@ class Main extends Component {
           }
         </ResponsiveContext.Consumer>
       </div>
-    );
+      <ToastContainer
+       position="top-right"
+       autoClose={3000}
+       hideProgressBar={false}
+       newestOnTop={false}
+       closeOnClick
+       rtl={false}
+       pauseOnFocusLoss={false}
+       draggable={false}
+       pauseOnHover={false}
+      />
+    </>);
   }
 }
 
@@ -804,4 +807,9 @@ const IconBox = {
   width: "100%",
   padding: "10px",
   height: "40px",
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  fontSize: '0.95rem'
+  
 };
