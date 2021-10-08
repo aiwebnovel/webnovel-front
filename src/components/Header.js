@@ -2,7 +2,7 @@ import { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { authService, firebaseInstance } from "../public/firebaseConfig";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import ProgressBar from "@ramonak/react-progress-bar";
 import "../style/Header.css";
 import usericon from "../public/user.png";
@@ -162,18 +162,8 @@ class Header extends Component {
           //console.log(credential.idToken);
           await localStorage.setItem("token", user.za);
           this.setState({ user: true });
-          toast(
-            `Thank you for visiting our site. The service is currently awaiting approval. I'll let you know as soon as it starts.`,
-            {
-              position: "top-right",
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            }
-          );
+          toast.success(
+            `로그인 되었습니다!`,);
           this.requestProfile();
         })
         .catch((error) => {
@@ -183,7 +173,8 @@ class Header extends Component {
           let credential = error.credential;
         });
     } else {
-      alert("이용약관 및 개인정보처리방침에 동의해주세요!");
+      toast.error('이용약관 및 개인정보처리방침에 동의해주세요!');
+    
     }
   }
 
@@ -344,17 +335,6 @@ class Header extends Component {
         )}
         </ResponsiveContext.Consumer>
 
-        <ToastContainer
-          position='top-right'
-          autoClose={3000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss={false}
-          draggable
-          pauseOnHover
-        />
       </>
     );
   }

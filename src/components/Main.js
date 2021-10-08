@@ -73,15 +73,7 @@ class Main extends Component {
     } else {
       // alert('연필 아이콘을 눌러 글을 만들어주세요!');
       console.log("tagging");
-      toast.warn('연필 아이콘을 눌러 키워드를 넣어주세요!', {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: false,
-        progress: undefined,
-        });
+      toast.warning('연필 아이콘을 눌러 키워드를 넣어주세요!',{ autoClose:2000});
   
     }
   };
@@ -530,6 +522,7 @@ class Main extends Component {
                     <textarea
                       className='output'
                       value={this.state.outputKorean}
+                      placeholder="write 버튼을 눌러 글을 만들어주세요!"
                       onClick={()=> {
                         if(this.state.outputKorean === ""){
                           toast.warning('연필 아이콘을 눌러 키워드를 넣어주세요!');
@@ -726,6 +719,7 @@ class Main extends Component {
                   <div className='outputContainer'>
                     <textarea
                       className='output'
+                      placeholder="write 버튼을 눌러 글을 만들어주세요!"
                       value={this.state.outputKorean}
                       onChange={this.handleStory}
                     ></textarea>
@@ -773,17 +767,6 @@ class Main extends Component {
           }
         </ResponsiveContext.Consumer>
       </div>
-      <ToastContainer
-       position="top-right"
-       autoClose={3000}
-       hideProgressBar={false}
-       newestOnTop={false}
-       closeOnClick
-       rtl={false}
-       pauseOnFocusLoss={false}
-       draggable={false}
-       pauseOnHover={false}
-      />
     </>);
   }
 }
@@ -811,5 +794,4 @@ const IconBox = {
   justifyContent: 'space-between',
   alignItems: 'center',
   fontSize: '0.95rem'
-  
 };
