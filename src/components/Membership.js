@@ -1,10 +1,9 @@
-import { Component, useContext } from "react";
+import { Component} from "react";
 import { Link } from "react-router-dom";
-import ReactCodeInput from "react-code-input";
 import axios from "axios";
 import CreditCardInput from "react-credit-card-input";
 import { authService, firebaseInstance } from "../public/firebaseConfig";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../style/Membership.css";
 import Modal from "./Modal";
@@ -12,7 +11,7 @@ import * as config from "../config";
 
 import styled from "styled-components";
 
-import { Box, Grid, Text, ResponsiveContext, Card as Cards } from "grommet";
+import { Box, Grid, Text } from "grommet";
 
 
 class Membership extends Component {
@@ -65,26 +64,16 @@ class Membership extends Component {
             this.setState({ showMenu: true });
           })
           .catch(async (error) => {
-            toast.error(`로그인이 필요합니다.`, {
-              position: "top-right",
-              autoClose: 3000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            });
+            toast.info(`로그인이 필요합니다!`, {
+              style:{backgroundColor:'#fff', color:'#000'},
+               progressStyle:{backgroundColor:'#7D4CDB'}
+              });
           });
       } else {
-        toast.error(`로그인이 필요합니다.`, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        toast.info(`로그인이 필요합니다!`, {
+          style:{backgroundColor:'#fff', color:'#000'},
+           progressStyle:{backgroundColor:'#7D4CDB'}
+          });
       }
     });
   };
