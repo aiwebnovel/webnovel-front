@@ -206,7 +206,7 @@ select::-ms-expand {
     overflow:hidden;
   }
 
-  .outputContainer {
+  .outputContainer, .loading {
     flex-direction: column;
     align-items: center;
     height: 70vh;
@@ -226,14 +226,8 @@ select::-ms-expand {
     width: 50%;
   }
 
-/* 
-  .loading{
-    position: absolute;
-    z-index: 5;
-    left: 19vw;
-    top: 20vh;
-  }
 
+/* 
   .next_input > span{
     font-size: 0.7rem;
   }

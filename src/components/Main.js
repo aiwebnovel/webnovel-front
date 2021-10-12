@@ -61,26 +61,21 @@ class Main extends Component {
     this.onSelect = this.onSelect.bind(this);
     this.resetData = this.resetData.bind(this);
     this.handleStory = this.handleStory.bind(this);
-    // this.onCopied = this.onCopied.bind(this);
-
-
-
   }
 
   NoticeWriteIcon = () => {
-    if(this.state.outputKorean === ""){
-      toast.warning('연필 아이콘을 눌러 키워드를 넣어주세요!');
-    }else {
-      return
+    if (this.state.outputKorean === "") {
+      toast.warning("연필 아이콘을 눌러 키워드를 넣어주세요!");
+    } else {
+      return;
     }
-}
-  
+  };
+
   onCopied = () => {
     if (this.state.outputKorean !== "") {
       this.setState({ copied: true });
     } else {
       toast.warn("연필 아이콘을 눌러 키워드를 넣어주세요!");
-  
     }
   };
 
@@ -96,6 +91,7 @@ class Main extends Component {
 
   async handleStory(e) {
     this.setState({ outputKorean: e.target.value });
+    console.log9("test", this.state.outputKorean);
     this.setState({ isChange: true });
     if (this.state.isHuman === false) {
       if (e.target.value.length > 0) {
@@ -109,10 +105,11 @@ class Main extends Component {
       const language = await lngDetector.detect(this.state.outputKorean, 1);
 
       if (this.state.progress >= 100) {
-        this.setState({ Start: "Continue" });
+        this.setState({ progress: 0 });
+        this.setState({ Start: "Need write" });
       }
 
-      if (language[0] == "english") {
+      if (language[0] === "english") {
         this.setState({
           progress:
             ((this.state.outputKorean.length - this.state.tempLength) * 100) /
@@ -134,16 +131,32 @@ class Main extends Component {
     this.setState({ selectOptions: e.target.value });
   }
 
+  async refreshProfile() {
+    authService.onAuthStateChanged(async (user) => {
+      if (authService.currentUser) {
+        authService.currentUser
+          .getIdToken()
+          .then(async (data) => {
+            await localStorage.setItem("token", data);
+          })
+          .catch(async (error) => {
+            //console.log(error);
+          });
+      }
+    });
+  }
+
+
   async requestcontents(e) {
     await this.refreshProfile();
-    if (this.state.isHuman == true && this.state.progress < 100) {
+    if (this.state.isHuman === true && this.state.progress < 100) {
       toast.error(`😭 추가 이야기의 길이가 부족해요ㅠㅠ`);
       return;
     } else {
       this.setState({ isHuman: false });
     }
 
-    if (localStorage.getItem("token") !== undefined) {
+    if (localStorage.getItem("token") !== null) {
       let story = this.state.outputEnglish;
       let selectOptions = this.state.selectOptions;
       let Main_character = this.state.Main_character;
@@ -231,14 +244,12 @@ class Main extends Component {
 
           if (response.data[2] >= 2) {
             toast.error(
-              `결과물에 유해한 내용이 포함되어 있어서 표시할 수 없습니다. 입력하신 내용을 수정해서 다시 입력해보세요`);
+              `결과물에 유해한 내용이 포함되어 있어서 표시할 수 없습니다. 입력하신 내용을 수정해서 다시 입력해보세요`
+            );
             this.setState({ isHuman: false });
           } else {
             toast.info(
-              `이어지는 내용을 100자 이상 쓰면, 이야기를 계속 이어갈 수 있습니다.`, {
-                style:{backgroundColor:'#fff', color:'#000'},
-                 progressStyle:{backgroundColor:'#7D4CDB'}
-                });
+              `이어지는 내용을 100자 이상 쓰면, 이야기를 계속 이어갈 수 있습니다.`);
           }
 
           this.setState({ before_selectOptions: selectOptions });
@@ -250,12 +261,12 @@ class Main extends Component {
           this.setState({ before_outputEnglish: story });
         })
         .catch((error) => {
-          //console.log(error);
+         
           if (error.response.status === 412) {
             this.setState({ loading: false });
             toast.info(`로그인이 필요합니다!`, {
-            style:{backgroundColor:'#fff', color:'#000'},
-             progressStyle:{backgroundColor:'#7D4CDB'}
+              icon:'🙅‍♀️',
+              progressStyle: { backgroundColor: "#7D4CDB" },
             });
             localStorage.removeItem("token");
           } else {
@@ -272,7 +283,11 @@ class Main extends Component {
           }
         });
     } else {
-      this.setState({ output: "로그인 후 다시 시도해 주세요!" });
+      toast.info("로그인 후 다시 시도해 주세요!", {
+        icon:'🙅‍♀️',
+        progressStyle: { backgroundColor: "#7D4CDB" }
+      });
+      // this.setState({ output: "로그인 후 다시 시도해 주세요!" });
     }
   }
 
@@ -290,320 +305,32 @@ class Main extends Component {
     this.setState({ copied: false });
   }
 
-  async refreshProfile() {
-    authService.onAuthStateChanged(async (user) => {
-      if (authService.currentUser) {
-        authService.currentUser
-          .getIdToken()
-          .then(async (data) => {
-            await localStorage.setItem("token", data);
-          })
-          .catch(async (error) => {
-            //console.log(error);
-          });
-      }
-    });
-  }
 
   async copyContents() {
     document.execCommand("copy");
   }
 
   render() {
-    return (   
-    <>
-      <div className='mainpage'>
-        <ResponsiveContext.Consumer>
-          {(size) =>
-            size !== "small" ? (
-              /* 768px 초과 크기에서 적용  */
-              <Grid
-                fill
-                rows={["auto", "flex"]}
-                columns={["auto", "flex"]}
-                areas={[
-                  { name: "sidebar", start: [0, 1], end: [0, 1] },
-                  { name: "main", start: [1, 1], end: [1, 1] },
-                ]}
-              >
-                <div
-                  style={IconBox}
-                  onClick={() => {
-                    this.setState({ isSider: !this.state.isSider });
-                  }}
+    return (
+      <>
+        <div className='mainpage'>
+          <ResponsiveContext.Consumer>
+            {(size) =>
+              size !== "small" ? (
+                /* 768px 초과 크기에서 적용  */
+                <Grid
+                  fill
+                  rows={["auto", "flex"]}
+                  columns={["auto", "flex"]}
+                  areas={[
+                    { name: "sidebar", start: [0, 1], end: [0, 1] },
+                    { name: "main", start: [1, 1], end: [1, 1] },
+                  ]}
                 >
-                  <FormEdit
-                    color='#fff'
-                    size='medium'
-                    style={{ cursor: "pointer" }}
-                  />
-                  <p><b>Write</b></p>
-                </div>
-                {this.state.isSider && (
-                  <Box
-                    gridArea='sidebar'
-                    background='#fff'
-                    width='small'
-                    animation={[
-                      { type: "fadeIn", duration: 300 },
-                      { type: "slideRight", size: "xlarge", duration: 150 },
-                    ]}
-                    style={SiderStyle}
-                  >
-                    <div className='SiderBox'>
-                      <select
-                        defaultValue='default'
-                        className='dropdowncategory'
-                        onChange={this.onSelect}
-                      >
-                        <option value='default' disabled className='gradient'>
-                          장르를 선택해주세요! ✔
-                        </option>
-                        <option value={this.state.options[0]}>
-                          {this.state.options[0]}
-                        </option>
-                        <option value={this.state.options[1]}>
-                          {this.state.options[1]}
-                        </option>
-                        <option value={this.state.options[2]}>
-                          {this.state.options[2]}
-                        </option>
-                        <option value={this.state.options[3]}>
-                          {this.state.options[3]}
-                        </option>
-                        <option value={this.state.options[4]}>
-                          {this.state.options[4]}
-                        </option>
-                      </select>
-
-                      <input
-                        className='sub_input_text'
-                        value={this.state.Main_character}
-                        onChange={this.handleChange}
-                        name='Main_character'
-                        placeholder='주요 인물'
-                      ></input>
-                      <input
-                        className='sub_input_text'
-                        value={this.state.Place}
-                        onChange={this.handleChange}
-                        name='Place'
-                        placeholder='장소'
-                      ></input>
-                      <input
-                        className='sub_input_text'
-                        value={this.state.Time}
-                        onChange={this.handleChange}
-                        name='Time'
-                        placeholder='시간'
-                      ></input>
-                      <input
-                        className='sub_input_text'
-                        value={this.state.Material}
-                        onChange={this.handleChange}
-                        name='Material'
-                        placeholder='소재'
-                      ></input>
-                      <input
-                        className='sub_input_text'
-                        value={this.state.Main_Events}
-                        onChange={this.handleChange}
-                        name='Main_Events'
-                        placeholder='주요 사건'
-                      ></input>
-                      <button className='create' onClick={this.requestcontents}>
-                        {this.state.Start}
-                      </button>
-                      <div className='progress'>
-                        <ProgressBar
-                          completed={this.state.progress}
-                          width='200px'
-                          height='8px'
-                          margin='20px 0 0 0 '
-                          isLabelVisible={false}
-                        />
-                      </div>
-                    </div>
-                    
-                  </Box>
-                )}
-                <Box
-                  gridArea='main'
-                  background='#f9f9f9'
-                  justify='center'
-                  align='center'
-                >
-                  {this.state.loading && (
-                    <div className='loading'>
-                      <Spinner size='8px' color='#3b2479' />
-                    </div>
-                  )}
-                  <div className='outputContainer'>
-                    <textarea
-                      className='output'
-                      value={this.state.outputKorean}
-                      placeholder="write 버튼을 눌러 글을 만들어주세요!"
-                      onClick={this.NoticeWriteIcon}
-                      onChange={this.handleStory}
-                    ></textarea>
-
-                    <textarea
-                      className='output_right'
-                      value={this.state.outputEnglish}
-                      readOnly
-                    ></textarea>
-                  </div>
-
-                  <div className='ButtonDiv'>
-                    {/* 리셋 */}
-                    <Update
-                      size='medium'
-                      color='brand'
-                      className='iconDetail'
-                      onClick={this.resetData}
-                    />
-                    {/* 복사 */}
-                    <CopyToClipboard
-                      text={this.state.outputKorean}
-                      onCopy={this.onCopied}
-                    >
-                      <Copy
-                        color='brand'
-                        size='medium'
-                        className='iconDetail'
-                      />
-                    </CopyToClipboard>
-                    {this.state.copied ? (
-                      <div className='copyStyle'>Copied!</div>
-                    ) : null}
-
-                    {/* 이어쓰기 */}
-                    <LinkNext
-                      color='brand'
-                      size='medium'
-                      className='iconDetail'
-                      name='reset'
-                      onClick={this.requestcontents}
-                    />
-                  </div>
-                </Box>
-              </Grid>
-            ) : (
-              /* 768px 이하에서 적용 */
-              <Grid
-                fill
-                rows={["auto", "auto"]}
-                columns={["auto"]}
-                areas={[
-                  { name: "sidebar", start: [0, 0], end: [0, 0] },
-                  { name: "main", start: [0, 1], end: [0, 1] },
-                ]}
-              >
-                {this.state.isSider ? (
-                  <Box
-                    gridArea='sidebar'
-                    background='#fff'
-                    width='small'
-                    style={MobileSider}
-                    animation={[
-                      { type: "fadeIn", duration: 300 },
-                      { type: "slideDown", size: "small", duration: 300 },
-                    ]}
-                  >
-                    <div className='SiderBox'>
-                      <select
-                        defaultValue='default'
-                        className='dropdowncategory'
-                        onChange={this.onSelect}
-                      >
-                        <option value='default' disabled className='gradient'>
-                          장르를 선택해주세요! ✔
-                        </option>
-                        <option value={this.state.options[0]}>
-                          {this.state.options[0]}
-                        </option>
-                        <option value={this.state.options[1]}>
-                          {this.state.options[1]}
-                        </option>
-                        <option value={this.state.options[2]}>
-                          {this.state.options[2]}
-                        </option>
-                        <option value={this.state.options[3]}>
-                          {this.state.options[3]}
-                        </option>
-                        <option value={this.state.options[4]}>
-                          {this.state.options[4]}
-                        </option>
-                      </select>
-
-                      <input
-                        className='sub_input_text'
-                        value={this.state.Main_character}
-                        onChange={this.handleChange}
-                        name='Main_character'
-                        placeholder='주요 인물'
-                      ></input>
-                      <input
-                        className='sub_input_text'
-                        value={this.state.Place}
-                        onChange={this.handleChange}
-                        name='Place'
-                        placeholder='장소'
-                      ></input>
-                      <input
-                        className='sub_input_text'
-                        value={this.state.Time}
-                        onChange={this.handleChange}
-                        name='Time'
-                        placeholder='시간'
-                      ></input>
-                      <input
-                        className='sub_input_text'
-                        value={this.state.Material}
-                        onChange={this.handleChange}
-                        name='Material'
-                        placeholder='소재'
-                      ></input>
-                      <input
-                        className='sub_input_text'
-                        value={this.state.Main_Events}
-                        onChange={this.handleChange}
-                        name='Main_Events'
-                        placeholder='주요 사건'
-                      ></input>
-                      <button className='create' onClick={this.requestcontents}>
-                        {this.state.Start}
-                      </button>
-                      <div className='progress'>
-                        <ProgressBar
-                          completed={this.state.progress}
-                          width='200px'
-                          height='8px'
-                          margin='20px 0 0 0 '
-                          isLabelVisible={false}
-                        />
-                      </div>
-                    </div>
-                    <div
-                      style={IconBox}
-                      onClick={() => {
-                        this.setState({ isSider: !this.state.isSider });
-                        console.log(this.state.isSider);
-                      }}
-                    >
-                      <FormSubtract
-                        color='#fff'
-                        size='medium'
-                        style={{ cursor: "pointer" }}
-                      />
-                    </div>
-                  </Box>
-                ) : (
                   <div
                     style={IconBox}
                     onClick={() => {
                       this.setState({ isSider: !this.state.isSider });
-                      console.log(this.state.isSider);
                     }}
                   >
                     <FormEdit
@@ -611,78 +338,370 @@ class Main extends Component {
                       size='medium'
                       style={{ cursor: "pointer" }}
                     />
-                    <p><b>Write</b></p>
-                    <FormDown
-                      color='#fff'
-                      size='medium'
-                      style={{ cursor: "pointer" }}
-                    />
+                    <p>
+                      <b>Write</b>
+                    </p>
                   </div>
-                )}
-                <Box
-                  gridArea='main'
-                  background='#f9f9f9'
-                  justify='center'
-                  align='center'
-                >
-                  {this.state.loading && (
-                    <div className='loading'>
-                      <Spinner size='8px' color='#3b2479' />
-                    </div>
-                  )}
-                  <div className='outputContainer'>
-                    <textarea
-                      className='output'
-                      placeholder="write 버튼을 눌러 글을 만들어주세요!"
-                      onClick={this.NoticeWriteIcon}
-                      value={this.state.outputKorean}
-                      onChange={this.handleStory}
-                    ></textarea>
-
-                    <textarea
-                      className='output_right'
-                      value={this.state.outputEnglish}
-                      readOnly
-                    ></textarea>
-                  </div>
-                  <div className='ButtonDiv'>
-                    <Update
-                      size='medium'
-                      color='brand'
-                      className='iconDetail'
-                      onClick={this.resetData}
-                    />
-
-                    {/* 복사 */}
-                    <CopyToClipboard
-                      text={this.state.outputKorean}
-                      onCopy={this.onCopied}
+                  {this.state.isSider && (
+                    <Box
+                      gridArea='sidebar'
+                      background='#fff'
+                      width='small'
+                      animation={[
+                        { type: "fadeIn", duration: 300 },
+                        { type: "slideRight", size: "xlarge", duration: 150 },
+                      ]}
+                      style={SiderStyle}
                     >
-                      <Copy
+                      <div className='SiderBox'>
+                        <select
+                          defaultValue='default'
+                          className='dropdowncategory'
+                          onChange={this.onSelect}
+                        >
+                          <option value='default' disabled className='gradient'>
+                            장르를 선택해주세요! ✔
+                          </option>
+                          <option value={this.state.options[0]}>
+                            {this.state.options[0]}
+                          </option>
+                          <option value={this.state.options[1]}>
+                            {this.state.options[1]}
+                          </option>
+                          <option value={this.state.options[2]}>
+                            {this.state.options[2]}
+                          </option>
+                          <option value={this.state.options[3]}>
+                            {this.state.options[3]}
+                          </option>
+                          <option value={this.state.options[4]}>
+                            {this.state.options[4]}
+                          </option>
+                        </select>
+
+                        <input
+                          className='sub_input_text'
+                          value={this.state.Main_character}
+                          onChange={this.handleChange}
+                          name='Main_character'
+                          placeholder='주요 인물'
+                        ></input>
+                        <input
+                          className='sub_input_text'
+                          value={this.state.Place}
+                          onChange={this.handleChange}
+                          name='Place'
+                          placeholder='장소'
+                        ></input>
+                        <input
+                          className='sub_input_text'
+                          value={this.state.Time}
+                          onChange={this.handleChange}
+                          name='Time'
+                          placeholder='시간'
+                        ></input>
+                        <input
+                          className='sub_input_text'
+                          value={this.state.Material}
+                          onChange={this.handleChange}
+                          name='Material'
+                          placeholder='소재'
+                        ></input>
+                        <input
+                          className='sub_input_text'
+                          value={this.state.Main_Events}
+                          onChange={this.handleChange}
+                          name='Main_Events'
+                          placeholder='주요 사건'
+                        ></input>
+                        <button
+                          className='create'
+                          onClick={this.requestcontents}
+                        >
+                          {this.state.Start}
+                        </button>
+                        <div className='progress'>
+                          <ProgressBar
+                            completed={this.state.progress}
+                            bgColor='#3D138D'
+                            width='200px'
+                            height='8px'
+                            margin='20px 0 0 0 '
+                            isLabelVisible={false}
+                          />
+                        </div>
+                      </div>
+                    </Box>
+                  )}
+                  <Box
+                    gridArea='main'
+                    background='#f9f9f9'
+                    justify='center'
+                    align='center'
+                  >
+                    {this.state.loading ? (
+                      <div className='loading'>
+                        <Spinner size={200} color='#3b2479' />
+                      </div>
+                    ):(
+                      <>
+                    <div className='outputContainer'>
+                      <textarea
+                        className='output'
+                        value={this.state.outputKorean}
+                        placeholder='write 버튼을 눌러 글을 만들어주세요!'
+                        onClick={this.NoticeWriteIcon}
+                        onChange={this.handleStory}
+                      ></textarea>
+
+                      <textarea
+                        className='output_right'
+                        value={this.state.outputEnglish}
+                        readOnly
+                      ></textarea>
+                    </div>
+
+                    <div className='ButtonDiv'>
+                      {/* 리셋 */}
+                      <Update
+                        size='medium'
+                        color='brand'
+                        className='iconDetail'
+                        onClick={this.resetData}
+                      />
+                      {/* 복사 */}
+                      <CopyToClipboard
+                        text={this.state.outputKorean}
+                        onCopy={this.onCopied}
+                      >
+                        <Copy
+                          color='brand'
+                          size='medium'
+                          className='iconDetail'
+                        />
+                      </CopyToClipboard>
+                      {this.state.copied ? (
+                        <div className='copyStyle'>Copied!</div>
+                      ) : null}
+
+                      {/* 이어쓰기 */}
+                      <LinkNext
                         color='brand'
                         size='medium'
                         className='iconDetail'
+                        name='reset'
+                        onClick={this.requestcontents}
                       />
-                    </CopyToClipboard>
-                    {this.state.copied ? (
-                      <div className='copyStyle'>Copied!</div>
-                    ) : null}
-                    {/* 이어쓰기 */}
-                    <LinkNext
-                      color='brand'
-                      size='medium'
-                      className='iconDetail'
-                      name='reset'
-                      onClick={this.requestcontents}
-                    />
-                  </div>
-                </Box>
-              </Grid>
-            )
-          }
-        </ResponsiveContext.Consumer>
-      </div>
-    </>);
+                    </div>
+                    </>
+                    )}
+                  </Box>
+                </Grid>
+              ) : (
+                /* 768px 이하에서 적용 */
+                <Grid
+                  fill
+                  rows={["auto", "auto"]}
+                  columns={["auto"]}
+                  areas={[
+                    { name: "sidebar", start: [0, 0], end: [0, 0] },
+                    { name: "main", start: [0, 1], end: [0, 1] },
+                  ]}
+                >
+                  {this.state.isSider ? (
+                    <Box
+                      gridArea='sidebar'
+                      background='#fff'
+                      width='small'
+                      style={MobileSider}
+                      animation={[
+                        { type: "fadeIn", duration: 300 },
+                        { type: "slideDown", size: "small", duration: 300 },
+                      ]}
+                    >
+                      <div className='SiderBox'>
+                        <select
+                          defaultValue='default'
+                          className='dropdowncategory'
+                          onChange={this.onSelect}
+                        >
+                          <option value='default' disabled className='gradient'>
+                            장르를 선택해주세요! ✔
+                          </option>
+                          <option value={this.state.options[0]}>
+                            {this.state.options[0]}
+                          </option>
+                          <option value={this.state.options[1]}>
+                            {this.state.options[1]}
+                          </option>
+                          <option value={this.state.options[2]}>
+                            {this.state.options[2]}
+                          </option>
+                          <option value={this.state.options[3]}>
+                            {this.state.options[3]}
+                          </option>
+                          <option value={this.state.options[4]}>
+                            {this.state.options[4]}
+                          </option>
+                        </select>
+
+                        <input
+                          className='sub_input_text'
+                          value={this.state.Main_character}
+                          onChange={this.handleChange}
+                          name='Main_character'
+                          placeholder='주요 인물'
+                        ></input>
+                        <input
+                          className='sub_input_text'
+                          value={this.state.Place}
+                          onChange={this.handleChange}
+                          name='Place'
+                          placeholder='장소'
+                        ></input>
+                        <input
+                          className='sub_input_text'
+                          value={this.state.Time}
+                          onChange={this.handleChange}
+                          name='Time'
+                          placeholder='시간'
+                        ></input>
+                        <input
+                          className='sub_input_text'
+                          value={this.state.Material}
+                          onChange={this.handleChange}
+                          name='Material'
+                          placeholder='소재'
+                        ></input>
+                        <input
+                          className='sub_input_text'
+                          value={this.state.Main_Events}
+                          onChange={this.handleChange}
+                          name='Main_Events'
+                          placeholder='주요 사건'
+                        ></input>
+                        <button
+                          className='create'
+                          onClick={this.requestcontents}
+                        >
+                          {this.state.Start}
+                        </button>
+                        <div className='progress'>
+                          <ProgressBar
+                            completed={this.state.progress}
+                            gColor='#3D138D'
+                            width='200px'
+                            height='8px'
+                            margin='20px 0 0 0 '
+                            isLabelVisible={false}
+                          />
+                        </div>
+                      </div>
+                      <div
+                        style={IconBox}
+                        onClick={() => {
+                          this.setState({ isSider: !this.state.isSider });
+                          console.log(this.state.isSider);
+                        }}
+                      >
+                        <FormSubtract
+                          color='#fff'
+                          size='medium'
+                          style={{ cursor: "pointer" }}
+                        />
+                      </div>
+                    </Box>
+                  ) : (
+                    <div
+                      style={IconBox}
+                      onClick={() => {
+                        this.setState({ isSider: !this.state.isSider });
+                        console.log(this.state.isSider);
+                      }}
+                    >
+                      <FormEdit
+                        color='#fff'
+                        size='medium'
+                        style={{ cursor: "pointer" }}
+                      />
+                      <p>
+                        <b>Write</b>
+                      </p>
+                      <FormDown
+                        color='#fff'
+                        size='medium'
+                        style={{ cursor: "pointer" }}
+                      />
+                    </div>
+                  )}
+                  <Box
+                    gridArea='main'
+                    background='#f9f9f9'
+                    justify='center'
+                    align='center'
+                  >
+                    {this.state.loading ? (
+                      <div className='loading'>
+                        <Spinner size={64} color='#3b2479' />
+                      </div>
+                    ) : (
+                      <>
+                        <div className='outputContainer'>
+                          <textarea
+                            className='output'
+                            placeholder='write 버튼을 눌러 글을 만들어주세요!'
+                            onClick={this.NoticeWriteIcon}
+                            value={this.state.outputKorean}
+                            onChange={this.handleStory}
+                          ></textarea>
+
+                          <textarea
+                            className='output_right'
+                            value={this.state.outputEnglish}
+                            readOnly
+                          ></textarea>
+                        </div>
+                        <div className='ButtonDiv'>
+                          <Update
+                            size='medium'
+                            color='brand'
+                            className='iconDetail'
+                            onClick={this.resetData}
+                          />
+
+                          {/* 복사 */}
+                          <CopyToClipboard
+                            text={this.state.outputKorean}
+                            onCopy={this.onCopied}
+                          >
+                            <Copy
+                              color='brand'
+                              size='medium'
+                              className='iconDetail'
+                            />
+                          </CopyToClipboard>
+                          {this.state.copied ? (
+                            <div className='copyStyle'>Copied!</div>
+                          ) : null}
+                          {/* 이어쓰기 */}
+                          <LinkNext
+                            color='brand'
+                            size='medium'
+                            className='iconDetail'
+                            name='reset'
+                            onClick={this.requestcontents}
+                          />
+                        </div>
+                      </>
+                    )}
+                  </Box>
+                </Grid>
+              )
+            }
+          </ResponsiveContext.Consumer>
+        </div>
+      </>
+    );
   }
 }
 
@@ -705,8 +724,8 @@ const IconBox = {
   width: "100%",
   padding: "10px",
   height: "40px",
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  fontSize: '0.95rem'
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  fontSize: "0.95rem",
 };

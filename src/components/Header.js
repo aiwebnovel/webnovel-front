@@ -90,13 +90,14 @@ class Header extends Component {
 
   async requestProfile() {
     let user = await localStorage.getItem("token");
-
-    if (user !== undefined) {
+    
+    if (user !== null) {
       axios
         .get(`${config.SERVER_URL}/profile`, {
           headers: { authentication: user },
         })
         .then((response) => {
+          // console.log(response);
           this.setState({ user: true });
           this.setState({ userName: response.data.name });
           this.setState({ userToken: response.data.token });
@@ -105,7 +106,9 @@ class Header extends Component {
           localStorage.setItem("userUid", response.data.uid);
           localStorage.setItem("plan", response.data.plan);
           localStorage.setItem("isBill", response.data.isBill);
+          
           this.closeModal();
+          
         })
         .catch((error) => {});
     }
@@ -126,6 +129,7 @@ class Header extends Component {
     });
   }
 
+  //첫 렌더링 마친 후 호출하는 메서드.
   async componentDidMount() {
     await this.refreshProfile();
     await this.requestProfile();
