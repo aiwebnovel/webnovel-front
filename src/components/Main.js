@@ -15,7 +15,7 @@ import {
   FormEdit,
   FormDown,
   FormSubtract,
-  FormNext,
+  LinkNext,
   Update,
   Info,
   Copy,
@@ -488,7 +488,7 @@ class Main extends Component {
                       ) : null}
 
                       {/* 이어쓰기 */}
-                      <FormNext
+                      <LinkNext
                         color='brand'
                         size='medium'
                         className='iconDetail'
@@ -687,7 +687,7 @@ class Main extends Component {
                             <div className='copyStyle'>Copied!</div>
                           ) : null}
                           {/* 이어쓰기 */}
-                          <FormNext
+                          <LinkNext
                             color='brand'
                             size='medium'
                             className='iconDetail'

@@ -88,7 +88,7 @@ class Membership extends Component {
 
   async requestBill() {
     let user = await localStorage.getItem("token");
-    if (user !== undefined) {
+    if (user !== null) {
       const now = new Date();
       const option = {
         arsUseYn: "N",
@@ -114,7 +114,15 @@ class Membership extends Component {
       axios
         .post(`https://api.innopay.co.kr/api/regAutoCardBill`, option)
         .then((response) => {
-          console.log(response.data);
+          //console.log('test',response.data);
+          let data = response.data;
+          if(data.resultCode === 'F113') {
+            toast.error(`error : ${data.resultMsg}!`)
+          }
+          if(response.data.resultCode === "9999") {
+            toast.error('해당 카드 번호로 3회 실패된 이력이 있어 다음 날 요청 가능합니다😭');
+          }
+
           if (response.data.resultCode === "0000") {
             axios
               .post(
@@ -127,11 +135,11 @@ class Membership extends Component {
                 { headers: { authentication: user } }
               )
               .then((response) => {
-                console.log(response);
+                console.log('response',response);
                 this.closeModal();
               })
               .catch((error) => {
-                console.log(error);
+                console.log('error',error);
               });
           } else {
             throw new Error();
@@ -147,7 +155,7 @@ class Membership extends Component {
 
   async changeBill() {
     let user = await localStorage.getItem("token");
-    if (user !== undefined) {
+    if (user !== null) {
       axios
         .put(
           `${config.SERVER_URL}/pay`,
@@ -169,7 +177,7 @@ class Membership extends Component {
   async requestProfile() {
     let user = await localStorage.getItem("token");
 
-    if (user !== undefined) {
+    if (user !== null) {
       axios
         .get(`${config.SERVER_URL}/profile`, {
           headers: { authentication: user },
@@ -338,11 +346,13 @@ class Membership extends Component {
                     value: this.state.cardExpire,
                     onChange: this.handleChange,
                     name: "cardExpire",
+                    onError: err => toast.error(err)
                   }}
                   cardCVCInputProps={{
                     value: this.state.cardCvc,
                     onChange: this.handleChange,
                     name: "cardCvc",
+                    onError: err => toast.error(err)
                   }}
                   fieldClassName='input'
 
@@ -352,6 +362,7 @@ class Membership extends Component {
                   containerStyle={{
                     borderBottom: '1px solid #ededed'
                   }}
+                  
                 />
               </div>
               
