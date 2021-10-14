@@ -95,6 +95,7 @@ class Header extends Component {
       axios
         .get(`${config.SERVER_URL}/profile`, {
           headers: { authentication: user },
+          
         })
         .then((response) => {
           // console.log(response);

@@ -39,7 +39,7 @@ class Footer extends Component {
     </FooterLayout>
     <FooterLayout className="Mobilefooter MobileCopyRight" background="light-3" pad="medium" justify="center" align="center">
       <p className="copyRight">©Appplatform, Inc All Rights Reserved</p>
-      <Box direction="row" gap="small" className="IconBox">
+      <Box direction="row" gap="small" className="Icon">
         <Facebook size="medium"/>
         <Instagram size="medium"/>
       </Box>

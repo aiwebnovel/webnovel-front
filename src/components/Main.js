@@ -16,7 +16,7 @@ import {
   FormDown,
   FormSubtract,
   Update,
-  LinkNext,
+  Info,
   Copy,
 } from "grommet-icons";
 
@@ -32,7 +32,7 @@ class Main extends Component {
       outputKorean: "",
       loading: false,
       options: ["판타지", "현판", "무협", "미스터리", "로판"],
-      selectOptions: "판타지",
+      selectOptions: "",
       Main_character: "",
       Place: "",
       Time: "",
@@ -85,17 +85,17 @@ class Main extends Component {
     } else if (e.target.value.length < 10) {
       this.setState({ [e.target.name]: e.target.value });
     } else {
-      toast.error(`😭 ${e.target.value.length}글자를 넘어갈 수 없어요!`);
+      toast.error(`${e.target.value.length}글자를 넘어갈 수 없어요!😭 `);
     }
   }
 
   async handleStory(e) {
     this.setState({ outputKorean: e.target.value });
-    console.log9("test", this.state.outputKorean);
     this.setState({ isChange: true });
     if (this.state.isHuman === false) {
+    
       if (e.target.value.length > 0) {
-        this.setState({ Start: "Continue" });
+        this.setState({ Start: "Need write" });
       } else {
         this.setState({ Start: "Create a story" });
       }
@@ -106,7 +106,7 @@ class Main extends Component {
 
       if (this.state.progress >= 100) {
         this.setState({ progress: 0 });
-        this.setState({ Start: "Need write" });
+        this.setState({ Start: "Continue" });
       }
 
       if (language[0] === "english") {
@@ -150,7 +150,7 @@ class Main extends Component {
   async requestcontents(e) {
     await this.refreshProfile();
     if (this.state.isHuman === true && this.state.progress < 100) {
-      toast.error(`😭 추가 이야기의 길이가 부족해요ㅠㅠ`);
+      toast.error(`추가 이야기의 길이가 부족해요😭`);
       return;
     } else {
       this.setState({ isHuman: false });
@@ -187,7 +187,10 @@ class Main extends Component {
         await this.setState({ outputEnglish: story });
       }
 
-      if (Main_character === "") {
+      if(selectOptions === "") {
+        toast.error(`장르를 선택해 주세요!`);
+        return;
+      } else if (Main_character === "") {
         toast.error(`주인공을 입력해 주세요!`);
         return;
       } else if (Place === "") {
@@ -238,7 +241,7 @@ class Main extends Component {
           this.setState({ isChange: false });
           this.setState({ tempLength: this.state.outputKorean.length });
           this.setState({ tempWrite: this.state.outputKorean });
-          this.setState({ Start: "Continue" });
+          this.setState({ Start: "Need a Story" });
           this.setState({ isHuman: true });
           //console.log(response.data.warn);
 
@@ -303,12 +306,9 @@ class Main extends Component {
     this.setState({ Main_Events: "" });
     this.setState({ Material: "" });
     this.setState({ copied: false });
+    this.setState({ progress: 0})
   }
 
-
-  async copyContents() {
-    document.execCommand("copy");
-  }
 
   render() {
     return (
@@ -328,7 +328,7 @@ class Main extends Component {
                   ]}
                 >
                   <div
-                    style={IconBox}
+                    className="IconBox"
                     onClick={() => {
                       this.setState({ isSider: !this.state.isSider });
                     }}
@@ -485,7 +485,7 @@ class Main extends Component {
                       ) : null}
 
                       {/* 이어쓰기 */}
-                      <LinkNext
+                      <Info
                         color='brand'
                         size='medium'
                         className='iconDetail'
@@ -598,10 +598,9 @@ class Main extends Component {
                         </div>
                       </div>
                       <div
-                        style={IconBox}
+                        className="IconBox"
                         onClick={() => {
                           this.setState({ isSider: !this.state.isSider });
-                          console.log(this.state.isSider);
                         }}
                       >
                         <FormSubtract
@@ -613,10 +612,10 @@ class Main extends Component {
                     </Box>
                   ) : (
                     <div
-                      style={IconBox}
+                      className="IconBox"
                       onClick={() => {
                         this.setState({ isSider: !this.state.isSider });
-                        console.log(this.state.isSider);
+                       
                       }}
                     >
                       <FormEdit
@@ -662,6 +661,7 @@ class Main extends Component {
                           ></textarea>
                         </div>
                         <div className='ButtonDiv'>
+                          {/* 리셋 */}
                           <Update
                             size='medium'
                             color='brand'
@@ -684,7 +684,7 @@ class Main extends Component {
                             <div className='copyStyle'>Copied!</div>
                           ) : null}
                           {/* 이어쓰기 */}
-                          <LinkNext
+                          <Info
                             color='brand'
                             size='medium'
                             className='iconDetail'
@@ -716,16 +716,4 @@ const MobileSider = {
   width: "100%",
   height: "100%",
   overflow: "scroll",
-};
-
-const IconBox = {
-  backgroundColor: "#3b2479",
-  color: "#fff",
-  width: "100%",
-  padding: "10px",
-  height: "40px",
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-  fontSize: "0.95rem",
 };

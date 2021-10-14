@@ -4,6 +4,18 @@
   background-color: #f9f9f9;
 }
 
+.IconBox {
+  background-color: #3b2479;
+  color: #fff;
+  width: 100%;
+  padding: 10px;
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.95rem;
+}
+
 
 .SiderContainer {
   width: 250px;
@@ -107,6 +119,7 @@ select::-ms-expand {
 
 .ButtonDiv > svg {
     cursor: pointer;
+    margin-right: 5px;
 }
 
 .copyStyle {
@@ -116,6 +129,8 @@ select::-ms-expand {
   border-radius : 5px;
   font-size: 0.9em;
 }
+
+
 
 
 
