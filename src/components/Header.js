@@ -48,7 +48,7 @@ class Header extends Component {
 
   isChecked = () => {
     this.setState({ isChecked: !this.state.isChecked });
-    console.log(this.state.isChecked);
+  
   };
 
   isOpen = () => {

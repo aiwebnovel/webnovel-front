@@ -15,6 +15,7 @@ import {
   FormEdit,
   FormDown,
   FormSubtract,
+  FormNext,
   Update,
   Info,
   Copy,
@@ -92,21 +93,22 @@ class Main extends Component {
   async handleStory(e) {
     this.setState({ outputKorean: e.target.value });
     this.setState({ isChange: true });
+
     if (this.state.isHuman === false) {
     
       if (e.target.value.length > 0) {
-        this.setState({ Start: "Need write" });
+        this.setState({ Start: "Need a story" });
       } else {
-        this.setState({ Start: "Create a story" });
+        return
+        // this.setState({ Start: "Create a story" });
       }
-    } else {
-      this.setState({ Start: "Need write" });
+    } else {   
       const lngDetector = new LanguageDetect();
       const language = await lngDetector.detect(this.state.outputKorean, 1);
-
+     
       if (this.state.progress >= 100) {
-        this.setState({ progress: 0 });
         this.setState({ Start: "Continue" });
+        
       }
 
       if (language[0] === "english") {
@@ -115,9 +117,8 @@ class Main extends Component {
             ((this.state.outputKorean.length - this.state.tempLength) * 100) /
             150,
         });
-        //console.log((this.state.outputKorean.length - this.state.tempLength) * 100 / 150);
+        
       } else {
-        //console.log((this.state.outputKorean.length - this.state.tempLength) * 100 / 100);
         this.setState({
           progress:
             ((this.state.outputKorean.length - this.state.tempLength) * 100) /
@@ -149,11 +150,13 @@ class Main extends Component {
 
   async requestcontents(e) {
     await this.refreshProfile();
+    
     if (this.state.isHuman === true && this.state.progress < 100) {
-      toast.error(`추가 이야기의 길이가 부족해요😭`);
+      toast.error(`추가 이야기의 길이(${100-this.state.progress}자)가 부족해요😭`);
       return;
     } else {
       this.setState({ isHuman: false });
+      this.setState({ progress: 0 });
     }
 
     if (localStorage.getItem("token") !== null) {
@@ -169,23 +172,23 @@ class Main extends Component {
         story = this.state.outputKorean;
       }
 
-      if (e.target.name === "reset") {
-        //console.log('reset');
-        selectOptions = this.state.before_selectOptions;
-        Main_character = this.state.before_Main_character;
-        Place = this.state.before_Place;
-        Time = this.state.before_Time;
-        Main_Events = this.state.before_Main_Events;
-        Material = this.state.before_Material;
-        story = this.state.before_outputEnglish;
-        await this.setState({ selectOptions: selectOptions });
-        await this.setState({ Main_character: Main_character });
-        await this.setState({ Place: Place });
-        await this.setState({ Time: Time });
-        await this.setState({ Main_Events: Main_Events });
-        await this.setState({ Material: Material });
-        await this.setState({ outputEnglish: story });
-      }
+      // if (e.target.name === "reset") {
+      //   console.log('reset');
+      //   selectOptions = this.state.before_selectOptions;
+      //   Main_character = this.state.before_Main_character;
+      //   Place = this.state.before_Place;
+      //   Time = this.state.before_Time;
+      //   Main_Events = this.state.before_Main_Events;
+      //   Material = this.state.before_Material;
+      //   story = this.state.before_outputEnglish;
+      //   await this.setState({ selectOptions: selectOptions });
+      //   await this.setState({ Main_character: Main_character });
+      //   await this.setState({ Place: Place });
+      //   await this.setState({ Time: Time });
+      //   await this.setState({ Main_Events: Main_Events });
+      //   await this.setState({ Material: Material });
+      //   await this.setState({ outputEnglish: story });
+      // }
 
       if(selectOptions === "") {
         toast.error(`장르를 선택해 주세요!`);
@@ -264,7 +267,7 @@ class Main extends Component {
           this.setState({ before_outputEnglish: story });
         })
         .catch((error) => {
-         
+         console.log(error);
           if (error.response.status === 412) {
             this.setState({ loading: false });
             toast.info(`로그인이 필요합니다!`, {
@@ -485,7 +488,7 @@ class Main extends Component {
                       ) : null}
 
                       {/* 이어쓰기 */}
-                      <Info
+                      <FormNext
                         color='brand'
                         size='medium'
                         className='iconDetail'
@@ -684,7 +687,7 @@ class Main extends Component {
                             <div className='copyStyle'>Copied!</div>
                           ) : null}
                           {/* 이어쓰기 */}
-                          <Info
+                          <FormNext
                             color='brand'
                             size='medium'
                             className='iconDetail'
