@@ -492,7 +492,6 @@ class Main extends Component {
                         color='brand'
                         size='medium'
                         className='iconDetail'
-                        name='reset'
                         onClick={this.requestcontents}
                       />
                     </div>
@@ -691,7 +690,6 @@ class Main extends Component {
                             color='brand'
                             size='medium'
                             className='iconDetail'
-                            name='reset'
                             onClick={this.requestcontents}
                           />
                         </div>
