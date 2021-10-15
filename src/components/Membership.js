@@ -57,8 +57,9 @@ class Membership extends Component {
           .getIdToken()
           .then(async (data) => {
             await localStorage.setItem("token", data);
-            console.log(e.target.name.split(" ")[0]);
-            console.log(e.target.name.split(" ")[1]);
+            console.log('names',e.target.name);
+            // console.log(e.target.name.split(" ")[0]);
+            // console.log(e.target.name.split(" ")[1]);
             this.setState({ plan: e.target.name.split(" ")[0] });
             this.setState({ Price: e.target.name.split(" ")[1] });
             this.setState({ showMenu: true });
@@ -88,7 +89,11 @@ class Membership extends Component {
 
   async requestBill() {
     let user = await localStorage.getItem("token");
+
     if (user !== null) {
+      if(this.state.plan === 'free') {
+        toast.info('free는 결제 할 수 없어요!');
+      }else{
       const now = new Date();
       const option = {
         arsUseYn: "N",
@@ -110,11 +115,11 @@ class Membership extends Component {
           now.getSeconds(), //가맹점 주문번호
         userId: (await localStorage.getItem("userUid")) + Math.random(),
       };
-      console.log(option);
+      // console.log('option',option);
       axios
         .post(`https://api.innopay.co.kr/api/regAutoCardBill`, option)
         .then((response) => {
-          //console.log('test',response.data);
+          // console.log('test',response.data);
           let data = response.data;
           if(data.resultCode === 'F113') {
             toast.error(`error : ${data.resultMsg}!`)
@@ -136,10 +141,12 @@ class Membership extends Component {
               )
               .then((response) => {
                 console.log('response',response);
+                toast.success('결제가 완료 됐습니다!');
                 this.closeModal();
               })
               .catch((error) => {
                 console.log('error',error);
+                
               });
           } else {
             throw new Error();
@@ -151,6 +158,7 @@ class Membership extends Component {
           this.closeModal();
         });
     }
+  }
   }
 
   async changeBill() {

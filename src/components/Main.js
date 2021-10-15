@@ -247,10 +247,10 @@ class Main extends Component {
           this.setState({ Start: "Need a Story" });
           this.setState({ isHuman: true });
           //console.log(response.data.warn);
-
+  
           if (response.data[2] >= 2) {
             toast.error(
-              `결과물에 유해한 내용이 포함되어 있어서 표시할 수 없습니다. 입력하신 내용을 수정해서 다시 입력해보세요`
+              `결과물에 유해한 내용이 들어가 버렸어요! 버튼을 다시 눌러주세요!`
             );
             this.setState({ isHuman: false });
           } else {

@@ -179,7 +179,6 @@ class Header extends Component {
         });
     } else {
       toast.error('이용약관 및 개인정보처리방침에 동의해주세요!');
-    
     }
   }
 
