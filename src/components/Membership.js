@@ -115,25 +115,25 @@ class Membership extends Component {
           now.getSeconds(), //가맹점 주문번호
         userId: (await localStorage.getItem("userUid")) + Math.random(),
       };
-      // console.log('option',option);
       axios
         .post(`https://api.innopay.co.kr/api/regAutoCardBill`, option)
         .then((response) => {
-          // console.log('test',response.data);
+         
           let data = response.data;
+          //  console.log('test',data);
           if(data.resultCode === 'F113') {
             toast.error(`error : ${data.resultMsg}!`)
           }
-          if(response.data.resultCode === "9999") {
+          if(data.resultCode === "9999") {
             toast.error('해당 카드 번호로 3회 실패된 이력이 있어 다음 날 요청 가능합니다😭');
           }
 
-          if (response.data.resultCode === "0000") {
+          if (data.resultCode === "0000") {
             axios
               .post(
                 `${config.SERVER_URL}/pay`,
                 {
-                  billKey: response.data.billKey,
+                  billKey: data.billKey,
                   plan: this.state.plan,
                   name: this.state.buyerName,
                 },
@@ -145,10 +145,12 @@ class Membership extends Component {
                 this.closeModal();
               })
               .catch((error) => {
+                //console.log('망했어요!'); <-오류 이쪽
                 console.log('error',error);
                 
               });
           } else {
+            
             throw new Error();
           }
           this.closeModal();
