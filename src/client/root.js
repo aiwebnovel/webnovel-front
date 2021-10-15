@@ -4,7 +4,7 @@ import App from '../shared/App.js';
 import { ToastContainer, Flip} from 'react-toastify';
 
 const Root = () => (
-  <BrowserRouter basename={process.env.PUBLIC_URL}>
+  <BrowserRouter>
     <App/>
     <ToastContainer
         position="top-right"
