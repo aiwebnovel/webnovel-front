@@ -1,210 +1,238 @@
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Ubuntu', sans-serif;
-  font-family: 'Noto Sans KR', sans-serif;
+  /* font-family: 'Ubuntu', sans-serif;
+  font-family: 'Noto Sans KR', sans-serif; */
 }
 
 header{
-  background-color: #3b2479;
   width: 100%;
-  height: 10vh;
-  box-shadow: 0px 0px 10px rgba(0,0,0,0.8),0px 0px 5px rgba(200,200,200,0.5); 
+  height: 70px;
+  background-color: #ffffff;
+  box-shadow: 2px 3px 8px #EDEDED;
+  border-bottom: 1px solid #dedede;
+  padding : 0 35px;
 }
 
 .logo{
-  background-color: #3b2479;
-  float: left;
-  margin-left: 3vw;
-  margin-top: 2vh;
-  font-size: 2rem;
-  color: white;
+  /* font-size: 2rem;
+  color: #000; */
+  text-decoration: none;
+  padding-top : 8px;
 }
 
-.login{
-  float: right;
-  margin-top: 12px;
-  background-color: #3b2479;
-  color: #ffffff;
-  border: 0;
-  outline: 0;
-  font-size: 1rem;
+.logo > img {
+  width: 120px;
 }
 
-.profile{
-  background-color: #3b2479;
-  float: right;
-  position: relative;
-  font-size: 1rem;
-  width: 50px;
-  height: 50px;
-  background: white;
-  border-radius: 70%;
-  overflow: hidden;
-  box-shadow: 0px 0px 15px rgba(0,0,0,0.8),0px 0px 5px rgba(200,200,200,0.5); 
+.Menu {
+  align-items: center;
 }
 
-.profileicon{
-  position: absolute;
-  width: 50px;
-  object-fit: cover;
-}
-
-.dropdown{
-  position: absolute;
-  float: right;
-  top: 10vh;
-  right: 0;
-  width: 200px;
-  height: 130px;
-  box-shadow: 0px 0px 10px #000000cc,0px 0px 5px rgba(200,200,200,0.5); 
-  z-index: 5;
-}
-
-.loginProfile{
-  position: relative;
-  background: rgba(255, 255, 255, 0);
-  float: right;
-  margin-right: 5vw;
-  margin-top: 2vh;
-  font-size: 1rem;
-  width: 20vw;
-  height: 9vh;
-}
-
-.logout{
-  width: 100%;
-  height: 30%;
-  border: 0;
-  outline: 0;
-  background: #3b2479;
-  color: white;
-}
-
-.name{
-  width: 100%;
-  height: 25%;
-  padding: 5px;
-}
-
-.token{
-  width: 100%;
-  height: 45%;
-  border-top: 1px solid #3b2479;
-  padding: 5px;
-}
 
 .links{
-  margin-top: 12px;
-  float: left;
-  background-color: #3b2479;
-  color: #ffffff;
+  /* margin-top: 12px;
+  float: left; */
+  /* background-color: #3b2479; */
+  color: #000;
   border: 0;
   outline: 0;
   font-size: 1rem;
 }
 
-.loginModal {
-  width: 20vw;
+
+/* Login Modal */
+
+.AvatarBox {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.loginAvatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.signBox {
+  text-align: center;
+}
+
+.googleButton, .facebookButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  padding: 15px 0;
+  margin-bottom: 16px;
+  font-size: 20px;
+  box-shadow: 2px 3px 3px rgb(0, 0, 0, 0.16);
+
   border:0;
-  background-color: white;
-  margin-left: auto;
-  margin-right: auto;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
-.google{
-  width: 20vw;
-  min-width: 120px;
-  object-fit: cover;
-  margin-bottom: 10px; 
+.googleButton {
+  background: #fff;
+  transition: all 0.5s ease-in-out;
 }
 
-.facebook{
-  width: 20vw;
-  min-width: 120px;
-  object-fit: cover; 
+.googleButton > svg {
+  background-color: #fff;
+  margin-right: 7px;
+  transition: all 0.5s ease-in-out;
+}
+
+.googleButton:hover, .googleButton:hover > svg {
+  background-color: #eee;
+}
+
+.facebookButton {
+  background-color: #3C5997;
+  color: #fff;
+  transition: all 0.5s ease-in-out;
+}
+
+.facebookButton >svg {
+  margin-right : 7px;
+  background-color: #fff;
+  transition: all 0.5s ease-in-out;
+}
+
+.facebookButton:hover, .facebookButton >svg:hover {
+  background-color: #2B3F6B;
+}
+
+.isChecked {
+  font-size: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-bottom: 10px;
 }
 
-@media (max-width: 700px) {
-  header{
-    background-color: #3b2479;
-    width: 100%;
-    height: 12vh;
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.8),0px 0px 5px rgba(200,200,200,0.5); 
-  }
+.isChecked > a {
+  font-size: 15px;
+  font-weight: 600;
+}
 
+
+.afterLogin{
+  position: absolute;
+  width:300px;
+  background-color: #fff;
+  z-index:5;
+  right: 10px;
+
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #ededed;
+  
+}
+
+.Username {
+  font-weight: 600;
+}
+
+.token {
+  text-align: right;
+}
+
+.token > span {
+  font-weight: 600;
+}
+
+.logout {
+  text-align: center;
+  margin-top: 10px;
+}
+
+
+@media (max-width: 768px) {
+
+  .MobileMem {
+    padding: 0;
+    padding: 15px 0 10px 0;
+  }
+   
   .profile{
-    background-color: #3b2479;
-    float: right;
+    /* background-color: #3b2479; */
+    /* float: right;
     position: relative;
     font-size: 1rem;
-    width: 45px;
-    height: 45px;
-    background: white;
-    border-radius: 70%;
-    overflow: hidden;
-    box-shadow: 0px 0px 15px rgba(0,0,0,0.8),0px 0px 5px rgba(200,200,200,0.5); 
+    width: 45px; */
+    /* height: 45px; */
+    /* background: white; */
+    /* border-radius: 70%;
+    overflow: hidden; */
+    /* box-shadow: 0px 0px 15px rgba(0,0,0,0.8),0px 0px 5px rgba(200,200,200,0.5);  */
   }
 
   .profileicon{
-    position: absolute;
+    /* position: absolute;
     width: 45px;
-    object-fit: cover;
+    object-fit: cover; */
   }
 
   .dropdown{
-    position: absolute;
+    /* position: absolute;
     float: right;
     right: 3vw;
     top: 10vh;
     width: 200px;
-    height: 130px;
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.8),0px 0px 5px rgba(200,200,200,0.5); 
-    z-index: 5;
+    height: 130px; */
+    /* box-shadow: 0px 0px 10px rgba(0,0,0,0.8),0px 0px 5px rgba(200,200,200,0.5);  */
+    /* z-index: 5; */
   }
 
   .logo{
-    background-color: #3b2479;
-    float: left;
+    /* background-color: #3b2479; */
+    /* float: left;
     margin-left: 5vw;
     margin-top: 3vh;
     font-size: 1.3rem;
-    color: white;
+    color: white; */
+  }
+
+  .login {
+    /* background: transparent */
   }
 
   .loginModal {
-    outline: 0;
+    /* outline: 0;
     border:0;
-    background-color: white;
+    background-color: white; */
   }
 
 
   .loginProfile{
-    position: relative;
+    /* position: relative;
     background: rgba(255, 255, 255, 0);
     float: right;
     margin-right: 5vw;
     font-size: 0.7rem;
     width: 43vw;
-    height: 9vh;
+    height: 9vh; */
   }
 
   .login{
-    float: right;
+    /* float: right;
     margin-top: 25px;
-    background-color: #3b2479;
-    color: #ffffff;
+    /* background-color: #3b2479; */
+    /*color: #ffffff;
     border: 0;
     outline: 0;
-    font-size: 0.7rem;
+    font-size: 0.7rem; */
   }
 
   .links{
-    font-size: 0.7rem;
+    /* font-size: 0.7rem;
     margin-top: 25px;
-    float: left;
+    float: left; */
 
   }
 }

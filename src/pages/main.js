@@ -5,11 +5,13 @@ import Footer from '../components/Footer.js';
 
 
 const Main = () => {
+
   return (
     <div>
       <Header/>
       <Mainapi/>
       <Footer/>
+
     </div>
   );
 };
